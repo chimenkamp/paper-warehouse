@@ -42,18 +42,18 @@
       "color": "#af7ac5"
     },
     {
-      "id": "enhance_visualization",
-      "name": "Enhance & Visualize",
-      "description": "Visualization and user-interaction enhancements",
-      "order": 5,
-      "color": "#eb984e"
-    },
-    {
       "id": "apply_mining",
       "name": "Apply Mining",
       "description": "Process mining analysis (discovery, conformance, etc.)",
-      "order": 6,
+      "order": 5,
       "color": "#ec7063"
+    },
+    {
+      "id": "enhance_visualization",
+      "name": "Enhance & Visualize",
+      "description": "Visualization and user-interaction enhancements",
+      "order": 6,
+      "color": "#eb984e"
     }
   ],
   "methods": [
@@ -221,9 +221,9 @@
           "Tobias Ziolkowski",
           "Yorck Zisgen"
         ],
-        "venue": "ArXiv preprint (under review)",
+        "venue": "Gesellschaft für Informatik e.V.",
         "year": 2023,
-        "doi_or_url": "https://arxiv.org/abs/2401.13677"
+        "doi_or_url": "https://doi.org/10.18420/modellierung2024_012"
       },
       "artifacts": {},
       "tags": [

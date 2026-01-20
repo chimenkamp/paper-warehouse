@@ -6,7 +6,7 @@ import '@/styles/global.css';
 import '@/styles/components.css';
 import '@/styles/relationship.css';
 
-// Base path for routing (matches Vite config)
+
 const basename = import.meta.env.BASE_URL;
 
 /**
