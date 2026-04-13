@@ -1,49 +1,35 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppState, useAppDispatch, actions } from '@/lib';
+import { useAppState, useAppDispatch, actions, getSiteConfig, resolveStepField } from '@/lib';
 
 /**
- * Format paper URL correctly
- * Handles: bare DOI, full DOI URL, or regular URL
+ * Format paper URL correctly.
  */
 function formatPaperUrl(doiOrUrl) {
   if (!doiOrUrl) return null;
-  
-  // Already a full URL (http or https)
-  if (doiOrUrl.startsWith('http://') || doiOrUrl.startsWith('https://')) {
-    return doiOrUrl;
-  }
-  
-  // Looks like a DOI (starts with 10.)
-  if (doiOrUrl.startsWith('10.')) {
-    return `https://doi.org/${doiOrUrl}`;
-  }
-  
-  // Fallback: assume it's a DOI
+  if (doiOrUrl.startsWith('http://') || doiOrUrl.startsWith('https://')) return doiOrUrl;
+  if (doiOrUrl.startsWith('10.')) return `https://doi.org/${doiOrUrl}`;
   return `https://doi.org/${doiOrUrl}`;
 }
 
 /**
- * Format step name for display
+ * Format step name for display using config step definitions.
  */
 function formatStepName(stepId) {
-  const names = {
-    collect: 'Collect',
-    preprocess: 'Pre-process',
-    abstract_aggregate: 'Abstract/Aggregate',
-    correlate_cases: 'Correlate Cases',
-    enhance_visualization: 'Visualization',
-    apply_mining: 'Mining',
-  };
-  return names[stepId] || stepId;
+  const config = getSiteConfig();
+  const step = (config?.visualization?.steps || []).find((s) => s.id === stepId);
+  if (step) return step.name;
+  return stepId?.replace(/_/g, ' ') || '';
 }
 
 /**
- * Single method item - catalog row style
+ * Single entry item — catalog row style.
  */
 function MethodItem({ method }) {
   const navigate = useNavigate();
   const { isCompareMode, compareMethodIds } = useAppState();
   const dispatch = useAppDispatch();
+  const config = getSiteConfig();
+  const stepFieldName = resolveStepField(config);
 
   const isSelected = compareMethodIds.includes(method.id);
 
@@ -80,13 +66,17 @@ function MethodItem({ method }) {
           )}
         </div>
       )}
-      
+
       <div className="method-item__main">
         <h3 className="method-item__name">{method.name}</h3>
-        <p className="method-item__description">{method.short_description}</p>
-        
+        {method.short_description && (
+          <p className="method-item__description">{method.short_description}</p>
+        )}
+
         <div className="method-item__meta">
-          <span className="method-item__step">{formatStepName(method.pipeline_step)}</span>
+          {method[stepFieldName] && (
+            <span className="method-item__step">{formatStepName(method[stepFieldName])}</span>
+          )}
           {method.references?.year && (
             <>
               <span className="method-item__dot" />
@@ -100,21 +90,17 @@ function MethodItem({ method }) {
             </>
           )}
         </div>
-        
+
         {method.modalities && method.modalities.length > 0 && (
           <div className="method-item__tags">
             {method.modalities.map((mod) => (
-              <span key={mod} className={`tag tag--${mod}`}>
-                {mod}
-              </span>
+              <span key={mod} className={`tag tag--${mod}`}>{mod}</span>
             ))}
-            {method.maturity && (
-              <span className="tag">{method.maturity}</span>
-            )}
+            {method.maturity && <span className="tag">{method.maturity}</span>}
           </div>
         )}
       </div>
-      
+
       <div className="method-item__actions">
         {method.references?.doi_or_url && (
           <a
@@ -152,7 +138,7 @@ function MethodItem({ method }) {
             📊
           </a>
         )}
-        <button 
+        <button
           className="btn btn--ghost btn--sm"
           onClick={(e) => {
             e.stopPropagation();
@@ -168,7 +154,7 @@ function MethodItem({ method }) {
 }
 
 /**
- * Method list component with filtering results
+ * Entry list component with filtering results.
  */
 export default function MethodList() {
   const { filteredMethods, filters, loading } = useAppState();
@@ -177,25 +163,24 @@ export default function MethodList() {
     return (
       <div className="loading">
         <div className="loading__spinner" />
-        <p>Loading methods...</p>
+        <p>Loading...</p>
       </div>
     );
   }
 
   if (filteredMethods.length === 0) {
-    const hasFilters = filters.pipelineStep ||
-      filters.modalities?.length > 0 ||
-      filters.tasks?.length > 0 ||
-      filters.searchQuery;
+    const hasFilters = Object.values(filters).some((v) =>
+      Array.isArray(v) ? v.length > 0 : !!v
+    );
 
     return (
       <div className="empty-state">
         <div className="empty-state__icon">🔍</div>
-        <h3 className="empty-state__title">No methods found</h3>
+        <h3 className="empty-state__title">No entries found</h3>
         <p className="empty-state__text">
           {hasFilters
             ? 'Try adjusting your filters or search query.'
-            : 'No methods have been added yet.'}
+            : 'No entries have been added yet.'}
         </p>
       </div>
     );

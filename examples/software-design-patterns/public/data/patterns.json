@@ -1,0 +1,1038 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2026-04-13T00:00:00Z",
+    "source": {
+      "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+      "authors": [
+        "Erich Gamma",
+        "Richard Helm",
+        "Ralph Johnson",
+        "John Vlissides"
+      ],
+      "year": 1994,
+      "venue": "Addison-Wesley Professional",
+      "doi_or_url": "https://en.wikipedia.org/wiki/Design_Patterns"
+    }
+  },
+  "pipeline_steps": [
+    {
+      "id": "creational",
+      "name": "Creational",
+      "description": "Patterns that deal with object creation mechanisms",
+      "order": 1,
+      "color": "#e94560"
+    },
+    {
+      "id": "structural",
+      "name": "Structural",
+      "description": "Patterns that identify simple ways to realize relationships among entities",
+      "order": 2,
+      "color": "#0f3460"
+    },
+    {
+      "id": "behavioral",
+      "name": "Behavioral",
+      "description": "Patterns that identify common communication patterns among objects",
+      "order": 3,
+      "color": "#16c79a"
+    },
+    {
+      "id": "concurrency",
+      "name": "Concurrency",
+      "description": "Patterns for multi-threaded and parallel programming",
+      "order": 4,
+      "color": "#f5a623"
+    }
+  ],
+  "methods": [
+    {
+      "id": "singleton",
+      "name": "Singleton",
+      "pipeline_step": "creational",
+      "short_description": "Ensure a class has only one instance and provide a global point of access to it.",
+      "algorithm_summary": "The Singleton pattern restricts instantiation of a class to a single object. It involves a private constructor, a static method that returns the instance, and a static variable holding the single instance. Lazy initialization creates the instance on first access; eager initialization creates it at class load time. Thread-safe variants use double-checked locking or initialization-on-demand holder patterns.",
+      "inputs": [
+        "Class definition",
+        "Private constructor"
+      ],
+      "outputs": [
+        "Single shared instance",
+        "Global access point"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C++"
+      ],
+      "tasks": [
+        "resource management",
+        "configuration",
+        "logging"
+      ],
+      "assumptions": [
+        "Only one instance is needed throughout the application",
+        "Global access is acceptable"
+      ],
+      "limitations": [
+        "Difficult to unit test due to global state",
+        "Violates Single Responsibility Principle",
+        "Hidden dependencies in code"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Singleton_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "creational", "anti-pattern debate", "global state"],
+      "related_method_ids": ["factory-method", "abstract-factory"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "factory-method",
+      "name": "Factory Method",
+      "pipeline_step": "creational",
+      "short_description": "Define an interface for creating an object, but let subclasses decide which class to instantiate.",
+      "algorithm_summary": "The Factory Method pattern defines a method in a creator class that returns a product object. Subclasses override this method to produce different products. The creator class works with products through the common interface, allowing new product types to be introduced without modifying the creator. This promotes loose coupling between the creator and concrete products.",
+      "inputs": [
+        "Product interface",
+        "Creator class with factory method"
+      ],
+      "outputs": [
+        "Concrete product instances",
+        "Decoupled object creation"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C#",
+        "TypeScript"
+      ],
+      "tasks": [
+        "object creation",
+        "framework extensibility",
+        "plugin systems"
+      ],
+      "assumptions": [
+        "Products share a common interface",
+        "Creation logic may vary across subclasses"
+      ],
+      "limitations": [
+        "Can lead to many subclasses",
+        "Adds complexity for simple creation scenarios"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Factory_method_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "creational", "polymorphism", "SOLID"],
+      "related_method_ids": ["abstract-factory", "singleton", "prototype"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "abstract-factory",
+      "name": "Abstract Factory",
+      "pipeline_step": "creational",
+      "short_description": "Provide an interface for creating families of related or dependent objects without specifying their concrete classes.",
+      "algorithm_summary": "The Abstract Factory pattern provides an interface that creates families of related objects without specifying their concrete classes. Each concrete factory implements the creation methods for a particular product family. Client code works with factories and products only through their abstract interfaces, making it easy to swap entire product families by changing the concrete factory.",
+      "inputs": [
+        "Abstract factory interface",
+        "Product family interfaces"
+      ],
+      "outputs": [
+        "Families of related objects",
+        "Platform-independent code"
+      ],
+      "modalities": [
+        "Java",
+        "C#",
+        "Python"
+      ],
+      "tasks": [
+        "UI toolkit creation",
+        "cross-platform support",
+        "product family management"
+      ],
+      "assumptions": [
+        "Products come in families that should be used together",
+        "System should be independent of how products are created"
+      ],
+      "limitations": [
+        "Difficult to add new product types",
+        "High number of interfaces and classes"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Abstract_factory_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "creational", "product families", "platform independence"],
+      "related_method_ids": ["factory-method", "singleton", "builder"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "builder",
+      "name": "Builder",
+      "pipeline_step": "creational",
+      "short_description": "Separate the construction of a complex object from its representation so that the same construction process can create different representations.",
+      "algorithm_summary": "The Builder pattern separates the construction of a complex object from its representation. A director class defines the order of construction steps, while concrete builder classes implement those steps differently. The client configures the director with the desired builder, and the director orchestrates the build process. This allows the same construction process to produce different representations.",
+      "inputs": [
+        "Builder interface",
+        "Director class",
+        "Step definitions"
+      ],
+      "outputs": [
+        "Complex composed objects",
+        "Fluent API for construction"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C++",
+        "Kotlin"
+      ],
+      "tasks": [
+        "complex object construction",
+        "immutable object creation",
+        "fluent APIs"
+      ],
+      "assumptions": [
+        "Object construction involves multiple steps",
+        "Different representations of the same object are needed"
+      ],
+      "limitations": [
+        "Increases overall code complexity",
+        "Requires creating separate builder for each product type"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Builder_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "creational", "fluent interface", "immutability"],
+      "related_method_ids": ["abstract-factory", "prototype"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "prototype",
+      "name": "Prototype",
+      "pipeline_step": "creational",
+      "short_description": "Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype.",
+      "algorithm_summary": "The Prototype pattern creates new objects by cloning an existing object (the prototype) rather than using constructors. It defines a clone interface that all prototypical objects implement. A registry or manager can store commonly used prototypes. Deep vs. shallow copy considerations are important, especially for objects containing references to other objects.",
+      "inputs": [
+        "Prototype interface with clone method",
+        "Prototypical instances"
+      ],
+      "outputs": [
+        "Cloned object instances",
+        "Prototype registry"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "JavaScript"
+      ],
+      "tasks": [
+        "object cloning",
+        "avoiding costly construction",
+        "dynamic configuration"
+      ],
+      "assumptions": [
+        "Object creation is expensive",
+        "Objects can be meaningfully cloned"
+      ],
+      "limitations": [
+        "Deep cloning complex objects can be difficult",
+        "Circular references require special handling"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Prototype_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "creational", "cloning", "deep copy"],
+      "related_method_ids": ["factory-method", "builder"],
+      "maturity": "established",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "adapter",
+      "name": "Adapter",
+      "pipeline_step": "structural",
+      "short_description": "Convert the interface of a class into another interface clients expect, letting classes work together that couldn't otherwise due to incompatible interfaces.",
+      "algorithm_summary": "The Adapter pattern wraps an existing class with a new interface. A class adapter uses multiple inheritance (where available) to adapt one interface to another. An object adapter uses composition, holding a reference to the adaptee. The adapter translates calls from the target interface into calls on the adaptee, bridging incompatible interfaces without modifying existing code.",
+      "inputs": [
+        "Target interface",
+        "Adaptee class"
+      ],
+      "outputs": [
+        "Compatible interface wrapper",
+        "Integrated legacy systems"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C#",
+        "TypeScript"
+      ],
+      "tasks": [
+        "legacy integration",
+        "third-party library wrapping",
+        "interface unification"
+      ],
+      "assumptions": [
+        "Adaptee interface cannot be changed",
+        "Target interface is well-defined"
+      ],
+      "limitations": [
+        "Adds a layer of indirection",
+        "Can obscure the actual API being used"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Adapter_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "structural", "wrapper", "legacy"],
+      "related_method_ids": ["facade", "decorator", "proxy"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "decorator",
+      "name": "Decorator",
+      "pipeline_step": "structural",
+      "short_description": "Attach additional responsibilities to an object dynamically, providing a flexible alternative to subclassing for extending functionality.",
+      "algorithm_summary": "The Decorator pattern wraps an object in another object that adds behavior before or after delegating to the wrapped object. Decorators implement the same interface as the component they wrap. Multiple decorators can be stacked, each adding its own behavior. This provides a flexible alternative to subclassing, allowing behavior to be added at runtime.",
+      "inputs": [
+        "Component interface",
+        "Concrete component",
+        "Decorator base class"
+      ],
+      "outputs": [
+        "Enhanced object with added behavior",
+        "Composable functionality layers"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "TypeScript",
+        "C#"
+      ],
+      "tasks": [
+        "adding responsibilities",
+        "I/O stream processing",
+        "middleware chains"
+      ],
+      "assumptions": [
+        "Components share a common interface",
+        "Dynamic extension is preferred over static inheritance"
+      ],
+      "limitations": [
+        "Many small objects can be hard to debug",
+        "Order of decoration can matter"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Decorator_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "structural", "composition", "open-closed principle"],
+      "related_method_ids": ["adapter", "proxy", "composite"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "facade",
+      "name": "Facade",
+      "pipeline_step": "structural",
+      "short_description": "Provide a unified interface to a set of interfaces in a subsystem, making the subsystem easier to use.",
+      "algorithm_summary": "The Facade pattern provides a simplified interface to a complex subsystem. The facade class delegates client requests to appropriate subsystem objects and may perform additional orchestration. Clients interact with the facade rather than the subsystem classes directly. This reduces coupling between clients and the subsystem, though clients can still access subsystem classes directly if needed.",
+      "inputs": [
+        "Complex subsystem classes",
+        "Client requirements"
+      ],
+      "outputs": [
+        "Simplified interface",
+        "Reduced client dependencies"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "JavaScript"
+      ],
+      "tasks": [
+        "API simplification",
+        "subsystem encapsulation",
+        "layered architecture"
+      ],
+      "assumptions": [
+        "Subsystem is complex enough to warrant simplification",
+        "Most clients need only a subset of subsystem functionality"
+      ],
+      "limitations": [
+        "Can become a god object if not carefully managed",
+        "May limit access to subsystem power features"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Facade_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "structural", "simplification", "encapsulation"],
+      "related_method_ids": ["adapter", "mediator"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "composite",
+      "name": "Composite",
+      "pipeline_step": "structural",
+      "short_description": "Compose objects into tree structures to represent part-whole hierarchies, letting clients treat individual objects and compositions uniformly.",
+      "algorithm_summary": "The Composite pattern allows you to compose objects into tree structures. A component interface declares operations common to both leaves and composites. Leaf nodes implement the interface directly, while composite nodes store children and delegate operations to them. This lets clients treat single objects and groups of objects uniformly through the component interface.",
+      "inputs": [
+        "Component interface",
+        "Leaf and Composite implementations"
+      ],
+      "outputs": [
+        "Tree structures",
+        "Uniform treatment of objects and compositions"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C++",
+        "C#"
+      ],
+      "tasks": [
+        "tree structures",
+        "UI components",
+        "file systems"
+      ],
+      "assumptions": [
+        "Objects form a part-whole hierarchy",
+        "Clients should treat individual and composite objects uniformly"
+      ],
+      "limitations": [
+        "Can make design overly general",
+        "Hard to restrict components of a composite"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Composite_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "structural", "tree", "hierarchy", "recursion"],
+      "related_method_ids": ["decorator", "iterator", "visitor"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "proxy",
+      "name": "Proxy",
+      "pipeline_step": "structural",
+      "short_description": "Provide a surrogate or placeholder for another object to control access to it.",
+      "algorithm_summary": "The Proxy pattern provides a surrogate object that controls access to the real subject. The proxy implements the same interface as the subject. Types include virtual proxy (lazy initialization), protection proxy (access control), remote proxy (network communication), and caching proxy (result caching). The proxy intercepts requests and may add behavior before or after forwarding them to the real subject.",
+      "inputs": [
+        "Subject interface",
+        "Real subject implementation"
+      ],
+      "outputs": [
+        "Controlled access to the real subject",
+        "Transparent interception layer"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C#",
+        "C++"
+      ],
+      "tasks": [
+        "access control",
+        "lazy loading",
+        "caching",
+        "remote access"
+      ],
+      "assumptions": [
+        "Direct access to the real subject should be controlled",
+        "Client should not need to know about the proxy"
+      ],
+      "limitations": [
+        "Response time may increase due to indirection",
+        "Proxy implementation needs to stay in sync with the real subject"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Proxy_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "structural", "access control", "lazy loading", "caching"],
+      "related_method_ids": ["adapter", "decorator"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "observer",
+      "name": "Observer",
+      "pipeline_step": "behavioral",
+      "short_description": "Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.",
+      "algorithm_summary": "The Observer pattern establishes a subscription mechanism. The subject maintains a list of observers and provides methods to subscribe and unsubscribe. When the subject's state changes, it iterates over all registered observers and calls their update method. Observers can then query the subject for updated state. Push and pull variants determine whether the subject sends data or observers request it.",
+      "inputs": [
+        "Subject with state",
+        "Observer interface"
+      ],
+      "outputs": [
+        "Automatic state propagation",
+        "Decoupled event handling"
+      ],
+      "modalities": [
+        "Java",
+        "JavaScript",
+        "Python",
+        "C#"
+      ],
+      "tasks": [
+        "event systems",
+        "UI updates",
+        "pub/sub messaging",
+        "reactive programming"
+      ],
+      "assumptions": [
+        "One-to-many relationship exists between objects",
+        "Changes to one object require updating others"
+      ],
+      "limitations": [
+        "Can cause memory leaks if observers are not unsubscribed",
+        "Notification order is not guaranteed",
+        "Can cause cascading updates"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Observer_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "event-driven", "pub/sub", "reactive"],
+      "related_method_ids": ["mediator", "strategy"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "strategy",
+      "name": "Strategy",
+      "pipeline_step": "behavioral",
+      "short_description": "Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.",
+      "algorithm_summary": "The Strategy pattern encapsulates a family of algorithms behind a common interface. A context object holds a reference to a strategy object and delegates the algorithmic work to it. Clients can swap strategies at runtime by injecting a different implementation. This eliminates conditional statements for algorithm selection and makes it easy to add new algorithms without modifying existing code.",
+      "inputs": [
+        "Strategy interface",
+        "Context class",
+        "Algorithm implementations"
+      ],
+      "outputs": [
+        "Interchangeable behaviors",
+        "Runtime algorithm selection"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "TypeScript",
+        "C++"
+      ],
+      "tasks": [
+        "algorithm selection",
+        "sorting strategies",
+        "validation rules",
+        "pricing calculations"
+      ],
+      "assumptions": [
+        "Multiple algorithms exist for the same task",
+        "Algorithm selection should be flexible"
+      ],
+      "limitations": [
+        "Clients must be aware of different strategies",
+        "Increased number of objects"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Strategy_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "polymorphism", "open-closed principle"],
+      "related_method_ids": ["observer", "template-method", "state"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "template-method",
+      "name": "Template Method",
+      "pipeline_step": "behavioral",
+      "short_description": "Define the skeleton of an algorithm in a method, deferring some steps to subclasses without changing the algorithm's structure.",
+      "algorithm_summary": "The Template Method pattern defines the skeleton of an algorithm in a base class method, with certain steps implemented as abstract or hook methods that subclasses override. The template method calls these steps in a fixed order, ensuring the algorithm's structure is preserved while allowing variation in specific steps. Hook methods provide optional extension points with default (often empty) implementations.",
+      "inputs": [
+        "Abstract base class with template method",
+        "Abstract step methods"
+      ],
+      "outputs": [
+        "Invariant algorithm structure",
+        "Customizable algorithm steps"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C++",
+        "C#"
+      ],
+      "tasks": [
+        "framework hooks",
+        "data processing pipelines",
+        "test fixtures"
+      ],
+      "assumptions": [
+        "The overall algorithm structure is fixed",
+        "Only certain steps need to vary"
+      ],
+      "limitations": [
+        "Inheritance-based, can be rigid",
+        "Violating Liskov substitution is easy",
+        "Limited runtime flexibility compared to Strategy"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Template_method_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "inheritance", "Hollywood principle"],
+      "related_method_ids": ["strategy", "factory-method"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "command",
+      "name": "Command",
+      "pipeline_step": "behavioral",
+      "short_description": "Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.",
+      "algorithm_summary": "The Command pattern encapsulates a request and its parameters as an object. An invoker holds a command and triggers its execution without knowing the receiver or the operation. Commands can be stored, queued, logged, and undone. The pattern decouples the object that invokes the operation from the one that knows how to perform it, enabling features like macro recording and transactional behavior.",
+      "inputs": [
+        "Command interface",
+        "Invoker",
+        "Receiver"
+      ],
+      "outputs": [
+        "Encapsulated requests",
+        "Undo/redo capability",
+        "Command history"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "JavaScript",
+        "C#"
+      ],
+      "tasks": [
+        "undo/redo",
+        "task queuing",
+        "macro recording",
+        "transactional behavior"
+      ],
+      "assumptions": [
+        "Operations need to be parameterized or deferred",
+        "Undo functionality may be required"
+      ],
+      "limitations": [
+        "Increases number of classes",
+        "Complex undo for stateful operations"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Command_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "undo", "queuing", "decoupling"],
+      "related_method_ids": ["observer", "strategy"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "iterator",
+      "name": "Iterator",
+      "pipeline_step": "behavioral",
+      "short_description": "Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.",
+      "algorithm_summary": "The Iterator pattern extracts the traversal behavior of a collection into a separate iterator object. The iterator keeps track of the current position and knows how to advance. The collection provides a method to create iterators. Different iterators can implement different traversal algorithms (forward, reverse, filtered) for the same collection. This separates collection management from traversal logic.",
+      "inputs": [
+        "Collection interface",
+        "Iterator interface"
+      ],
+      "outputs": [
+        "Sequential element access",
+        "Encapsulated traversal state"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C++",
+        "JavaScript"
+      ],
+      "tasks": [
+        "collection traversal",
+        "custom iteration",
+        "lazy evaluation"
+      ],
+      "assumptions": [
+        "Collection internals should be hidden",
+        "Multiple traversal methods may be needed"
+      ],
+      "limitations": [
+        "Less efficient than direct access for simple collections",
+        "Built into most modern languages, making explicit pattern less common"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Iterator_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "traversal", "collection", "generator"],
+      "related_method_ids": ["composite", "visitor"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "mediator",
+      "name": "Mediator",
+      "pipeline_step": "behavioral",
+      "short_description": "Define an object that encapsulates how a set of objects interact, promoting loose coupling by keeping objects from referring to each other explicitly.",
+      "algorithm_summary": "The Mediator pattern centralizes complex communication logic between objects into a single mediator object. Instead of objects communicating directly (creating a web of dependencies), they send messages to the mediator, which routes them appropriately. This transforms many-to-many relationships into one-to-many relationships, making the system easier to understand and modify.",
+      "inputs": [
+        "Mediator interface",
+        "Colleague objects"
+      ],
+      "outputs": [
+        "Centralized communication",
+        "Reduced coupling between components"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "C#"
+      ],
+      "tasks": [
+        "chat rooms",
+        "UI dialog coordination",
+        "air traffic control"
+      ],
+      "assumptions": [
+        "Multiple objects need to communicate",
+        "Direct references create tight coupling"
+      ],
+      "limitations": [
+        "Mediator can become a god object",
+        "Single point of failure"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Mediator_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "decoupling", "centralization"],
+      "related_method_ids": ["observer", "facade"],
+      "maturity": "established",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "state",
+      "name": "State",
+      "pipeline_step": "behavioral",
+      "short_description": "Allow an object to alter its behavior when its internal state changes, making the object appear to change its class.",
+      "algorithm_summary": "The State pattern lets an object behave differently depending on its current state. Each state is represented by a separate class implementing a common state interface. The context object delegates state-specific behavior to its current state object and allows state transitions by swapping the state object. This eliminates large conditional statements and makes adding new states straightforward.",
+      "inputs": [
+        "State interface",
+        "Context class",
+        "Concrete state classes"
+      ],
+      "outputs": [
+        "State-dependent behavior",
+        "Clean state transitions"
+      ],
+      "modalities": [
+        "Java",
+        "Python",
+        "TypeScript"
+      ],
+      "tasks": [
+        "finite state machines",
+        "workflow engines",
+        "game character behavior"
+      ],
+      "assumptions": [
+        "Object behavior depends on its state",
+        "State transitions are well-defined"
+      ],
+      "limitations": [
+        "Can be overkill for few states",
+        "State transitions can be scattered across state classes"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/State_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "state machine", "polymorphism"],
+      "related_method_ids": ["strategy", "observer"],
+      "maturity": "established",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "visitor",
+      "name": "Visitor",
+      "pipeline_step": "behavioral",
+      "short_description": "Represent an operation to be performed on the elements of an object structure, letting you define new operations without changing the classes of the elements.",
+      "algorithm_summary": "The Visitor pattern separates an algorithm from the object structure it operates on. Each element class implements an accept method that takes a visitor. The visitor has a visit method for each element type. When accept is called, it dispatches to the appropriate visit method (double dispatch). New operations can be added by creating new visitor classes without modifying element classes.",
+      "inputs": [
+        "Element interface with accept",
+        "Visitor interface with visit methods"
+      ],
+      "outputs": [
+        "Externalized operations on object structures",
+        "Easy addition of new operations"
+      ],
+      "modalities": [
+        "Java",
+        "C++",
+        "C#"
+      ],
+      "tasks": [
+        "compiler operations",
+        "document export",
+        "reporting on object graphs"
+      ],
+      "assumptions": [
+        "Object structure is stable",
+        "New operations are frequently added"
+      ],
+      "limitations": [
+        "Hard to add new element types",
+        "Breaks encapsulation of element state",
+        "Complex double dispatch mechanism"
+      ],
+      "references": {
+        "paper_title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+        "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+        "venue": "Addison-Wesley Professional",
+        "year": 1994,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Visitor_pattern"
+      },
+      "artifacts": {},
+      "tags": ["GoF", "behavioral", "double dispatch", "separation of concerns"],
+      "related_method_ids": ["composite", "iterator"],
+      "maturity": "established",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "thread-pool",
+      "name": "Thread Pool",
+      "pipeline_step": "concurrency",
+      "short_description": "Manage a pool of reusable threads to execute tasks, reducing the overhead of thread creation and destruction.",
+      "algorithm_summary": "The Thread Pool pattern maintains a collection of pre-created threads waiting for tasks. A task queue holds submitted work items. Idle threads pick up tasks from the queue and execute them. After completing a task, the thread returns to the pool. This amortizes the cost of thread creation, controls the degree of concurrency, and prevents resource exhaustion from unbounded thread creation.",
+      "inputs": [
+        "Task queue",
+        "Pool size configuration"
+      ],
+      "outputs": [
+        "Managed thread execution",
+        "Bounded concurrency"
+      ],
+      "modalities": [
+        "Java",
+        "C++",
+        "Python",
+        "C#"
+      ],
+      "tasks": [
+        "server request handling",
+        "parallel processing",
+        "background tasks"
+      ],
+      "assumptions": [
+        "Tasks are independent and short-lived",
+        "Thread creation overhead is significant"
+      ],
+      "limitations": [
+        "Fixed pool size may not suit all workloads",
+        "Task starvation possible with priority-less queues"
+      ],
+      "references": {
+        "paper_title": "Java Concurrency in Practice",
+        "authors": ["Brian Goetz", "Tim Peierls", "Joshua Bloch", "Joseph Bowbeer", "David Holmes", "Doug Lea"],
+        "venue": "Addison-Wesley Professional",
+        "year": 2006,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Thread_pool"
+      },
+      "artifacts": {},
+      "tags": ["concurrency", "performance", "resource management"],
+      "related_method_ids": ["producer-consumer"],
+      "maturity": "mature",
+      "automation_level": "automated",
+      "evidence_type": "framework",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    },
+    {
+      "id": "producer-consumer",
+      "name": "Producer-Consumer",
+      "pipeline_step": "concurrency",
+      "short_description": "Decouple the production of data from its consumption using a shared buffer, allowing producers and consumers to operate at different rates.",
+      "algorithm_summary": "The Producer-Consumer pattern uses a shared bounded buffer between producer and consumer threads. Producers add items to the buffer when space is available; consumers remove items when the buffer is non-empty. Synchronization primitives (mutexes, semaphores, condition variables) coordinate access. The buffer decouples production and consumption rates, enabling asynchronous processing and load balancing.",
+      "inputs": [
+        "Producer threads",
+        "Consumer threads",
+        "Shared buffer"
+      ],
+      "outputs": [
+        "Asynchronous data flow",
+        "Rate decoupling"
+      ],
+      "modalities": [
+        "Java",
+        "C++",
+        "Python",
+        "Go"
+      ],
+      "tasks": [
+        "message queues",
+        "event processing",
+        "data pipelines"
+      ],
+      "assumptions": [
+        "Producers and consumers operate at different rates",
+        "Buffer size can be bounded"
+      ],
+      "limitations": [
+        "Buffer overflow or underflow handling needed",
+        "Deadlock risk with incorrect synchronization"
+      ],
+      "references": {
+        "paper_title": "Java Concurrency in Practice",
+        "authors": ["Brian Goetz", "Tim Peierls", "Joshua Bloch", "Joseph Bowbeer", "David Holmes", "Doug Lea"],
+        "venue": "Addison-Wesley Professional",
+        "year": 2006,
+        "doi_or_url": "https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem"
+      },
+      "artifacts": {},
+      "tags": ["concurrency", "synchronization", "buffering", "async"],
+      "related_method_ids": ["thread-pool"],
+      "maturity": "mature",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-04-13T00:00:00Z",
+      "updated_at": "2026-04-13T00:00:00Z"
+    }
+  ]
+}

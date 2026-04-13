@@ -1,10 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
 import { Header, MethodDetail } from '@/components';
-import { useAppState, getMethodById, getPipelineStepById } from '@/lib';
+import { useAppState, getMethodById, getPipelineStepById, getSiteConfig, resolveStepField } from '@/lib';
 import '@/styles/detail.css';
 
 /**
- * Method detail page view - full page variant
+ * Entry detail page view
  */
 export default function MethodPage() {
   const { methodId } = useParams();
@@ -17,7 +17,7 @@ export default function MethodPage() {
         <main className="main-content">
           <div className="loading">
             <div className="loading__spinner" />
-            <p>Loading method...</p>
+            <p>Loading...</p>
           </div>
         </main>
       </div>
@@ -30,7 +30,6 @@ export default function MethodPage() {
         <Header />
         <main className="main-content">
           <div className="error">
-            <div className="error__icon">⚠️</div>
             <h2>Error Loading Data</h2>
             <p>{error}</p>
           </div>
@@ -39,8 +38,10 @@ export default function MethodPage() {
     );
   }
 
+  const config = getSiteConfig();
+  const stepFieldName = resolveStepField(config);
   const method = getMethodById(data, methodId);
-  const step = method ? getPipelineStepById(data, method.pipeline_step) : null;
+  const step = method ? getPipelineStepById(data, method[stepFieldName]) : null;
 
   return (
     <div className="main-layout">
@@ -52,23 +53,31 @@ export default function MethodPage() {
           </svg>
           Back to Explorer
         </Link>
-        
+
         {method && (
           <header className="method-page__header">
             <span className="method-detail__step">
-              {step?.name || method.pipeline_step.replace('_', ' ')}
+              {step?.name || method[stepFieldName]?.replace(/_/g, ' ') || ''}
             </span>
             <h1 className="method-page__title">{method.name}</h1>
             <div className="method-page__meta">
-              <span>{method.references?.year}</span>
-              <span className="method-page__meta-dot" />
-              <span>{method.references?.venue}</span>
-              <span className="method-page__meta-dot" />
-              <span>{method.maturity}</span>
+              {method.references?.year && <span>{method.references.year}</span>}
+              {method.references?.venue && (
+                <>
+                  <span className="method-page__meta-dot" />
+                  <span>{method.references.venue}</span>
+                </>
+              )}
+              {method.maturity && (
+                <>
+                  <span className="method-page__meta-dot" />
+                  <span>{method.maturity}</span>
+                </>
+              )}
             </div>
           </header>
         )}
-        
+
         <MethodDetail methodId={methodId} />
       </main>
     </div>

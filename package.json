@@ -1,8 +1,12 @@
 {
-  "name": "process-mining-unstructured-methods",
-  "version": "1.0.0",
-  "description": "Interactive visualization of process mining methods for unstructured data",
+  "name": "paper-warehouse",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Lightweight, customizable paper and method explorer for academic chair websites",
   "type": "module",
+  "workspaces": [
+    "examples/*"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -44,9 +48,10 @@
     "node": ">=18.0.0"
   },
   "keywords": [
-    "process-mining",
+    "paper-warehouse",
     "visualization",
-    "unstructured-data",
+    "academic",
+    "taxonomy",
     "d3",
     "react"
   ],

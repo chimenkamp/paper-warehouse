@@ -1,179 +1,144 @@
-import Fuse from 'fuse.js';
+import { getSiteConfig, resolveStepField } from './config';
 
 /**
- * Data loading utilities
+ * Data loading utilities — config-driven.
+ *
+ * The data file path and entry key come from site.config.json.
+ * Validation only checks the required fields declared in the config;
+ * every other field is optional and rendered dynamically.
  */
 
-// Base path for assets (matches Vite config)
 const BASE_PATH = import.meta.env.BASE_URL || '/';
 
 let cachedData = null;
 
 /**
- * Loads methods data from the JSON file
- * @returns {Promise<Object>} The methods data
+ * Loads the data file declared in site.config.json
+ * @returns {Promise<Object>} The loaded data
  */
 export async function loadMethodsData() {
   if (cachedData) return cachedData;
 
+  const config = getSiteConfig();
+  const dataFile = config?.data?.file || 'data/methods.json';
+
   try {
-    const response = await fetch(`${BASE_PATH}data/methods.json`);
+    const response = await fetch(`${BASE_PATH}${dataFile}`);
     if (!response.ok) {
-      throw new Error(`Failed to load methods data: ${response.status}`);
+      throw new Error(`Failed to load data: ${response.status}`);
     }
     const data = await response.json();
     cachedData = data;
     return data;
   } catch (error) {
-    console.error('Error loading methods data:', error);
+    console.error('Error loading data:', error);
     throw error;
   }
 }
 
 /**
- * Validates methods data against basic schema requirements
- * @param {Object} data - The data to validate
- * @returns {Object} Validation result with isValid and errors
+ * Validates data against the required fields from config.
+ * @param {Object} data
+ * @returns {Object} { isValid, errors }
  */
 export function validateMethodsData(data) {
+  const config = getSiteConfig();
+  const entryKey = config?.data?.entryKey || 'methods';
+  const stepFieldName = resolveStepField(config);
   const errors = [];
 
   if (!data.metadata) {
     errors.push('Missing metadata object');
   }
 
-  if (!data.pipeline_steps || !Array.isArray(data.pipeline_steps)) {
-    errors.push('Missing or invalid pipeline_steps array');
+  const entries = data[entryKey];
+  if (!entries || !Array.isArray(entries)) {
+    errors.push(`Missing or invalid "${entryKey}" array`);
+    return { isValid: false, errors };
   }
 
-  if (!data.methods || !Array.isArray(data.methods)) {
-    errors.push('Missing or invalid methods array');
-  }
+  const requiredFields = config?.data?.requiredFields || ['id', 'name', 'step', 'short_description', 'references'];
+  const mappedRequired = requiredFields.map((f) => (f === 'step' ? stepFieldName : f));
+  const validStepIds = (config?.visualization?.steps || []).map((s) => s.id);
 
-  // Validate each method
-  const requiredFields = [
-    'id',
-    'name',
-    'pipeline_step',
-    'short_description',
-    'algorithm_summary',
-    'inputs',
-    'outputs',
-    'modalities',
-    'tasks',
-    'assumptions',
-    'limitations',
-    'references',
-    'tags',
-    'created_at',
-    'updated_at',
-  ];
-
-  const validPipelineSteps = [
-    'collect',
-    'preprocess',
-    'abstract_aggregate',
-    'correlate_cases',
-    'enhance_visualization',
-    'apply_mining',
-  ];
-
-  const validModalities = ['text', 'image', 'video', 'audio', 'sensor', 'mixed'];
-
-  const validTasks = [
-    'cleaning',
-    'chunking',
-    'fusion',
-    'abstraction',
-    'correlation',
-    'uncertainty',
-    'visualization',
-    'discovery',
-    'conformance',
-    'prediction',
-  ];
-
-  data.methods?.forEach((method, index) => {
-    requiredFields.forEach((field) => {
-      if (method[field] === undefined) {
-        errors.push(`Method ${index} (${method.id || 'unknown'}): missing required field "${field}"`);
+  entries.forEach((entry, index) => {
+    mappedRequired.forEach((field) => {
+      if (entry[field] === undefined) {
+        errors.push(`Entry ${index} (${entry.id || 'unknown'}): missing required field "${field}"`);
       }
     });
 
-    if (method.pipeline_step && !validPipelineSteps.includes(method.pipeline_step)) {
-      errors.push(`Method ${method.id}: invalid pipeline_step "${method.pipeline_step}"`);
+    if (validStepIds.length > 0 && entry[stepFieldName] && !validStepIds.includes(entry[stepFieldName])) {
+      errors.push(`Entry ${entry.id}: invalid step "${entry[stepFieldName]}"`);
     }
 
-    method.modalities?.forEach((mod) => {
-      if (!validModalities.includes(mod)) {
-        errors.push(`Method ${method.id}: invalid modality "${mod}"`);
-      }
-    });
-
-    method.tasks?.forEach((task) => {
-      if (!validTasks.includes(task)) {
-        errors.push(`Method ${method.id}: invalid task "${task}"`);
-      }
-    });
-
-    // Check for duplicate IDs
-    const duplicates = data.methods.filter((m) => m.id === method.id);
+    const duplicates = entries.filter((e) => e.id === entry.id);
     if (duplicates.length > 1) {
-      errors.push(`Duplicate method ID: ${method.id}`);
+      errors.push(`Duplicate entry ID: ${entry.id}`);
     }
   });
 
-  return {
-    isValid: errors.length === 0,
-    errors,
-  };
+  return { isValid: errors.length === 0, errors };
 }
 
 /**
- * Gets method by ID
- * @param {Object} data - The methods data
- * @param {string} id - Method ID
- * @returns {Object|null} The method or null
+ * Gets the array of entries from the data using the configured key.
+ */
+export function getEntries(data) {
+  const config = getSiteConfig();
+  const entryKey = config?.data?.entryKey || 'methods';
+  return data?.[entryKey] || [];
+}
+
+/**
+ * Gets entry by ID
  */
 export function getMethodById(data, id) {
-  return data.methods?.find((m) => m.id === id) || null;
+  return getEntries(data).find((m) => m.id === id) || null;
 }
 
 /**
- * Gets pipeline step by ID
- * @param {Object} data - The methods data
- * @param {string} id - Step ID
- * @returns {Object|null} The step or null
+ * Gets pipeline step definition by ID (from data or config).
  */
 export function getPipelineStepById(data, id) {
-  return data.pipeline_steps?.find((s) => s.id === id) || null;
+  if (data?.pipeline_steps) {
+    const found = data.pipeline_steps.find((s) => s.id === id);
+    if (found) return found;
+  }
+  const config = getSiteConfig();
+  return (config?.visualization?.steps || []).find((s) => s.id === id) || null;
 }
 
 /**
- * Gets related methods for a given method
- * @param {Object} data - The methods data
- * @param {string} methodId - The method ID
- * @returns {Array} Related methods
+ * Returns the step field value for a given entry.
  */
-export function getRelatedMethods(data, methodId) {
-  const method = getMethodById(data, methodId);
-  if (!method) return [];
+export function getEntryStep(entry) {
+  const config = getSiteConfig();
+  const stepFieldName = resolveStepField(config);
+  return entry?.[stepFieldName] || null;
+}
 
+/**
+ * Gets related entries for a given entry.
+ */
+export function getRelatedMethods(data, entryId) {
+  const entries = getEntries(data);
+  const entry = entries.find((m) => m.id === entryId);
+  if (!entry) return [];
+
+  const config = getSiteConfig();
+  const stepFieldName = resolveStepField(config);
   const related = [];
 
-  // Add explicitly linked methods
-  if (method.related_method_ids) {
-    method.related_method_ids.forEach((id) => {
-      const relatedMethod = getMethodById(data, id);
-      if (relatedMethod) {
-        related.push({ ...relatedMethod, relationship: 'linked' });
-      }
+  if (entry.related_method_ids) {
+    entry.related_method_ids.forEach((id) => {
+      const rel = entries.find((m) => m.id === id);
+      if (rel) related.push({ ...rel, relationship: 'linked' });
     });
   }
 
-  // Add methods in same pipeline step
-  data.methods
-    .filter((m) => m.id !== methodId && m.pipeline_step === method.pipeline_step)
+  entries
+    .filter((m) => m.id !== entryId && m[stepFieldName] === entry[stepFieldName])
     .slice(0, 3)
     .forEach((m) => {
       if (!related.find((r) => r.id === m.id)) {
@@ -181,13 +146,12 @@ export function getRelatedMethods(data, methodId) {
       }
     });
 
-  // Add methods with shared tags
-  const methodTags = new Set(method.tags || []);
-  data.methods
-    .filter((m) => m.id !== methodId)
+  const entryTags = new Set(entry.tags || []);
+  entries
+    .filter((m) => m.id !== entryId)
     .map((m) => ({
       ...m,
-      sharedTags: (m.tags || []).filter((t) => methodTags.has(t)).length,
+      sharedTags: (m.tags || []).filter((t) => entryTags.has(t)).length,
     }))
     .filter((m) => m.sharedTags > 0)
     .sort((a, b) => b.sharedTags - a.sharedTags)
@@ -202,51 +166,47 @@ export function getRelatedMethods(data, methodId) {
 }
 
 /**
- * Creates aggregated statistics from data
- * @param {Object} data - The methods data
- * @returns {Object} Statistics object
+ * Creates aggregated statistics from data.
  */
 export function getStatistics(data) {
-  const methods = data.methods || [];
+  const config = getSiteConfig();
+  const entries = getEntries(data);
+  const stepFieldName = resolveStepField(config);
 
   const stepCounts = {};
-  const modalityCounts = {};
-  const taskCounts = {};
-  const maturityCounts = {};
   const yearCounts = {};
 
-  methods.forEach((method) => {
-    // Steps
-    stepCounts[method.pipeline_step] = (stepCounts[method.pipeline_step] || 0) + 1;
+  const filterableFields = (config?.data?.fields || []).filter(
+    (f) => f.filterable && (f.type === 'tags' || f.type === 'enum')
+  );
+  const fieldCounts = {};
+  filterableFields.forEach((f) => {
+    fieldCounts[f.key] = {};
+  });
 
-    // Modalities
-    method.modalities?.forEach((mod) => {
-      modalityCounts[mod] = (modalityCounts[mod] || 0) + 1;
+  entries.forEach((entry) => {
+    const stepVal = entry[stepFieldName];
+    if (stepVal) stepCounts[stepVal] = (stepCounts[stepVal] || 0) + 1;
+
+    filterableFields.forEach((f) => {
+      const val = entry[f.key];
+      if (Array.isArray(val)) {
+        val.forEach((v) => {
+          fieldCounts[f.key][v] = (fieldCounts[f.key][v] || 0) + 1;
+        });
+      } else if (val) {
+        fieldCounts[f.key][val] = (fieldCounts[f.key][val] || 0) + 1;
+      }
     });
 
-    // Tasks
-    method.tasks?.forEach((task) => {
-      taskCounts[task] = (taskCounts[task] || 0) + 1;
-    });
-
-    // Maturity
-    if (method.maturity) {
-      maturityCounts[method.maturity] = (maturityCounts[method.maturity] || 0) + 1;
-    }
-
-    // Years
-    const year = method.references?.year;
-    if (year) {
-      yearCounts[year] = (yearCounts[year] || 0) + 1;
-    }
+    const year = entry.references?.year;
+    if (year) yearCounts[year] = (yearCounts[year] || 0) + 1;
   });
 
   return {
-    totalMethods: methods.length,
+    totalEntries: entries.length,
     stepCounts,
-    modalityCounts,
-    taskCounts,
-    maturityCounts,
+    fieldCounts,
     yearCounts,
   };
 }

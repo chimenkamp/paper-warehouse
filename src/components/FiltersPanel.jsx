@@ -1,4 +1,4 @@
-import { useAppState, useAppDispatch, actions, getFilterOptions } from '@/lib';
+import { useAppState, useAppDispatch, actions, getFilterOptions, getSiteConfig, getFilterableFields } from '@/lib';
 
 /**
  * Filter chip component
@@ -17,7 +17,8 @@ function FilterChip({ label, isActive, onClick }) {
 }
 
 /**
- * Filters panel component - refined design
+ * Config-driven filters panel.
+ * Renders a filter group for every field marked filterable in site.config.json.
  */
 export default function FiltersPanel() {
   const { filters, allMethods, showFilters } = useAppState();
@@ -25,6 +26,8 @@ export default function FiltersPanel() {
 
   if (!showFilters) return null;
 
+  const config = getSiteConfig();
+  const filterableFields = getFilterableFields(config);
   const filterOptions = getFilterOptions(allMethods);
 
   const toggleArrayFilter = (filterName, value) => {
@@ -35,12 +38,10 @@ export default function FiltersPanel() {
     dispatch(actions.setFilters({ [filterName]: updated }));
   };
 
-  const hasActiveFilters =
-    filters.pipelineStep ||
-    (filters.modalities && filters.modalities.length > 0) ||
-    (filters.tasks && filters.tasks.length > 0) ||
-    (filters.maturityLevels && filters.maturityLevels.length > 0) ||
-    (filters.evidenceTypes && filters.evidenceTypes.length > 0);
+  const hasActiveFilters = filterableFields.some((f) => {
+    const val = filters[f.key];
+    return val && (Array.isArray(val) ? val.length > 0 : !!val);
+  });
 
   return (
     <div className="filters-panel animate-slide-up">
@@ -57,65 +58,26 @@ export default function FiltersPanel() {
       </div>
 
       <div className="filters-panel__grid">
-        {/* Modalities */}
-        <div className="filters-panel__group">
-          <label className="filters-panel__label">Modality</label>
-          <div className="filters-panel__chips">
-            {filterOptions.modalities.map((mod) => (
-              <FilterChip
-                key={mod}
-                label={mod}
-                isActive={filters.modalities?.includes(mod)}
-                onClick={() => toggleArrayFilter('modalities', mod)}
-              />
-            ))}
-          </div>
-        </div>
+        {filterableFields.map((field) => {
+          const options = filterOptions[field.key] || [];
+          if (options.length === 0) return null;
 
-        {/* Tasks */}
-        <div className="filters-panel__group">
-          <label className="filters-panel__label">Task</label>
-          <div className="filters-panel__chips">
-            {filterOptions.tasks.map((task) => (
-              <FilterChip
-                key={task}
-                label={task}
-                isActive={filters.tasks?.includes(task)}
-                onClick={() => toggleArrayFilter('tasks', task)}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Maturity */}
-        <div className="filters-panel__group">
-          <label className="filters-panel__label">Maturity</label>
-          <div className="filters-panel__chips">
-            {filterOptions.maturityLevels.map((level) => (
-              <FilterChip
-                key={level}
-                label={level}
-                isActive={filters.maturityLevels?.includes(level)}
-                onClick={() => toggleArrayFilter('maturityLevels', level)}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Evidence Type */}
-        <div className="filters-panel__group">
-          <label className="filters-panel__label">Evidence</label>
-          <div className="filters-panel__chips">
-            {filterOptions.evidenceTypes.map((type) => (
-              <FilterChip
-                key={type}
-                label={type}
-                isActive={filters.evidenceTypes?.includes(type)}
-                onClick={() => toggleArrayFilter('evidenceTypes', type)}
-              />
-            ))}
-          </div>
-        </div>
+          return (
+            <div className="filters-panel__group" key={field.key}>
+              <label className="filters-panel__label">{field.label}</label>
+              <div className="filters-panel__chips">
+                {options.map((opt) => (
+                  <FilterChip
+                    key={opt}
+                    label={opt}
+                    isActive={(filters[field.key] || []).includes(opt)}
+                    onClick={() => toggleArrayFilter(field.key, opt)}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -6,11 +6,12 @@ import '@/styles/global.css';
 import '@/styles/components.css';
 import '@/styles/relationship.css';
 
-
 const basename = import.meta.env.BASE_URL;
 
 /**
- * Main App component with routing
+ * Main App component with routing.
+ * Navigation items are configured in site.config.json; routes are
+ * always registered so direct URLs work regardless of nav visibility.
  */
 function App() {
   return (

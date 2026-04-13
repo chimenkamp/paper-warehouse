@@ -32,7 +32,6 @@ export default function ComparePage() {
         <Header />
         <main className="main-content">
           <div className="error">
-            <div className="error__icon">⚠️</div>
             <h2>Error Loading Data</h2>
             <p>{error}</p>
           </div>
@@ -57,13 +56,13 @@ export default function ComparePage() {
         </Link>
 
         <h1 className="t-page-title" style={{ marginBottom: 'var(--sp-6)' }}>
-          Method Comparison
+          Comparison
         </h1>
 
         {methodIds.length < 2 ? (
           <div className="compare-empty">
             <p className="t-body" style={{ color: 'var(--text-muted)', marginBottom: 'var(--sp-4)' }}>
-              Please select at least 2 methods to compare.
+              Select at least 2 entries to compare.
             </p>
             <Link to="/" className="btn btn--primary">
               Go to Explorer

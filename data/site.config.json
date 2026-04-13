@@ -1,0 +1,261 @@
+{
+  "site": {
+    "title": "Process Mining Methods",
+    "subtitle": "for Unstructured Data",
+    "logoText": "PM",
+    "description": "Interactive visualization of process mining methods for unstructured data.",
+    "favicon": "/favicon.svg",
+    "footer": "",
+    "basePath": "/"
+  },
+
+  "navigation": [
+    { "label": "Explorer", "path": "/", "enabled": true },
+    { "label": "Graph", "path": "/relationships", "enabled": true },
+    { "label": "About", "path": "/about", "enabled": true }
+  ],
+
+  "visualization": {
+    "preset": "pipeline",
+
+    "steps": [
+      {
+        "id": "collect",
+        "name": "Collect",
+        "description": "Data collection and integration",
+        "order": 1,
+        "color": "#bf616a"
+      },
+      {
+        "id": "preprocess",
+        "name": "Preprocess",
+        "description": "Data cleaning and pre-processing",
+        "order": 2,
+        "color": "#d08770"
+      },
+      {
+        "id": "abstract_aggregate",
+        "name": "Abstract & Aggregate",
+        "description": "Event abstraction and aggregation from raw data",
+        "order": 3,
+        "color": "#ebcb8b"
+      },
+      {
+        "id": "correlate_cases",
+        "name": "Correlate Cases",
+        "description": "Case correlation and integration of multiple sources",
+        "order": 4,
+        "color": "#a3be8c"
+      },
+      {
+        "id": "apply_mining",
+        "name": "Apply Mining",
+        "description": "Process mining analysis (discovery, conformance, etc.)",
+        "order": 5,
+        "color": "#b48ead"
+      },
+      {
+        "id": "enhance_visualization",
+        "name": "Enhance & Visualize",
+        "description": "Visualization and user-interaction enhancements",
+        "order": 6,
+        "color": "#88c0d0"
+      }
+    ],
+
+    "labels": {
+      "stepsTitle": "Pipeline Overview",
+      "stepsHint": "Click a step to filter entries",
+      "landscapeTitle": "Entry Landscape",
+      "landscapeDescription": "Explore entries by publication year and automation level. Hover for details, click to view.",
+      "graphTitle": "Relationship Graph",
+      "graphDescription": "Explore connections between entries based on shared characteristics and computed similarity.",
+      "entrySingular": "method",
+      "entryPlural": "methods"
+    }
+  },
+
+  "data": {
+    "file": "data/methods.json",
+    "entryKey": "methods",
+
+    "requiredFields": ["id", "name", "step", "short_description", "references"],
+
+    "fields": [
+      {
+        "key": "id",
+        "type": "id",
+        "label": "ID",
+        "showInList": false,
+        "showInDetail": false
+      },
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Title",
+        "showInList": true,
+        "showInDetail": true,
+        "searchWeight": 0.4
+      },
+      {
+        "key": "step",
+        "type": "step",
+        "label": "Step",
+        "sourceField": "pipeline_step",
+        "showInList": true,
+        "showInDetail": true
+      },
+      {
+        "key": "short_description",
+        "type": "text",
+        "label": "Description",
+        "showInList": true,
+        "showInDetail": true,
+        "searchWeight": 0.2
+      },
+      {
+        "key": "algorithm_summary",
+        "type": "longtext",
+        "label": "Algorithm Summary",
+        "showInList": false,
+        "showInDetail": true,
+        "searchWeight": 0.1
+      },
+      {
+        "key": "inputs",
+        "type": "list",
+        "label": "Inputs",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "outputs",
+        "type": "list",
+        "label": "Outputs",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "modalities",
+        "type": "tags",
+        "label": "Modalities",
+        "showInList": true,
+        "showInDetail": true,
+        "filterable": true
+      },
+      {
+        "key": "tasks",
+        "type": "tags",
+        "label": "Tasks",
+        "showInList": false,
+        "showInDetail": true,
+        "filterable": true
+      },
+      {
+        "key": "assumptions",
+        "type": "list",
+        "label": "Assumptions",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "limitations",
+        "type": "list",
+        "label": "Limitations",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "references",
+        "type": "reference",
+        "label": "Reference",
+        "showInList": true,
+        "showInDetail": true,
+        "searchWeight": 0.1,
+        "subfields": ["paper_title", "authors", "venue", "year", "doi_or_url"]
+      },
+      {
+        "key": "artifacts",
+        "type": "links",
+        "label": "Artifacts",
+        "showInList": true,
+        "showInDetail": true,
+        "subfields": ["code_url", "dataset_url", "demo_url"]
+      },
+      {
+        "key": "tags",
+        "type": "tags",
+        "label": "Tags",
+        "showInList": false,
+        "showInDetail": true,
+        "searchWeight": 0.2,
+        "filterable": true
+      },
+      {
+        "key": "related_method_ids",
+        "type": "relations",
+        "label": "Related Entries",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "maturity",
+        "type": "enum",
+        "label": "Maturity",
+        "showInList": true,
+        "showInDetail": true,
+        "filterable": true,
+        "values": ["research", "emerging", "established", "mature"]
+      },
+      {
+        "key": "automation_level",
+        "type": "enum",
+        "label": "Automation Level",
+        "showInList": false,
+        "showInDetail": true,
+        "values": ["manual", "semi-automated", "automated"]
+      },
+      {
+        "key": "evidence_type",
+        "type": "enum",
+        "label": "Evidence Type",
+        "showInList": false,
+        "showInDetail": true,
+        "filterable": true,
+        "values": ["survey", "framework", "algorithm", "tool"]
+      }
+    ],
+
+    "sort": {
+      "default": "name",
+      "options": ["name", "year", "maturity"]
+    }
+  },
+
+  "features": {
+    "search": true,
+    "compare": true,
+    "filters": true,
+    "landscape": true,
+    "graph": true,
+    "themeToggle": true,
+    "stats": true
+  },
+
+  "about": {
+    "title": "About This Project",
+    "introduction": "This interactive visualization explores methods for applying process mining to unstructured data sources. It provides a comprehensive overview of techniques that bridge the gap between raw unstructured information and structured event logs suitable for process analysis.",
+    "sections": [
+      {
+        "title": "The Pipeline",
+        "content": "The process mining pipeline for unstructured data consists of key stages, each addressing specific challenges in transforming raw data into actionable process insights.",
+        "showSteps": true
+      },
+      {
+        "title": "Data Sources",
+        "content": "This taxonomy covers methods that work with various types of unstructured data.",
+        "showModalities": true
+      }
+    ]
+  }
+}

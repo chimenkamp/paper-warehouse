@@ -1,0 +1,246 @@
+{
+  "site": {
+    "title": "Design Patterns",
+    "subtitle": "Gang of Four & Beyond",
+    "logoText": "DP",
+    "description": "Interactive catalog of classic software design patterns with relationships and comparisons.",
+    "favicon": "/favicon.svg",
+    "footer": "",
+    "basePath": "/"
+  },
+
+  "navigation": [
+    { "label": "Catalog", "path": "/", "enabled": true },
+    { "label": "Graph", "path": "/relationships", "enabled": true },
+    { "label": "About", "path": "/about", "enabled": true }
+  ],
+
+  "visualization": {
+    "preset": "pipeline",
+
+    "steps": [
+      {
+        "id": "creational",
+        "name": "Creational",
+        "description": "Patterns that deal with object creation mechanisms",
+        "order": 1,
+        "color": "#e94560"
+      },
+      {
+        "id": "structural",
+        "name": "Structural",
+        "description": "Patterns that ease design by identifying simple ways to realize relationships among entities",
+        "order": 2,
+        "color": "#0f3460"
+      },
+      {
+        "id": "behavioral",
+        "name": "Behavioral",
+        "description": "Patterns that identify common communication patterns among objects",
+        "order": 3,
+        "color": "#16c79a"
+      },
+      {
+        "id": "concurrency",
+        "name": "Concurrency",
+        "description": "Patterns for multi-threaded and parallel programming",
+        "order": 4,
+        "color": "#f5a623"
+      }
+    ],
+
+    "labels": {
+      "stepsTitle": "Pattern Categories",
+      "stepsHint": "Click a category to filter patterns",
+      "landscapeTitle": "Pattern Landscape",
+      "landscapeDescription": "Explore patterns by year of publication and complexity level.",
+      "graphTitle": "Pattern Relationships",
+      "graphDescription": "Explore connections between patterns based on shared concepts and typical combinations.",
+      "entrySingular": "pattern",
+      "entryPlural": "patterns"
+    }
+  },
+
+  "data": {
+    "file": "data/patterns.json",
+    "entryKey": "methods",
+
+    "requiredFields": ["id", "name", "step", "short_description", "references"],
+
+    "fields": [
+      {
+        "key": "id",
+        "type": "id",
+        "label": "ID",
+        "showInList": false,
+        "showInDetail": false
+      },
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Pattern Name",
+        "showInList": true,
+        "showInDetail": true,
+        "searchWeight": 0.4
+      },
+      {
+        "key": "step",
+        "type": "step",
+        "label": "Category",
+        "sourceField": "pipeline_step",
+        "showInList": true,
+        "showInDetail": true
+      },
+      {
+        "key": "short_description",
+        "type": "text",
+        "label": "Intent",
+        "showInList": true,
+        "showInDetail": true,
+        "searchWeight": 0.2
+      },
+      {
+        "key": "algorithm_summary",
+        "type": "longtext",
+        "label": "How It Works",
+        "showInList": false,
+        "showInDetail": true,
+        "searchWeight": 0.1
+      },
+      {
+        "key": "inputs",
+        "type": "list",
+        "label": "Participants",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "outputs",
+        "type": "list",
+        "label": "Consequences",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "modalities",
+        "type": "tags",
+        "label": "Languages",
+        "showInList": true,
+        "showInDetail": true,
+        "filterable": true
+      },
+      {
+        "key": "tasks",
+        "type": "tags",
+        "label": "Use Cases",
+        "showInList": false,
+        "showInDetail": true,
+        "filterable": true
+      },
+      {
+        "key": "assumptions",
+        "type": "list",
+        "label": "When to Use",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "limitations",
+        "type": "list",
+        "label": "Trade-offs",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "references",
+        "type": "reference",
+        "label": "Reference",
+        "showInList": true,
+        "showInDetail": true,
+        "searchWeight": 0.1,
+        "subfields": ["paper_title", "authors", "venue", "year", "doi_or_url"]
+      },
+      {
+        "key": "artifacts",
+        "type": "links",
+        "label": "Resources",
+        "showInList": true,
+        "showInDetail": true,
+        "subfields": ["code_url", "dataset_url", "demo_url"]
+      },
+      {
+        "key": "tags",
+        "type": "tags",
+        "label": "Tags",
+        "showInList": false,
+        "showInDetail": true,
+        "searchWeight": 0.2,
+        "filterable": true
+      },
+      {
+        "key": "related_method_ids",
+        "type": "relations",
+        "label": "Related Patterns",
+        "showInList": false,
+        "showInDetail": true
+      },
+      {
+        "key": "maturity",
+        "type": "enum",
+        "label": "Adoption",
+        "showInList": true,
+        "showInDetail": true,
+        "filterable": true,
+        "values": ["research", "emerging", "established", "mature"]
+      },
+      {
+        "key": "automation_level",
+        "type": "enum",
+        "label": "Complexity",
+        "showInList": false,
+        "showInDetail": true,
+        "values": ["manual", "semi-automated", "automated"]
+      },
+      {
+        "key": "evidence_type",
+        "type": "enum",
+        "label": "Pattern Type",
+        "showInList": false,
+        "showInDetail": true,
+        "filterable": true,
+        "values": ["survey", "framework", "algorithm", "tool"]
+      }
+    ],
+
+    "sort": {
+      "default": "name",
+      "options": ["name", "year", "maturity"]
+    }
+  },
+
+  "features": {
+    "search": true,
+    "compare": true,
+    "filters": true,
+    "landscape": true,
+    "graph": true,
+    "themeToggle": true,
+    "stats": true
+  },
+
+  "about": {
+    "title": "About Design Patterns",
+    "introduction": "This interactive catalog explores classic and modern software design patterns. Browse by category, compare patterns side by side, and discover relationships between them.",
+    "sections": [
+      {
+        "title": "Pattern Categories",
+        "content": "Design patterns are grouped into four main categories, each addressing a different aspect of software design.",
+        "showSteps": true
+      },
+      {
+        "title": "Sources",
+        "content": "Patterns are drawn from 'Design Patterns: Elements of Reusable Object-Oriented Software' (GoF, 1994), 'Head First Design Patterns', and other influential software engineering references."
+      }
+    ]
+  }
+}

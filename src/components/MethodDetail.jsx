@@ -1,30 +1,142 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppState, getMethodById, getRelatedMethods, getPipelineStepById } from '@/lib';
+import { useAppState, getMethodById, getRelatedMethods, getPipelineStepById, getSiteConfig, getDetailFields, resolveStepField } from '@/lib';
 import '@/styles/detail.css';
 
 /**
- * Format paper URL correctly
- * Handles: bare DOI, full DOI URL, or regular URL
+ * Format paper URL correctly.
  */
 function formatPaperUrl(doiOrUrl) {
   if (!doiOrUrl) return null;
-  
-  // Already a full URL (http or https)
-  if (doiOrUrl.startsWith('http://') || doiOrUrl.startsWith('https://')) {
-    return doiOrUrl;
-  }
-  
-  // Looks like a DOI (starts with 10.)
-  if (doiOrUrl.startsWith('10.')) {
-    return `https://doi.org/${doiOrUrl}`;
-  }
-  
-  // Fallback: assume it's a DOI
+  if (doiOrUrl.startsWith('http://') || doiOrUrl.startsWith('https://')) return doiOrUrl;
+  if (doiOrUrl.startsWith('10.')) return `https://doi.org/${doiOrUrl}`;
   return `https://doi.org/${doiOrUrl}`;
 }
 
 /**
- * Method detail panel/page component
+ * Renders a single field section based on its type from config.
+ */
+function FieldSection({ field, value }) {
+  if (value === undefined || value === null) return null;
+
+  switch (field.type) {
+    case 'text':
+    case 'longtext':
+      if (!value) return null;
+      return (
+        <section className="method-detail__section">
+          <h2 className="method-detail__section-title">{field.label}</h2>
+          <p className="method-detail__section-content">{value}</p>
+        </section>
+      );
+
+    case 'list':
+      if (!Array.isArray(value) || value.length === 0) return null;
+      return (
+        <section className="method-detail__section">
+          <h2 className="method-detail__section-title">{field.label}</h2>
+          <ul className="method-detail__list">
+            {value.map((item, i) => (
+              <li key={i} className="method-detail__list-item">{item}</li>
+            ))}
+          </ul>
+        </section>
+      );
+
+    case 'tags':
+      if (!Array.isArray(value) || value.length === 0) return null;
+      return (
+        <section className="method-detail__section">
+          <h2 className="method-detail__section-title">{field.label}</h2>
+          <div className="method-detail__tags">
+            {value.map((tag) => (
+              <span key={tag} className={`tag tag--${tag}`}>{tag}</span>
+            ))}
+          </div>
+        </section>
+      );
+
+    case 'enum':
+      if (!value) return null;
+      return (
+        <section className="method-detail__section">
+          <h2 className="method-detail__section-title">{field.label}</h2>
+          <span className="tag">{value}</span>
+        </section>
+      );
+
+    case 'reference':
+      if (!value || typeof value !== 'object') return null;
+      return (
+        <section className="method-detail__section">
+          <h2 className="method-detail__section-title">{field.label}</h2>
+          <div className="method-detail__reference">
+            {value.paper_title && (
+              <p className="method-detail__reference-title">{value.paper_title}</p>
+            )}
+            {value.authors && (
+              <p className="method-detail__reference-authors">
+                {Array.isArray(value.authors) ? value.authors.join(', ') : value.authors}
+              </p>
+            )}
+            <p className="method-detail__reference-meta">
+              {[value.venue, value.year].filter(Boolean).join(', ')}
+            </p>
+            {value.doi_or_url && (
+              <a
+                href={formatPaperUrl(value.doi_or_url)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--sm btn--secondary"
+                style={{ marginTop: 'var(--sp-3)' }}
+              >
+                View Paper →
+              </a>
+            )}
+          </div>
+        </section>
+      );
+
+    case 'links': {
+      if (!value || typeof value !== 'object') return null;
+      const linkEntries = Object.entries(value).filter(([, url]) => url);
+      if (linkEntries.length === 0) return null;
+      return (
+        <section className="method-detail__section">
+          <h2 className="method-detail__section-title">{field.label}</h2>
+          <div className="method-detail__artifacts">
+            {linkEntries.map(([key, url]) => (
+              <a
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--sm btn--secondary"
+              >
+                {key.replace(/_/g, ' ').replace(/url$/i, '').trim()} →
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    default:
+      // Fallback: render as text if it's a string, or JSON if object
+      if (typeof value === 'string') {
+        return (
+          <section className="method-detail__section">
+            <h2 className="method-detail__section-title">{field.label}</h2>
+            <p className="method-detail__section-content">{value}</p>
+          </section>
+        );
+      }
+      return null;
+  }
+}
+
+/**
+ * Config-driven detail panel.
+ * Renders all fields marked showInDetail in site.config.json, in declared order.
  */
 export default function MethodDetail({ methodId, onClose }) {
   const navigate = useNavigate();
@@ -32,14 +144,18 @@ export default function MethodDetail({ methodId, onClose }) {
 
   if (!data) return null;
 
+  const config = getSiteConfig();
+  const detailFields = getDetailFields(config);
+  const stepFieldName = resolveStepField(config);
+
   const method = getMethodById(data, methodId);
 
   if (!method) {
     return (
       <div className="empty-state">
         <div className="empty-state__icon">❌</div>
-        <h3 className="empty-state__title">Method not found</h3>
-        <p className="empty-state__text">The method "{methodId}" could not be found.</p>
+        <h3 className="empty-state__title">Entry not found</h3>
+        <p className="empty-state__text">The entry &ldquo;{methodId}&rdquo; could not be found.</p>
         <button className="btn btn--primary" onClick={() => navigate('/')}>
           Back to Explorer
         </button>
@@ -47,29 +163,32 @@ export default function MethodDetail({ methodId, onClose }) {
     );
   }
 
-  const step = getPipelineStepById(data, method.pipeline_step);
+  const step = getPipelineStepById(data, method[stepFieldName]);
   const relatedMethods = getRelatedMethods(data, methodId);
 
   const handleClose = () => {
-    if (onClose) {
-      onClose();
-    } else {
-      navigate('/');
-    }
+    if (onClose) onClose();
+    else navigate('/');
   };
 
   const handleRelatedClick = (relatedId) => {
     navigate(`/methods/${relatedId}`);
   };
 
+  // Separate special fields from generic ones
+  const skipKeys = new Set(['id', 'step', 'name', 'related_method_ids']);
+  const genericFields = detailFields.filter(
+    (f) => !skipKeys.has(f.key) && f.type !== 'relations'
+  );
+
   return (
     <>
-      {onClose && <div className="method-detail__backdrop" onClick={handleClose} />}
+      {onClose && <div className="method-detail__backdrop" onClick={handleClose} onKeyDown={(e) => { if (e.key === 'Escape') handleClose(); }} role="presentation" />}
       <div className="method-detail" role="dialog" aria-labelledby="method-title">
         <div className="method-detail__header">
           <div>
             <span className="method-detail__step">
-              {step?.name || method.pipeline_step.replace('_', ' ')}
+              {step?.name || method[stepFieldName]?.replace(/_/g, ' ') || ''}
             </span>
             <h1 id="method-title" className="method-detail__title">
               {method.name}
@@ -87,142 +206,15 @@ export default function MethodDetail({ methodId, onClose }) {
         </div>
 
         <div className="method-detail__content">
-          {/* Description */}
-          <section className="method-detail__section">
-            <h2 className="method-detail__section-title">Description</h2>
-            <p className="method-detail__section-content">{method.short_description}</p>
-          </section>
+          {/* Render each configured detail field */}
+          {genericFields.map((field) => (
+            <FieldSection key={field.key} field={field} value={method[field.key]} />
+          ))}
 
-          {/* Algorithm Summary */}
-          <section className="method-detail__section">
-            <h2 className="method-detail__section-title">Algorithm Summary</h2>
-            <p className="method-detail__section-content">{method.algorithm_summary}</p>
-          </section>
-
-          {/* Inputs & Outputs */}
-          <section className="method-detail__section">
-            <div className="method-detail__grid">
-              <div>
-                <h2 className="method-detail__section-title">Inputs</h2>
-                <ul className="method-detail__list">
-                  {method.inputs.map((input, i) => (
-                    <li key={i} className="method-detail__list-item">{input}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h2 className="method-detail__section-title">Outputs</h2>
-                <ul className="method-detail__list">
-                  {method.outputs.map((output, i) => (
-                    <li key={i} className="method-detail__list-item">{output}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Modalities & Tasks */}
-          <section className="method-detail__section">
-            <h2 className="method-detail__section-title">Modalities & Tasks</h2>
-            <div className="method-detail__tags">
-              {method.modalities.map((mod) => (
-                <span key={mod} className={`tag tag--${mod}`}>{mod}</span>
-              ))}
-              {method.tasks.map((task) => (
-                <span key={task} className="tag">{task}</span>
-              ))}
-            </div>
-          </section>
-
-          {/* Assumptions */}
-          {method.assumptions && method.assumptions.length > 0 && (
-            <section className="method-detail__section">
-              <h2 className="method-detail__section-title">Assumptions</h2>
-              <ul className="method-detail__list">
-                {method.assumptions.map((assumption, i) => (
-                  <li key={i} className="method-detail__list-item">{assumption}</li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {/* Limitations */}
-          {method.limitations && method.limitations.length > 0 && (
-            <section className="method-detail__section">
-              <h2 className="method-detail__section-title">Limitations</h2>
-              <ul className="method-detail__list">
-                {method.limitations.map((limitation, i) => (
-                  <li key={i} className="method-detail__list-item">{limitation}</li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {/* Reference */}
-          <section className="method-detail__section">
-            <h2 className="method-detail__section-title">Reference</h2>
-            <div className="method-detail__reference">
-              <p className="method-detail__reference-title">{method.references.paper_title}</p>
-              <p className="method-detail__reference-authors">
-                {method.references.authors.join(', ')}
-              </p>
-              <p className="method-detail__reference-meta">
-                {method.references.venue}, {method.references.year}, {method.references.doi_or_url}
-              </p>
-              {method.references.doi_or_url && (
-                <a
-                  href={formatPaperUrl(method.references.doi_or_url)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--sm btn--secondary"
-                  style={{ marginTop: 'var(--sp-3)' }}
-                >
-                  View Paper →
-                </a>
-              )}
-            </div>
-          </section>
-
-          {/* Artifacts */}
-          {method.artifacts && Object.keys(method.artifacts).length > 0 && (
-            <section className="method-detail__section">
-              <h2 className="method-detail__section-title">Artifacts</h2>
-              <div className="method-detail__artifacts">
-                {method.artifacts.code_url && (
-                  <a href={method.artifacts.code_url} target="_blank" rel="noopener noreferrer" className="btn btn--sm btn--secondary">
-                    Code →
-                  </a>
-                )}
-                {method.artifacts.dataset_url && (
-                  <a href={method.artifacts.dataset_url} target="_blank" rel="noopener noreferrer" className="btn btn--sm btn--secondary">
-                    Dataset →
-                  </a>
-                )}
-                {method.artifacts.demo_url && (
-                  <a href={method.artifacts.demo_url} target="_blank" rel="noopener noreferrer" className="btn btn--sm btn--secondary">
-                    Demo →
-                  </a>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* Tags */}
-          {method.tags && method.tags.length > 0 && (
-            <section className="method-detail__section">
-              <h2 className="method-detail__section-title">Tags</h2>
-              <div className="method-detail__tags">
-                {method.tags.map((tag) => (
-                  <span key={tag} className="tag">#{tag}</span>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Related Methods */}
+          {/* Related entries */}
           {relatedMethods.length > 0 && (
             <section className="method-detail__section">
-              <h2 className="method-detail__section-title">Related Methods</h2>
+              <h2 className="method-detail__section-title">Related Entries</h2>
               <div className="related-methods">
                 {relatedMethods.map((related) => (
                   <div
@@ -247,13 +239,16 @@ export default function MethodDetail({ methodId, onClose }) {
             </section>
           )}
 
-          {/* Metadata */}
-          <section className="method-detail__section" style={{ marginTop: 'var(--sp-8)' }}>
-            <p style={{ fontSize: '11px', color: 'var(--text-faint)' }}>
-              Created: {new Date(method.created_at).toLocaleDateString()} · 
-              Updated: {new Date(method.updated_at).toLocaleDateString()}
-            </p>
-          </section>
+          {/* Metadata timestamps */}
+          {(method.created_at || method.updated_at) && (
+            <section className="method-detail__section" style={{ marginTop: 'var(--sp-8)' }}>
+              <p style={{ fontSize: '11px', color: 'var(--text-faint)' }}>
+                {method.created_at && `Created: ${new Date(method.created_at).toLocaleDateString()}`}
+                {method.created_at && method.updated_at && ' · '}
+                {method.updated_at && `Updated: ${new Date(method.updated_at).toLocaleDateString()}`}
+              </p>
+            </section>
+          )}
         </div>
       </div>
     </>

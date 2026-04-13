@@ -2,22 +2,24 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
+const libRoot = resolve(__dirname, '../..');
+
 export default defineConfig({
   plugins: [react()],
   base: process.env.BASE_URL || '/',
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
-      '@components': resolve(__dirname, 'src/components'),
-      '@views': resolve(__dirname, 'src/views'),
-      '@viz': resolve(__dirname, 'src/viz'),
-      '@lib': resolve(__dirname, 'src/lib'),
-      '@styles': resolve(__dirname, 'src/styles'),
-      '@data': resolve(__dirname, 'data'),
+      '@': resolve(libRoot, 'src'),
+      '@components': resolve(libRoot, 'src/components'),
+      '@views': resolve(libRoot, 'src/views'),
+      '@viz': resolve(libRoot, 'src/viz'),
+      '@lib': resolve(libRoot, 'src/lib'),
+      '@styles': resolve(libRoot, 'src/styles'),
     },
   },
   build: {
-    outDir: 'dist',
+    outDir: resolve(__dirname, 'dist'),
+    emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
       output: {
@@ -31,11 +33,5 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.js'],
-    include: ['src/**/*.{test,spec}.{js,jsx}'],
   },
 });

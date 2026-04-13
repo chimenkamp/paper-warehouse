@@ -1,13 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAppState, useAppDispatch, actions } from '@/lib';
+import { useAppState, useAppDispatch, actions, getSiteConfig, isFeatureEnabled } from '@/lib';
 import '@/styles/header.css';
 
 /**
- * Search input with minimal design
+ * Search input
  */
 function SearchBox() {
   const { filters } = useAppState();
   const dispatch = useAppDispatch();
+  const config = getSiteConfig();
+  const labels = config?.visualization?.labels || {};
 
   const handleChange = (e) => {
     dispatch(actions.setFilters({ searchQuery: e.target.value }));
@@ -36,10 +38,10 @@ function SearchBox() {
       <input
         type="text"
         className="search-box__input"
-        placeholder="Search methods..."
+        placeholder={`Search ${labels.entryPlural || 'entries'}...`}
         value={filters.searchQuery || ''}
         onChange={handleChange}
-        aria-label="Search methods"
+        aria-label={`Search ${labels.entryPlural || 'entries'}`}
       />
       {filters.searchQuery && (
         <button
@@ -58,46 +60,45 @@ function SearchBox() {
 }
 
 /**
- * Refined header component
+ * Header component — reads title, subtitle, logo, and navigation from config.
  */
 export default function Header() {
   const location = useLocation();
+  const config = getSiteConfig();
+  const siteConfig = config?.site || {};
+  const navItems = (config?.navigation || []).filter((n) => n.enabled !== false);
+
   const isActive = (path) => location.pathname === path;
 
   return (
     <header className="header">
       <div className="header__inner">
         <Link to="/" className="header__brand">
-          <div className="header__logo">PM</div>
+          <div className="header__logo">{siteConfig.logoText || 'PE'}</div>
           <div>
-            <div className="header__title">Process Mining Methods</div>
-            <div className="header__subtitle">for Unstructured Data</div>
+            <div className="header__title">{siteConfig.title || 'Paper Warehouse'}</div>
+            {siteConfig.subtitle && (
+              <div className="header__subtitle">{siteConfig.subtitle}</div>
+            )}
           </div>
         </Link>
 
-        <div className="header__search">
-          <SearchBox />
-        </div>
+        {isFeatureEnabled(config, 'search') && (
+          <div className="header__search">
+            <SearchBox />
+          </div>
+        )}
 
         <nav className="header__nav">
-          <Link
-            to="/"
-            className={`header__nav-link ${isActive('/') ? 'header__nav-link--active' : ''}`}
-          >
-            Explorer
-          </Link>
-          <Link
-            to="/relationships"
-            className={`header__nav-link ${isActive('/relationships') ? 'header__nav-link--active' : ''}`}
-          >
-            Graph
-          </Link>
-          <Link
-            to="/about"
-            className={`header__nav-link ${isActive('/about') ? 'header__nav-link--active' : ''}`}
-          >
-            About
-          </Link>
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`header__nav-link ${isActive(item.path) ? 'header__nav-link--active' : ''}`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
       </div>
     </header>

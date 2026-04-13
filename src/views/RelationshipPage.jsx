@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Header, RelationshipGraph, FiltersPanel } from '@/components';
-import { useAppState, useAppDispatch, actions, getStatistics } from '@/lib';
+import { useAppState, useAppDispatch, actions, getStatistics, getSiteConfig, isFeatureEnabled, getLabels } from '@/lib';
 
 /**
- * Relationship Graph page view - full-page network visualization
+ * Relationship graph page
  */
 export default function RelationshipPage() {
   const { loading, error, data, showFilters, filteredMethods } = useAppState();
   const dispatch = useAppDispatch();
+  const config = getSiteConfig();
+  const labels = getLabels(config);
 
   if (loading) {
     return (
@@ -16,7 +18,7 @@ export default function RelationshipPage() {
         <main className="main-content">
           <div className="loading">
             <div className="loading__spinner" />
-            <p>Loading relationship graph...</p>
+            <p>Loading graph...</p>
           </div>
         </main>
       </div>
@@ -29,7 +31,6 @@ export default function RelationshipPage() {
         <Header />
         <main className="main-content">
           <div className="error">
-            <div className="error__icon">⚠️</div>
             <h2>Error Loading Data</h2>
             <p>{error}</p>
           </div>
@@ -39,13 +40,12 @@ export default function RelationshipPage() {
   }
 
   const stats = data ? getStatistics(data) : null;
-  const methodCount = filteredMethods?.length || stats?.totalMethods || 0;
+  const entryCount = filteredMethods?.length || stats?.totalEntries || 0;
 
   return (
     <div className="main-layout">
       <Header />
       <main className="relationship-page">
-        {/* Page Header */}
         <div className="relationship-page__header">
           <div className="relationship-page__title-row">
             <Link to="/" className="relationship-page__back">
@@ -54,39 +54,38 @@ export default function RelationshipPage() {
               </svg>
               Back to Explorer
             </Link>
-            <h1 className="t-page-title">Method Relationship Graph</h1>
+            <h1 className="t-page-title">{labels.graphTitle || 'Relationship Graph'}</h1>
             <p className="relationship-page__subtitle">
-              Explore connections between {methodCount} methods based on shared characteristics,
-              explicit citations, and computed similarity.
+              {labels.graphDescription || `Explore connections between ${entryCount} entries.`}
             </p>
           </div>
 
           <div className="relationship-page__actions">
-            <button
-              className={`btn ${showFilters ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => dispatch(actions.toggleFilters())}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-              </svg>
-              Filters
-              {filteredMethods && filteredMethods.length !== stats?.totalMethods && (
-                <span className="relationship-page__filter-badge">
-                  {filteredMethods.length}
-                </span>
-              )}
-            </button>
+            {isFeatureEnabled(config, 'filters') && (
+              <button
+                className={`btn ${showFilters ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => dispatch(actions.toggleFilters())}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                </svg>
+                Filters
+                {filteredMethods && filteredMethods.length !== stats?.totalEntries && (
+                  <span className="relationship-page__filter-badge">
+                    {filteredMethods.length}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Filters Panel */}
         {showFilters && (
           <div className="relationship-page__filters">
             <FiltersPanel />
           </div>
         )}
 
-        {/* Info Cards */}
         <div className="relationship-page__info-cards">
           <div className="relationship-page__info-card">
             <div className="relationship-page__info-icon">
@@ -96,7 +95,7 @@ export default function RelationshipPage() {
               </svg>
             </div>
             <div className="relationship-page__info-content">
-              <h3>Drag & Zoom</h3>
+              <h3>Drag &amp; Zoom</h3>
               <p>Drag nodes to rearrange. Scroll to zoom. Pan with mouse.</p>
             </div>
           </div>
@@ -111,7 +110,7 @@ export default function RelationshipPage() {
             </div>
             <div className="relationship-page__info-content">
               <h3>Clusters</h3>
-              <p>Methods are grouped by pipeline step. Hulls show cluster boundaries.</p>
+              <p>Entries are grouped by step. Hulls show cluster boundaries.</p>
             </div>
           </div>
 
@@ -126,12 +125,11 @@ export default function RelationshipPage() {
             </div>
             <div className="relationship-page__info-content">
               <h3>Connections</h3>
-              <p>Solid lines = explicit citations. Dashed = computed similarity.</p>
+              <p>Solid lines = explicit relations. Dashed = computed similarity.</p>
             </div>
           </div>
         </div>
 
-        {/* Graph Visualization */}
         <div className="relationship-page__graph-container">
           <RelationshipGraph height={Math.max(500, window.innerHeight - 350)} />
         </div>

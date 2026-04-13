@@ -1,32 +1,59 @@
 import * as d3 from 'd3';
+import { getSiteConfig, getStepColorMap } from '@/lib/config';
 
 /**
- * Pipeline Visualization - Card Design with Nord Aurora Colors
- * Large cards with image centered, name at top, info at bottom
+ * Pipeline Visualization - Card Design
+ * Step colors are read from site.config.json at runtime.
  */
 
 // Base path for assets (matches Vite config)
 const BASE_PATH = import.meta.env.BASE_URL || '/';
 
-// Nord Aurora colors for card borders
-const AURORA_COLORS = {
-  collect: '#bf616a',           // Aurora 1 - Red
-  preprocess: '#d08770',        // Aurora 2 - Orange
-  abstract_aggregate: '#ebcb8b', // Aurora 3 - Yellow
-  correlate_cases: '#a3be8c',   // Aurora 4 - Green
-  enhance_visualization: '#88c0d0', // Frost - Teal
-  apply_mining: '#b48ead',      // Aurora 5 - Purple
-};
+/**
+ * Build color maps from config. Falls back to hardcoded Nord values
+ * so existing deployments without a config keep working.
+ */
+function buildColorMaps() {
+  const config = getSiteConfig();
+  if (config) {
+    const map = getStepColorMap(config);
+    if (Object.keys(map).length > 0) return { auroraColors: map, stepColors: map };
+  }
+  // Fallback
+  const fallback = {
+    collect: '#bf616a',
+    preprocess: '#d08770',
+    abstract_aggregate: '#ebcb8b',
+    correlate_cases: '#a3be8c',
+    enhance_visualization: '#88c0d0',
+    apply_mining: '#b48ead',
+  };
+  return { auroraColors: fallback, stepColors: fallback };
+}
 
-// Semantic step colors - muted, unified
-const STEP_COLORS = {
-  collect: '#bf616a',
-  preprocess: '#d08770',
-  abstract_aggregate: '#ebcb8b',
-  correlate_cases: '#a3be8c',
-  enhance_visualization: '#88c0d0',
-  apply_mining: '#b48ead',
-};
+// Lazy-init so config is loaded first
+let _colors = null;
+function getColors() {
+  if (!_colors) _colors = buildColorMaps();
+  return _colors;
+}
+
+// Re-export for components that import STEP_COLORS directly
+const STEP_COLORS_PROXY = new Proxy({}, {
+  get(_, prop) { return getColors().stepColors[prop]; },
+  ownKeys() { return Object.keys(getColors().stepColors); },
+  getOwnPropertyDescriptor(_, prop) {
+    const c = getColors().stepColors;
+    if (prop in c) return { configurable: true, enumerable: true, value: c[prop] };
+  },
+});
+export { STEP_COLORS_PROXY as STEP_COLORS };
+
+// Keep AURORA_COLORS accessible too
+const AURORA_COLORS_PROXY = new Proxy({}, {
+  get(_, prop) { return getColors().auroraColors[prop]; },
+});
+
 
 // Modality colors
 const MODALITY_COLORS = {
@@ -210,7 +237,7 @@ export function createPipelineVisualization(container, data, options = {}) {
     .attr('rx', 10)
     .attr('ry', 10)
     .attr('fill', TOKENS.cardBg)
-    .attr('stroke', selectedStep === 'collect' && !selectedModality ? AURORA_COLORS.collect : TOKENS.border)
+    .attr('stroke', selectedStep === 'collect' && !selectedModality ? (AURORA_COLORS_PROXY.collect || '#bf616a') : TOKENS.border)
     .attr('stroke-width', selectedStep === 'collect' && !selectedModality ? 2.5 : 1.5);
 
   // Background image with opacity (inside the card)
@@ -256,7 +283,7 @@ export function createPipelineVisualization(container, data, options = {}) {
     .attr('width', 40)
     .attr('height', 20)
     .attr('rx', 10)
-    .attr('fill', `${AURORA_COLORS.collect}22`);
+    .attr('fill', `${AURORA_COLORS_PROXY.collect || '#bf616a'}22`);
 
   collectCardGroup
     .append('text')
@@ -264,7 +291,7 @@ export function createPipelineVisualization(container, data, options = {}) {
     .attr('x', dataSourceCardWidth / 2)
     .attr('y', collectBadgeY + 14)
     .attr('text-anchor', 'middle')
-    .attr('fill', AURORA_COLORS.collect)
+    .attr('fill', AURORA_COLORS_PROXY.collect || '#bf616a')
     .attr('font-size', '11px')
     .attr('font-weight', '600')
     .attr('font-feature-settings', '"tnum"')
@@ -286,7 +313,7 @@ export function createPipelineVisualization(container, data, options = {}) {
         collectCardBg
           .transition()
           .duration(150)
-          .attr('stroke', AURORA_COLORS.collect)
+          .attr('stroke', AURORA_COLORS_PROXY.collect || '#bf616a')
           .attr('stroke-width', 2);
       }
       onStepHover('collect');
@@ -310,7 +337,7 @@ export function createPipelineVisualization(container, data, options = {}) {
     width: cardWidth,
     height: cardHeight,
     methodCount: methodCounts[step.id],
-    auroraColor: AURORA_COLORS[step.id],
+    auroraColor: AURORA_COLORS_PROXY[step.id] || step.color || '#88c0d0',
   }));
 
   // Draw data source circles inside the collect card
@@ -725,4 +752,4 @@ export function createMiniPipeline(container, data, options = {}) {
   };
 }
 
-export { STEP_COLORS, MODALITY_COLORS, TOKENS };
+export { MODALITY_COLORS, TOKENS };

@@ -1,26 +1,26 @@
 import { createContext, useContext, useReducer, useEffect, useMemo } from 'react';
-import { loadMethodsData, validateMethodsData } from './data';
-import { createSearchIndex, applyFiltersAndSearch, FILTER_DEFAULTS } from './filters';
+import { loadMethodsData, validateMethodsData, getEntries } from './data';
+import { createSearchIndex, applyFiltersAndSearch, getFilterDefaults } from './filters';
+import { loadSiteConfig, getSiteConfig, resolveStepField } from './config';
 
 /**
- * Application state context and reducer
+ * Application state context and reducer — config-aware.
+ *
+ * On mount the provider first loads site.config.json, then the data
+ * file. All downstream code can call getSiteConfig() synchronously.
  */
 
 const AppStateContext = createContext(null);
 const AppDispatchContext = createContext(null);
 
-// Initial state
+// Initial state (filter defaults are populated after config loads)
 const initialState = {
-  // Data
+  config: null,
   data: null,
   loading: true,
   error: null,
   validationErrors: [],
-
-  // Filters
-  filters: { ...FILTER_DEFAULTS },
-
-  // UI state
+  filters: {},
   selectedStep: null,
   selectedModality: null,
   selectedMethodId: null,
@@ -30,13 +30,11 @@ const initialState = {
   showFilters: false,
   sortBy: 'name',
   sortOrder: 'asc',
-
-  // Search
   searchIndex: null,
 };
 
-// Action types
 const ACTIONS = {
+  SET_CONFIG: 'SET_CONFIG',
   SET_DATA: 'SET_DATA',
   SET_ERROR: 'SET_ERROR',
   SET_LOADING: 'SET_LOADING',
@@ -55,9 +53,10 @@ const ACTIONS = {
   SET_SEARCH_INDEX: 'SET_SEARCH_INDEX',
 };
 
-// Reducer
 function appReducer(state, action) {
   switch (action.type) {
+    case ACTIONS.SET_CONFIG:
+      return { ...state, config: action.payload, filters: { ...getFilterDefaults() } };
     case ACTIONS.SET_DATA:
       return { ...state, data: action.payload, loading: false, error: null };
     case ACTIONS.SET_ERROR:
@@ -69,21 +68,24 @@ function appReducer(state, action) {
     case ACTIONS.SET_FILTERS:
       return { ...state, filters: { ...state.filters, ...action.payload } };
     case ACTIONS.RESET_FILTERS:
-      return { ...state, filters: { ...FILTER_DEFAULTS }, selectedStep: null, selectedModality: null };
-    case ACTIONS.SET_SELECTED_STEP:
+      return { ...state, filters: { ...getFilterDefaults() }, selectedStep: null, selectedModality: null };
+    case ACTIONS.SET_SELECTED_STEP: {
+      const config = getSiteConfig();
+      const stepFieldName = resolveStepField(config);
       return {
         ...state,
         selectedStep: action.payload,
         selectedModality: null,
-        filters: { ...state.filters, pipelineStep: action.payload, modalities: [] },
+        filters: { ...state.filters, [stepFieldName]: action.payload, pipelineStep: action.payload, modalities: [] },
       };
+    }
     case ACTIONS.SET_SELECTED_MODALITY:
       return {
         ...state,
         selectedStep: 'collect',
         selectedModality: action.payload,
-        filters: { 
-          ...state.filters, 
+        filters: {
+          ...state.filters,
           pipelineStep: 'collect',
           modalities: action.payload ? [action.payload] : [],
         },
@@ -121,52 +123,64 @@ function appReducer(state, action) {
 }
 
 /**
- * App state provider component
+ * App state provider — loads config, then data.
  */
 export function AppStateProvider({ children }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // Load data on mount
   useEffect(() => {
-    async function loadData() {
+    async function init() {
       try {
+        // 1. Load config first
+        const config = await loadSiteConfig();
+        dispatch({ type: ACTIONS.SET_CONFIG, payload: config });
+
+        // 2. Load data
         const data = await loadMethodsData();
 
-        // Validate data
         const validation = validateMethodsData(data);
         if (!validation.isValid) {
           console.warn('Data validation warnings:', validation.errors);
           dispatch({ type: ACTIONS.SET_VALIDATION_ERRORS, payload: validation.errors });
         }
 
-        // Create search index
-        const searchIndex = createSearchIndex(data.methods);
+        const entries = getEntries(data);
+        const searchIndex = createSearchIndex(entries);
         dispatch({ type: ACTIONS.SET_SEARCH_INDEX, payload: searchIndex });
-
         dispatch({ type: ACTIONS.SET_DATA, payload: data });
       } catch (error) {
         dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
       }
     }
 
-    loadData();
+    init();
   }, []);
 
-  // Memoize filtered methods
-  const filteredMethods = useMemo(() => {
-    if (!state.data?.methods || !state.searchIndex) return [];
-    return applyFiltersAndSearch(state.data.methods, state.searchIndex, state.filters);
-  }, [state.data?.methods, state.searchIndex, state.filters]);
+  const entries = useMemo(() => {
+    if (!state.data) return [];
+    return getEntries(state.data);
+  }, [state.data]);
 
-  // Enhanced state with computed values
+  const filteredMethods = useMemo(() => {
+    if (!entries.length || !state.searchIndex) return [];
+    return applyFiltersAndSearch(entries, state.searchIndex, state.filters);
+  }, [entries, state.searchIndex, state.filters]);
+
+  const pipelineSteps = useMemo(() => {
+    // Prefer steps from config, fall back to data
+    const config = getSiteConfig();
+    if (config?.visualization?.steps?.length) return config.visualization.steps;
+    return state.data?.pipeline_steps || [];
+  }, [state.data]);
+
   const enhancedState = useMemo(
     () => ({
       ...state,
       filteredMethods,
-      pipelineSteps: state.data?.pipeline_steps || [],
-      allMethods: state.data?.methods || [],
+      pipelineSteps,
+      allMethods: entries,
     }),
-    [state, filteredMethods]
+    [state, filteredMethods, pipelineSteps, entries]
   );
 
   return (
@@ -176,71 +190,28 @@ export function AppStateProvider({ children }) {
   );
 }
 
-/**
- * Hook to access app state
- */
 export function useAppState() {
   const context = useContext(AppStateContext);
-  if (!context) {
-    throw new Error('useAppState must be used within AppStateProvider');
-  }
+  if (!context) throw new Error('useAppState must be used within AppStateProvider');
   return context;
 }
 
-/**
- * Hook to access dispatch function
- */
 export function useAppDispatch() {
   const context = useContext(AppDispatchContext);
-  if (!context) {
-    throw new Error('useAppDispatch must be used within AppStateProvider');
-  }
+  if (!context) throw new Error('useAppDispatch must be used within AppStateProvider');
   return context;
 }
 
-/**
- * Action creators
- */
 export const actions = {
-  setSelectedStep: (stepId) => ({
-    type: ACTIONS.SET_SELECTED_STEP,
-    payload: stepId,
-  }),
-  setSelectedModality: (modalityId) => ({
-    type: ACTIONS.SET_SELECTED_MODALITY,
-    payload: modalityId,
-  }),
-  setSelectedMethod: (methodId) => ({
-    type: ACTIONS.SET_SELECTED_METHOD,
-    payload: methodId,
-  }),
-  setHoveredMethod: (methodId) => ({
-    type: ACTIONS.SET_HOVERED_METHOD,
-    payload: methodId,
-  }),
-  setFilters: (filters) => ({
-    type: ACTIONS.SET_FILTERS,
-    payload: filters,
-  }),
-  resetFilters: () => ({
-    type: ACTIONS.RESET_FILTERS,
-  }),
-  toggleCompareMethod: (methodId) => ({
-    type: ACTIONS.TOGGLE_COMPARE_METHOD,
-    payload: methodId,
-  }),
-  clearCompare: () => ({
-    type: ACTIONS.CLEAR_COMPARE,
-  }),
-  setCompareMode: (enabled) => ({
-    type: ACTIONS.SET_COMPARE_MODE,
-    payload: enabled,
-  }),
-  toggleFilters: () => ({
-    type: ACTIONS.TOGGLE_FILTERS,
-  }),
-  setSort: (sortBy, order) => ({
-    type: ACTIONS.SET_SORT,
-    payload: { sortBy, order },
-  }),
+  setSelectedStep: (stepId) => ({ type: ACTIONS.SET_SELECTED_STEP, payload: stepId }),
+  setSelectedModality: (modalityId) => ({ type: ACTIONS.SET_SELECTED_MODALITY, payload: modalityId }),
+  setSelectedMethod: (methodId) => ({ type: ACTIONS.SET_SELECTED_METHOD, payload: methodId }),
+  setHoveredMethod: (methodId) => ({ type: ACTIONS.SET_HOVERED_METHOD, payload: methodId }),
+  setFilters: (filters) => ({ type: ACTIONS.SET_FILTERS, payload: filters }),
+  resetFilters: () => ({ type: ACTIONS.RESET_FILTERS }),
+  toggleCompareMethod: (methodId) => ({ type: ACTIONS.TOGGLE_COMPARE_METHOD, payload: methodId }),
+  clearCompare: () => ({ type: ACTIONS.CLEAR_COMPARE }),
+  setCompareMode: (enabled) => ({ type: ACTIONS.SET_COMPARE_MODE, payload: enabled }),
+  toggleFilters: () => ({ type: ACTIONS.TOGGLE_FILTERS }),
+  setSort: (sortBy, order) => ({ type: ACTIONS.SET_SORT, payload: { sortBy, order } }),
 };

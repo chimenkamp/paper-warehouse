@@ -1,0 +1,233 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Process Mining Methods",
+  "description": "Schema for process mining methods for unstructured data",
+  "type": "object",
+  "required": ["methods", "metadata"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["version", "lastUpdated", "source"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "source": {
+          "type": "object",
+          "required": ["title", "authors", "year", "venue"],
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Source paper title"
+            },
+            "authors": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Paper authors"
+            },
+            "year": {
+              "type": "integer",
+              "description": "Publication year"
+            },
+            "venue": {
+              "type": "string",
+              "description": "Publication venue"
+            },
+            "doi_or_url": {
+              "type": "string",
+              "description": "DOI or URL to the paper"
+            }
+          }
+        }
+      }
+    },
+    "pipeline_steps": {
+      "type": "array",
+      "description": "Pipeline step definitions",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "description", "order"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["collect", "preprocess", "abstract_aggregate", "correlate_cases", "enhance_visualization", "apply_mining"]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "methods": {
+      "type": "array",
+      "description": "List of process mining methods",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "pipeline_step",
+          "short_description",
+          "algorithm_summary",
+          "inputs",
+          "outputs",
+          "modalities",
+          "tasks",
+          "assumptions",
+          "limitations",
+          "references",
+          "tags",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Unique identifier in kebab-case"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable method name"
+          },
+          "pipeline_step": {
+            "type": "string",
+            "enum": ["collect", "preprocess", "abstract_aggregate", "correlate_cases", "enhance_visualization", "apply_mining"],
+            "description": "Primary pipeline step"
+          },
+          "short_description": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500,
+            "description": "Brief description of the method"
+          },
+          "algorithm_summary": {
+            "type": "string",
+            "description": "Technical summary of the algorithm"
+          },
+          "inputs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "description": "Expected inputs"
+          },
+          "outputs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "description": "Produced outputs"
+          },
+          "modalities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["text", "image", "video", "audio", "sensor", "real-time", "mixed"]
+            },
+            "minItems": 1,
+            "description": "Supported data modalities"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["cleaning", "chunking", "fusion", "abstraction", "correlation", "uncertainty", "visualization", "discovery", "conformance", "prediction"]
+            },
+            "minItems": 1,
+            "description": "Associated tasks"
+          },
+          "assumptions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Underlying assumptions"
+          },
+          "limitations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Known limitations"
+          },
+          "references": {
+            "type": "object",
+            "required": ["paper_title", "authors", "venue", "year", "doi_or_url"],
+            "properties": {
+              "paper_title": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "venue": {
+                "type": "string"
+              },
+              "year": {
+                "type": "integer",
+                "minimum": 1990,
+                "maximum": 2030
+              },
+              "doi_or_url": {
+                "type": "string"
+              }
+            }
+          },
+          "artifacts": {
+            "type": "object",
+            "properties": {
+              "code_url": { "type": "string" },
+              "dataset_url": { "type": "string" },
+              "demo_url": { "type": "string" }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Searchable tags"
+          },
+          "related_method_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "IDs of related methods"
+          },
+          "maturity": {
+            "type": "string",
+            "enum": ["research", "emerging", "established", "mature"],
+            "description": "Maturity level"
+          },
+          "automation_level": {
+            "type": "string",
+            "enum": ["manual", "semi-automated", "automated"],
+            "description": "Level of automation"
+          },
+          "evidence_type": {
+            "type": "string",
+            "enum": ["survey", "framework", "algorithm", "tool"],
+            "description": "Type of evidence"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
