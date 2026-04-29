@@ -33,9 +33,9 @@
             }
         },
         "contribution": {
-        "type": "object",
-        "required": ["keywords", "focus_intent", "research_components", "artifact"],
-        "properties": {
+            "type": "object",
+            "required": ["keywords", "focus_intent", "research_components", "artifacts"],
+            "properties": {
                 "keywords": {
                 "type": "array",
                 "items": { "type": "string" },
@@ -44,142 +44,145 @@
                 "focus_intent": {
                 "type": "object",
                 "properties": {
-                    "goal_paper":{
-                        "type": "string",
-                        "description": "The main goal or contribution of the paper, as stated by the authors"
-                    },
-                    "research_question": {
-                        "type": "object",
-                        "properties": {
-                            "question":{
-                                "type": "string",
-                                "pattern": "^[A-Z].*\\?$",
-                                "description": "The primary question the research seeks to answer"
-                            },
-                            "hidden_in_text": {
-                                "type": "boolean",
-                                "description": "Whether the research question is explicitly stated in the text or inferred by readers"
-                            },
-                            "highlighted_in_text": {
-                                "type": "boolean",
-                                "description": "Whether the research question is highlighted in the text (e.g., bolded, italicized, or in a separate section)"
+                        "goal_paper":{
+                            "type": "string",
+                            "description": "The main goal or contribution of the paper, as stated by the authors"
+                        },
+                        "research_question": {
+                            "type": "object",
+                            "properties": {
+                                "question":{
+                                    "type": "string",
+                                    "pattern": "^[A-Z].*\\?$",
+                                    "description": "The primary question the research seeks to answer"
+                                },
+                                "hidden_in_text": {
+                                    "type": "boolean",
+                                    "description": "Whether the research question is explicitly stated in the text or inferred by readers"
+                                },
+                                "highlighted_in_text": {
+                                    "type": "boolean",
+                                    "description": "Whether the research question is highlighted in the text (e.g., bolded, italicized, or in a separate section)"
+                                }
+                            }
+                        },
+                        "motivation_paper": {
+                            "type": "string",
+                            "description": "The motivation behind the research, as stated by the authors"                
+                        },
+                        "outcome_paper": {
+                            "type": "string",
+                            "description": "The main findings or outcomes of the research, as stated by the authors"
+                        },
+                        "type_of_inquiry": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                            "type": "object",
+                            "properties": {
+                                "formal_science":{
+                                    "type":"boolean",
+                                    "default": false,
+                                    "description": "Whether the research is primarily focused on formal scientific inquiry, such as developing theories"
+                                },
+                                "information_systems_engineering":{
+                                    "type":"boolean",
+                                    "default": false,
+                                    "description": "Whether the research is primarily focused on information systems engineering, such as designing and implementing systems"
+                                },
+                                "scientific_study":{
+                                    "type":"boolean",
+                                    "default": false,
+                                    "description": "Whether the research is primarily focused on scientific study, such as empirical investigations"
+                                },
+                                "inductive_study":{
+                                    "type":"boolean",
+                                    "default": false,
+                                    "description": "Whether the research is primarily focused on inductive study, such as case studies"
+                                },
+                                "meta_analysis":{
+                                    "type":"boolean",
+                                    "default": false,
+                                    "description": "Whether the research is primarily focused on meta-analysis, such as systematic reviews"
+                                },
+                                "industrial_application":{
+                                    "type":"boolean",
+                                    "default": false,
+                                    "description": "Whether the research is primarily focused on industrial application, such as real-world implementations"
+                                }
                             }
                         }
-                    },
-                    "motivation_paper": {
-                        "type": "string",
-                        "description": "The motivation behind the research, as stated by the authors"                
-                    },
-                    "outcome_paper": {
-                        "type": "string",
-                        "description": "The main findings or outcomes of the research, as stated by the authors"
-                    },
-                    "type_of_inquiry": {
-                    "type": "object",
-                    "properties": {
-                        "formal_science":{
-                            "type":"boolean",
-                            "default": false,
-                            "description": "Whether the research is primarily focused on formal scientific inquiry, such as developing theories"
-                        },
-                        "information_systems_engineering":{
-                            "type":"boolean",
-                            "default": false,
-                            "description": "Whether the research is primarily focused on information systems engineering, such as designing and implementing systems"
-                        },
-                        "scientific_study":{
-                            "type":"boolean",
-                            "default": false,
-                            "description": "Whether the research is primarily focused on scientific study, such as empirical investigations"
-                        },
-                        "inductive_study":{
-                            "type":"boolean",
-                            "default": false,
-                            "description": "Whether the research is primarily focused on inductive study, such as case studies"
-                        },
-                        "meta_analysis":{
-                            "type":"boolean",
-                            "default": false,
-                            "description": "Whether the research is primarily focused on meta-analysis, such as systematic reviews"
-                        },
-                        "industrial_application":{
-                            "type":"boolean",
-                            "default": false,
-                            "description": "Whether the research is primarily focused on industrial application, such as real-world implementations"
-                        }
                     }
-                }
-                }
                 },
                 "research_components": {
                 "type": "object",
                 "properties": {
-                    "type_of_theory": {
-                    "type": "object",
-                    "properties": {
-                        "formal_theory":{
-                            "type": "boolean",
-                            "default": false,
-                            "description": "Whether the research contributes a formal theory"
+                        "type_of_theory": {
+                        "type": "object",
+                        "properties": {
+                                "formal_theory":{
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "Whether the research contributes a formal theory"
+                                },
+                                "social_science_theory":{
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "Whether the research contributes a social science theory"
+                                },
+                                "both":{
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "Whether the research contributes both formal and social science theories"
+                                }
+                            }
                         },
-                        "social_science_theory":{
-                            "type": "boolean",
-                            "default": false,
-                            "description": "Whether the research contributes a social science theory"
+                        "emphasis": {
+                        "type": "object",
+                        "properties": {
+                                "theory": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "Whether the research emphasizes theoretical contributions"
+                                },
+                                "artifact": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "Whether the research emphasizes artifact contributions"
+                                },
+                                "both": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "Whether the research emphasizes both theoretical and artifact contributions"
+                                }
+                            }
                         },
-                        "both":{
+                        "formal_concepts": {
                             "type": "boolean",
                             "default": false,
-                            "description": "Whether the research contributes both formal and social science theories"
+                            "description": "Whether the research contributes formal concepts"
+                        },
+                        "algorithms": {
+                            "type": "boolean",
+                            "default": false,
+                            "description": "Whether the research contributes algorithms"
+                        },
+                        "hypothesis": {
+                            "type": "boolean",
+                            "default": false,
+                            "description": "Whether the research contributes hypotheses"
+                        },
+                        "independent_variables": {
+                            "type": "string",
+                            "description": "Independent variables studied in the research"
+                        },
+                        "dependent_variables": {
+                        "type": "string",
+                        "description": "Dependent variables studied in the research"
                         }
                     }
-                    },
-                    "emphasis": {
-                    "type": "object",
-                    "properties": {
-                        "theory": {
-                            "type": "boolean",
-                            "default": false,
-                            "description": "Whether the research emphasizes theoretical contributions"
-                        },
-                        "artifact": {
-                            "type": "boolean",
-                            "default": false,
-                            "description": "Whether the research emphasizes artifact contributions"
-                        },
-                        "both": {
-                            "type": "boolean",
-                            "default": false,
-                            "description": "Whether the research emphasizes both theoretical and artifact contributions"
-                        }
-                    }
-                    },
-                    "formal_concepts": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Whether the research contributes formal concepts"
-                    },
-                    "algorithms": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Whether the research contributes algorithms"
-                    },
-                    "hypothesis": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Whether the research contributes hypotheses"
-                    },
-                    "independent_variables": {
-                    "type": "string",
-                    "description": "Independent variables studied in the research"
-                    },
-                    "dependent_variables": {
-                    "type": "string",
-                    "description": "Dependent variables studied in the research"
-                    }
-                }
                 },
-                "artifact": {
+                "artifacts": {
                 "type": "array",
                 "minItems": 1,
                     "items": {
@@ -188,308 +191,308 @@
                             "type_of_artifact": {
                             "type": "object",
                             "properties": {
-                                "algorithm":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is an algorithm"
-                                },
-                                "tool_implementation":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a tool implementation"
-                                },
-                                "prototype":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a prototype"
-                                },
-                                "method":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a method"
-                                },
-                                "technique":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a technique"
-                                },
-                                "language":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a language"
-                                },
-                                "design_concept":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a design concept"
-                                },
-                                "framework":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a framework"
-                                },
-                                "taxonomy":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a taxonomy"
-                                },
-                                "model":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a model"
-                                },
-                                "report":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the artifact is a report"
+                                    "algorithm":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is an algorithm"
+                                    },
+                                    "tool_implementation":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a tool implementation"
+                                    },
+                                    "prototype":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a prototype"
+                                    },
+                                    "method":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a method"
+                                    },
+                                    "technique":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a technique"
+                                    },
+                                    "language":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a language"
+                                    },
+                                    "design_concept":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a design concept"
+                                    },
+                                    "framework":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a framework"
+                                    },
+                                    "taxonomy":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a taxonomy"
+                                    },
+                                    "model":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a model"
+                                    },
+                                    "report":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the artifact is a report"
+                                    }
                                 }
-                            }
                             },
                             "research_method": {
                             "type": "object",
                             "properties":{
-                                "formal_proof":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a formal proof"
-                                },
-                                "survey":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a survey"
-                                },
-                                "lab_experiment":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a lab experiment"
-                                },
-                                "field_experiment":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a field experiment"
-                                },
-                                "case_study":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a case study"
-                                },
-                                "interviews":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes an interview"
-                                },
-                                "design_science_engineering":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes design science engineering"
-                                },
-                                "simulation":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a simulation"
-                                },
-                                "systematic_review":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a systematic review"
-                                },
-                                "action_research":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes action research"
-                                },
-                                "illustrative_example":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes an illustrative example"
-                                },
-                                "literature_analysis":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the research method includes a literature analysis"
-                                },
-                                "other":{
-                                    "type": "string",
-                                    "description": "Other research methods not listed above"
-                                },
-                                "none": {
+                                    "formal_proof":{
                                         "type": "boolean",
                                         "default": false,
-                                        "description": "Whether the research method does not fit into any of the categories above"
+                                        "description": "Whether the research method includes a formal proof"
+                                    },
+                                    "survey":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a survey"
+                                    },
+                                    "lab_experiment":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a lab experiment"
+                                    },
+                                    "field_experiment":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a field experiment"
+                                    },
+                                    "case_study":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a case study"
+                                    },
+                                    "interviews":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes an interview"
+                                    },
+                                    "design_science_engineering":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes design science engineering"
+                                    },
+                                    "simulation":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a simulation"
+                                    },
+                                    "systematic_review":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a systematic review"
+                                    },
+                                    "action_research":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes action research"
+                                    },
+                                    "illustrative_example":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes an illustrative example"
+                                    },
+                                    "literature_analysis":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the research method includes a literature analysis"
+                                    },
+                                    "other":{
+                                        "type": "string",
+                                        "description": "Other research methods not listed above"
+                                    },
+                                    "none": {
+                                            "type": "boolean",
+                                            "default": false,
+                                            "description": "Whether the research method does not fit into any of the categories above"
+                                    }
                                 }
-                            }
                             },
                             "evaluation_method": {
                             "type": "object",
                             "properties": {
-                                "verification":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes verification"
-                                },
-                                "field_experiment":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a field experiment"
-                                },
-                                "benchmark":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes benchmarking against existing methods"
-                                },
-                                "grounded_theory":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes grounded theory"
-                                },
-                                "argumentation":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes logical argumentation"
-                                },
-                                "controlled_experiment":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a controlled experiment"
-                                },
-                                "data_science":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes data science techniques, such as data analysis or machine learning"
-                                },
-                                "focus_group":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a focus group"
-                                },
-                                "questionnaire":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a questionnaire"
-                                },
-                                "interview":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes interviews"
-                                },
-                                "motivating_example":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a motivating example"
-                                },
-                                "technical_experiment":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a technical experiment, such as testing the artifact in a lab setting"
-                                },
-                                "case_study":{
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the evaluation method includes a case study"
-                                },
-                                "none": {
+                                    "verification":{
                                         "type": "boolean",
                                         "default": false,
-                                        "description": "Whether the evaluation method does not fit into any of the categories above"
+                                        "description": "Whether the evaluation method includes verification"
+                                    },
+                                    "field_experiment":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a field experiment"
+                                    },
+                                    "benchmark":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes benchmarking against existing methods"
+                                    },
+                                    "grounded_theory":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes grounded theory"
+                                    },
+                                    "argumentation":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes logical argumentation"
+                                    },
+                                    "controlled_experiment":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a controlled experiment"
+                                    },
+                                    "data_science":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes data science techniques, such as data analysis or machine learning"
+                                    },
+                                    "focus_group":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a focus group"
+                                    },
+                                    "questionnaire":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a questionnaire"
+                                    },
+                                    "interview":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes interviews"
+                                    },
+                                    "motivating_example":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a motivating example"
+                                    },
+                                    "technical_experiment":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a technical experiment, such as testing the artifact in a lab setting"
+                                    },
+                                    "case_study":{
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the evaluation method includes a case study"
+                                    },
+                                    "none": {
+                                            "type": "boolean",
+                                            "default": false,
+                                            "description": "Whether the evaluation method does not fit into any of the categories above"
+                                    }
                                 }
-                            }
                             },
                             "data_collection": {
                             "type": "object",
                             "properties": {
-                                "data_type": {
-                                "type": "object",
-                                "properties": {
-                                    "real_world_data": {
-                                        "type": "boolean",
-                                        "default": false,
-                                        "description": "Whether the data in the paper is real-world data" 
+                                    "data_type": {
+                                    "type": "object",
+                                    "properties": {
+                                            "real_world_data": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "description": "Whether the data in the paper is real-world data" 
+                                            },
+                                            "synthetic_data": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "description": "Whether the data in the paper is synthetic data"
+                                            },
+                                            "both": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "description": "Whether the data in the paper includes both real-world and synthetic data"
+                                            },
+                                            "mathematical_formulae": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "description": "Whether the data in the paper includes mathematical formulae"
+                                            },
+                                            "undefined": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "description": "Whether the paper does not specify the type of data used"
+                                            }
+                                        }
                                     },
-                                    "synthetic_data": {
-                                        "type": "boolean",
-                                        "default": false,
-                                        "description": "Whether the data in the paper is synthetic data"
+                                    "participants": {
+                                    "type": "object",
+                                    "properties": {
+                                            "total_participants": {
+                                                "type": "integer",
+                                                "description": "Total number of participants involved in the study, if applicable"
+                                            },
+                                            "students": {
+                                                "type": "integer",
+                                                "description": "Number of student participants, if applicable"
+                                            },
+                                            "practitioners": {
+                                                "type": "integer",
+                                                "description": "Number of practitioner participants, if applicable"
+                                            }
+                                        }
                                     },
-                                    "both": {
+                                    "material_accessibility": {
                                         "type": "boolean",
                                         "default": false,
-                                        "description": "Whether the data in the paper includes both real-world and synthetic data"
+                                        "description": "Whether the materials used in the study are accessible to the public"
                                     },
-                                    "mathematical_formulae": {
+                                    "data_accessibility": {
                                         "type": "boolean",
                                         "default": false,
-                                        "description": "Whether the data in the paper includes mathematical formulae"
-                                    },
-                                    "undefined": {
-                                        "type": "boolean",
-                                        "default": false,
-                                        "description": "Whether the paper does not specify the type of data used"
+                                        "description": "Whether the data used in the study is accessible to the public"
                                     }
                                 }
-                                },
-                                "participants": {
-                                "type": "object",
-                                "properties": {
-                                    "total_participants": {
-                                        "type": "integer",
-                                        "description": "Total number of participants involved in the study, if applicable"
-                                    },
-                                    "students": {
-                                        "type": "integer",
-                                        "description": "Number of student participants, if applicable"
-                                    },
-                                    "practitioners": {
-                                        "type": "integer",
-                                        "description": "Number of practitioner participants, if applicable"
-                                    }
-                                }
-                                },
-                                "material_accessibility": {
-                                "type": "boolean",
-                                "default": false,
-                                "description": "Whether the materials used in the study are accessible to the public"
-                                },
-                                "data_accessibility": {
-                                "type": "boolean",
-                                "default": false,
-                                "description": "Whether the data used in the study is accessible to the public"
-                                }
-                            }
                             },
                             "threats_to_validity": {
-                            "type": "object",
-                            "properties": {
-                                "internal_validity": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the paper discusses threats to internal validity"
-                                },
-                                "external_validity": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the paper discusses threats to external validity"
-                                },
-                                "construct_validity": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the paper discusses threats to construct validity"
-                                },
-                                "ecological_validity": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the paper discusses threats to ecological validity"
-                                },
-                                "confirmability": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the paper discusses threats to confirmability"
-                                },
-                                "reliability": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "description": "Whether the paper discusses threats to reliability"
+                                "type": "object",
+                                "properties": {
+                                    "internal_validity": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the paper discusses threats to internal validity"
+                                    },
+                                    "external_validity": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the paper discusses threats to external validity"
+                                    },
+                                    "construct_validity": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the paper discusses threats to construct validity"
+                                    },
+                                    "ecological_validity": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the paper discusses threats to ecological validity"
+                                    },
+                                    "confirmability": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the paper discusses threats to confirmability"
+                                    },
+                                    "reliability": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Whether the paper discusses threats to reliability"
+                                    }
                                 }
-                            }
                             },
                             "implementation": { 
                                 "type": "object",
@@ -503,11 +506,11 @@
                                         "type": "boolean",
                                         "default": false,
                                         "description": "Whether the implementation of the artifact is available to the public"
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-            }
-            }
-        }
                 }
             }
         }
