@@ -1,0 +1,2818 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2026-01-12T09:07:51Z",
+    "source": {
+      "title": "Extending Process Mining for Unstructured Data: New Methods and Datasets",
+      "authors": [
+        "Christian Imenkamp"
+      ],
+      "year": 2026,
+      "venue": "Modellierung 2026",
+      "doi_or_url": ""
+    }
+  },
+  "pipeline_steps": [
+    {
+      "id": "collect",
+      "name": "Collect",
+      "description": "Data collection and integration",
+      "order": 1,
+      "color": "#f4d03f"
+    },
+    {
+      "id": "preprocess",
+      "name": "Preprocess",
+      "description": "Data cleaning and pre-processing",
+      "order": 2,
+      "color": "#52be80"
+    },
+    {
+      "id": "abstract_aggregate",
+      "name": "Abstract & Aggregate",
+      "description": "Event abstraction and aggregation from raw data",
+      "order": 3,
+      "color": "#5dade2"
+    },
+    {
+      "id": "correlate_cases",
+      "name": "Correlate Cases",
+      "description": "Case correlation and integration of multiple sources",
+      "order": 4,
+      "color": "#af7ac5"
+    },
+    {
+      "id": "apply_mining",
+      "name": "Apply Mining",
+      "description": "Process mining analysis (discovery, conformance, etc.)",
+      "order": 5,
+      "color": "#ec7063"
+    },
+    {
+      "id": "enhance_visualization",
+      "name": "Enhance & Visualize",
+      "description": "Visualization and user-interaction enhancements",
+      "order": 6,
+      "color": "#eb984e"
+    }
+  ],
+  "methods": [
+    {
+      "id": "unstructured-data-slr",
+      "name": "Unstructured Data in Process Mining: A Systematic Literature Review",
+      "pipeline_step": "apply_mining",
+      "short_description": "A comprehensive literature review that identifies and analyzes 24 primary studies on integrating unstructured data (text, image, video, etc.) in process mining. It outlines current approaches and challenges across various pipeline steps, highlighting the need for methods to extract and leverage unstructured data in event logs  .",
+      "algorithm_summary": "This survey systematically categorizes existing methods for including unstructured data in process mining. It defines key challenges such as event abstraction, case correlation, and visualization for unstructured sources. The review discusses solutions like natural language processing for text logs, computer vision for images/videos, and IoT data integration, summarizing their contributions and limitations. It concludes with identified research gaps and future directions for improving end-to-end pipelines  .",
+      "inputs": [
+        "Unstructured data (text, images, videos, etc.)",
+        "Existing literature on process mining"
+      ],
+      "outputs": [
+        "State-of-the-art overview",
+        "Identified challenges and research directions"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "survey"
+      ],
+      "assumptions": [
+        "Covers studies up to early 2025",
+        "Assumes relevance of selected 24 primary studies"
+      ],
+      "limitations": [
+        "Limited by available publications at time of review",
+        "Does not provide new algorithms, only analysis"
+      ],
+      "references": {
+        "paper_title": "Unstructured Data in Process Mining: A Systematic Literature Review",
+        "authors": [
+          "Fabian König",
+          "Andreas Egger",
+          "Wolfgang Kratsch",
+          "Maximilian Röglinger",
+          "Niklas Wördehoff"
+        ],
+        "venue": "ACM Transactions on Management Information Systems",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.1145/3727148"
+      },
+      "artifacts": {},
+      "tags": [
+        "survey",
+        "unstructured data",
+        "literature review"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "survey",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "object-centric-unstructured-architecture",
+      "name": "Refining the Process Picture: Unstructured Data in Object-Centric Process Mining (OCRAUD)",
+      "pipeline_step": "correlate_cases",
+      "short_description": "Introduces OCRAUD, a reference architecture guiding the integration of unstructured data sources (e.g., video, sensor streams) with traditional event logs in object-centric process mining. It instantiates the architecture for video and sensor data, providing a design science artifact to combine multiple data types for a more holistic process analysis  .",
+      "algorithm_summary": "OCRAUD defines a multi-layered architecture to ingest unstructured data alongside structured event logs in an object-centric manner. It outlines steps for data extraction from unstructured sources, mapping those data to process objects and events, and merging them with standard logs. The approach was developed via design science: expert interviews validated the architecture, and a software prototype demonstrated how video analytics (object tracking, activity recognition) and IoT sensor readings can be converted into events and linked to process instances  . The published prototype code supports extending the architecture to other data types.",
+      "inputs": [
+        "Traditional event logs",
+        "Unstructured data (e.g., videos, sensor streams)"
+      ],
+      "outputs": [
+        "Object-centric event logs enriched with unstructured data",
+        "Reference architecture (OCRAUD) documentation",
+        "Prototype implementation"
+      ],
+      "modalities": [
+        "video",
+        "sensor"
+      ],
+      "tasks": [
+        "fusion",
+        "correlation"
+      ],
+      "assumptions": [
+        "Unstructured data can be processed to identify events/objects",
+        "Object types can be derived or defined for unstructured content"
+      ],
+      "limitations": [
+        "Focuses on video and sensor case studies",
+        "Requires domain experts to define object types and validation"
+      ],
+      "references": {
+        "paper_title": "Refining the process picture: Unstructured data in object-centric process mining",
+        "authors": [
+          "Andreas Egger",
+          "Tobias Fehrer",
+          "Wolfgang Kratsch",
+          "Niklas Wördehoff",
+          "Fabian König",
+          "Maximilian Röglinger"
+        ],
+        "venue": "Information Systems (Vol. 134)",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.1016/j.is.2025.102582"
+      },
+      "artifacts": {
+        "code_url": ""
+      },
+      "tags": [
+        "architecture",
+        "object-centric",
+        "video",
+        "sensor",
+        "fusion"
+      ],
+      "related_method_ids": [
+        "unstructured-data-slr"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "pm-unstructured-challenges",
+      "name": "Process Mining for Unstructured Data: Challenges and Research Directions",
+      "pipeline_step": "collect",
+      "short_description": "A position paper discussing the key challenges of applying process mining to unstructured data (such as emails, images, videos, sensor logs) and proposing initial solutions. It introduces a multi-step analysis pipeline (pre-processing, abstraction, case correlation, visualization) for unstructured data and highlights issues like lack of event identifiers, noise, and lower-level granularity  .",
+      "algorithm_summary": "This work does not present a single algorithm but rather outlines a conceptual framework and research agenda. It identifies specific problems: how to transform unstructured data into event logs (requiring extraction and abstraction techniques), how to correlate events without clear case IDs, how to visualize results given uncertainty, and how to ensure trust in analysis outcomes  . The paper surveys state-of-the-art for each pipeline stage, then suggests research directions such as using NLP for text, computer vision for visual data, and new log schemas (e.g., object-centric logs) to capture complex relationships. It calls for interdisciplinary approaches and collaboration to tackle these challenges.",
+      "inputs": [
+        "Unstructured data in various formats",
+        "Existing process mining assumptions (structured logs)"
+      ],
+      "outputs": [
+        "Identified research challenges",
+        "Proposed directions for future research"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "cleaning",
+        "abstraction",
+        "correlation",
+        "visualization"
+      ],
+      "assumptions": [
+        "Unstructured data must be transformed to be process-mining-ready",
+        "Multiple intermediate steps are necessary before mining"
+      ],
+      "limitations": [
+        "No implementation provided, conceptual only",
+        "Solutions are initial and require further research and validation"
+      ],
+      "references": {
+        "paper_title": "Process Mining for Unstructured Data: Challenges and Research Directions",
+        "authors": [
+          "Agnes Koschmider",
+          "Milda Aleknonytė-Resch",
+          "Frederik Fonger",
+          "Christian Imenkamp",
+          "Arvid Lepsien",
+          "Kaan Apaydin",
+          "Maximilian Harms",
+          "Dominik Janssen",
+          "Dominic Langhammer",
+          "Tobias Ziolkowski",
+          "Yorck Zisgen"
+        ],
+        "venue": "Gesellschaft für Informatik e.V.",
+        "year": 2023,
+        "doi_or_url": "https://doi.org/10.18420/modellierung2024_012"
+      },
+      "artifacts": {},
+      "tags": [
+        "challenges",
+        "framework",
+        "pipeline"
+      ],
+      "related_method_ids": [
+        "unstructured-data-slr"
+      ],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "smart-spaces-survey",
+      "name": "A Survey on the Application of Process Mining to Smart Spaces Data",
+      "pipeline_step": "collect",
+      "short_description": "Surveys approaches for applying process mining in smart environments (smart homes, factories, IoT-equipped spaces) and analyzes how they address unique challenges of IoT data. It reviews techniques for data collection from sensors and devices, event correlation across IoT streams, and handling noise and context in smart space logs  .",
+      "algorithm_summary": "The survey categorizes existing work on IoT-enhanced process mining by the type of smart space (e.g., smart manufacturing vs. smart home) and by the challenges addressed (such as event stream preprocessing, multi-perspective data integration, and trace clustering). It identifies that most processes in smart spaces require new methods for filtering sensor noise, correlating events with physical entities, and analyzing continuous sensor readings. The authors highlight that research is still in early stages  , focusing primarily on decision mining using IoT data (Banham et al., 2022, Scheibel and Rinderle-Ma, 2022). They summarize techniques like IoT-specific trace clustering (e.g., TROPIC), IoT-augmented conformance checking, and predictive analytics using sensor data, providing a roadmap for future work in the domain.",
+      "inputs": [
+        "IoT sensor event streams",
+        "Existing process mining frameworks"
+      ],
+      "outputs": [
+        "Categorization of IoT-PM approaches",
+        "Identified challenges in smart spaces context"
+      ],
+      "modalities": [
+        "sensor",
+        "real-time"
+      ],
+      "tasks": [
+        "survey",
+        "fusion",
+        "correlation"
+      ],
+      "assumptions": [
+        "Smart space processes benefit from combining sensor data with event logs",
+        "Challenges like data quality and heterogeneity are critical"
+      ],
+      "limitations": [
+        "Limited number of existing studies (field is emerging)",
+        "Primarily qualitative comparison without benchmarks"
+      ],
+      "references": {
+        "paper_title": "A Survey on the Application of Process Mining to Smart Spaces Data",
+        "authors": [
+          "Yannis Bertrand",
+          "Bram Van den Abbeele",
+          "Silvestro Veneruso",
+          "Francesco Leotta",
+          "Massimo Mecella",
+          "Estefanía Serral"
+        ],
+        "venue": "ICPM Workshops",
+        "year": 2022,
+        "doi_or_url": "https://doi.org/10.1007/978-3-031-23734-8_5"
+      },
+      "artifacts": {},
+      "tags": [
+        "survey",
+        "IoT",
+        "smart spaces"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "survey",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "text2el-plus",
+      "name": "Text2EL+: Expert Guided Event Log Enrichment Using Unstructured Text",
+      "pipeline_step": "preprocess",
+      "short_description": "Proposes a method (Text2EL+) to enrich traditional event logs with information extracted from unstructured textual documents. Domain experts guide the NLP-based extraction of events or attributes from texts (like incident descriptions or notes) to augment the event log, improving its completeness and quality for process mining  .",
+      "algorithm_summary": "Text2EL+ combines natural language processing and expert knowledge to identify process-relevant information in unstructured text. The approach uses text mining techniques (e.g., entity recognition, classification) to suggest events or event attributes (e.g., reasons, comments) that are not recorded in the structured log. An expert then validates or refines these suggestions. The enriched log contains additional events or data fields derived from free text, enabling deeper analysis. The method was evaluated on real logs, demonstrating improved log completeness and accuracy in subsequent process mining tasks  . It leverages domain ontologies and iterative feedback to increase precision.",
+      "inputs": [
+        "Base event log",
+        "Related unstructured texts (e.g., case notes, descriptions)"
+      ],
+      "outputs": [
+        "Augmented event log (with extra events/attributes)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "cleaning"
+      ],
+      "assumptions": [
+        "Relevant process information is present in textual documents associated with cases",
+        "Experts can validate extracted content"
+      ],
+      "limitations": [
+        "Dependent on expert feedback for correctness",
+        "May miss information if phrased unexpectedly (NLP limitations)"
+      ],
+      "references": {
+        "paper_title": "Text2EL+: Expert Guided Event Log Enrichment Using Unstructured Text",
+        "authors": [
+          "Dakshi T. Kapugama Geeganage",
+          "Moe Thandar Wynn",
+          "A.H.M. ter Hofstede"
+        ],
+        "venue": "ACM Journal of Data and Information Quality (JDIQ) 16(1)",
+        "year": 2024,
+        "doi_or_url": "https://doi.org/10.1145/3640018"
+      },
+      "artifacts": {},
+      "tags": [
+        "NLP",
+        "event log enrichment",
+        "text mining"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "video-analytics-pipeline",
+      "name": "Analytics Pipeline for Process Mining on Video Data",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Presents an end-to-end pipeline that converts raw video recordings into structured event logs, enabling process mining on video data. It uses computer vision techniques (object tracking, spatio-temporal action detection) followed by event abstraction methods to identify higher-level events from video frames, which can then be analyzed with standard process mining algorithms  .",
+      "algorithm_summary": "The pipeline consists of multiple stages: (1) Object detection and tracking to identify relevant entities in video frames; (2) Action recognition to detect when certain tasks or activities occur; (3) Temporal aggregation and abstraction to translate low-level detected actions into discrete events (with timestamps and labels); (4) Event log generation mapping these events to case identifiers (if applicable)  . The approach raises the abstraction level of video observations by grouping primitive actions into process-relevant events. In evaluation on an unlabeled video dataset (e.g., surveillance of an animal process), the pipeline successfully extracted meaningful event logs, which were validated by discovering plausible process models  . This validates the feasibility of mining processes directly from video streams.",
+      "inputs": [
+        "Raw video footage of process executions"
+      ],
+      "outputs": [
+        "Extracted event log (cases, activities, timestamps)"
+      ],
+      "modalities": [
+        "video"
+      ],
+      "tasks": [
+        "abstraction",
+        "discovery"
+      ],
+      "assumptions": [
+        "Target activities can be visually observed and recognized in the video",
+        "Video covers a repetitive process that can be modeled"
+      ],
+      "limitations": [
+        "Requires training or configuration of vision models for specific activities",
+        "Noisy or complex scenes may reduce detection accuracy",
+        "Case identification in video may be non-trivial if multiple instances overlap"
+      ],
+      "references": {
+        "paper_title": "Analytics Pipeline for Process Mining on Video Data",
+        "authors": [
+          "Arvid Lepsien",
+          "Agnes Koschmider",
+          "Wolfgang Kratsch"
+        ],
+        "venue": "International Conference on Business Process Management (BPM 2023)",
+        "year": 2023,
+        "doi_or_url": "https://doi.org/10.1007/978-3-031-38720-3_12"
+      },
+      "artifacts": {},
+      "tags": [
+        "video",
+        "event abstraction",
+        "computer vision"
+      ],
+      "related_method_ids": [
+        "pm-unstructured-challenges"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "video-pm-approach",
+      "name": "Process Mining on Video Data (Initial Approach)",
+      "pipeline_step": "collect",
+      "short_description": "An early approach demonstrating how event logs can be derived from video recordings for process analysis. As a proof of concept, it applied process mining techniques on video surveillance data by translating visual observations into discrete events, focusing on feasibility in a controlled use case  .",
+      "algorithm_summary": "This work outlines a preliminary pipeline to capture process behavior from videos. It involves manually or semi-automatically identifying key frames or video segments corresponding to process steps, then labeling these as events. The approach was applied to a use case (e.g., monitoring an environment via CCTV) to create an event log, which was then used to discover a process model . The results indicated that even without sophisticated automation, useful process patterns (like frequent sequences of actions) could be extracted from video data . This work paved the way for later automated pipelines by highlighting challenges such as video annotation, event timing extraction, and the need for robust action recognition.",
+      "inputs": [
+        "Video data (surveillance footage)"
+      ],
+      "outputs": [
+        "Manually constructed event log from video"
+      ],
+      "modalities": [
+        "video"
+      ],
+      "tasks": [
+        "discovery"
+      ],
+      "assumptions": [
+        "Human analysts can interpret video to identify events",
+        "Process has visible cues in video"
+      ],
+      "limitations": [
+        "Labor-intensive if done manually",
+        "Limited scalability and accuracy without automation",
+        "Potential subjectivity in identifying events"
+      ],
+      "references": {
+        "paper_title": "Process Mining on Video Data",
+        "authors": [
+          "Arvid Lepsien",
+          "Jan Bosselmann",
+          "Agnes Koschmider",
+          "Andreas Melfsen"
+        ],
+        "venue": "ICPM Workshop (CEUR-WS)",
+        "year": 2022,
+        "doi_or_url": "https://ceur-ws.org/Vol-2703/paper9.pdf"
+      },
+      "artifacts": {},
+      "tags": [
+        "video",
+        "feasibility study"
+      ],
+      "related_method_ids": [
+        "video-analytics-pipeline"
+      ],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "multimodal-log-fusion",
+      "name": "Enriching Business Process Event Logs with Multimodal Evidence",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Introduces an approach to create process mining-ready event logs by integrating multiple modalities (textual, visual, auditory, and sensor data). It addresses blind spots of single-source logs by fusing evidence from various data forms into a unified event representation, emphasizing privacy, performance, and avoiding AI hallucinations in the generated logs  .",
+      "algorithm_summary": "The approach defines a pipeline where different modalities of data capturing the same process (e.g., video demonstrations, audio of clicks, depth sensor readings, textual instructions) are processed and aligned to produce a more complete event log. Key steps include: (1) Modality-specific event extraction (e.g., recognizing actions from video, sounds from audio, etc.); (2) Timestamp alignment and synchronization of events across modalities; (3) Fusion of events ensuring consistency and minimal redundancy  . The approach also incorporates mechanisms to preserve privacy by processing raw evidence in a controlled manner and uses strategies to mitigate false events (hallucinations) from AI components. The resulting multimodal log provides a holistic view of the process, which was shown to uncover process steps that would be missed by any single modality alone  .",
+      "inputs": [
+        "Multimodal recordings of a process (video, audio, sensor, etc.)"
+      ],
+      "outputs": [
+        "Integrated event log covering all modalities"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "fusion",
+        "abstraction"
+      ],
+      "assumptions": [
+        "Different data modalities can be temporally aligned",
+        "All modalities observe aspects of the same underlying cases"
+      ],
+      "limitations": [
+        "Complex alignment logic needed for high-frequency data",
+        "Possible information loss when merging modalities",
+        "Requires careful handling of modality-specific noise"
+      ],
+      "references": {
+        "paper_title": "Enriching Business Process Event Logs with Multimodal Evidence",
+        "authors": [
+          "Aleksandar Gavric",
+          "Dominik Bork",
+          "Hendrik A. Proper"
+        ],
+        "venue": "IFIP PoEM 2023 Companion (Demo Track)",
+        "year": 2023,
+        "doi_or_url": "https://ceur-ws.org/Vol-3648/paper_6887.pdf"
+      },
+      "artifacts": {},
+      "tags": [
+        "multimodal",
+        "fusion",
+        "event log generation"
+      ],
+      "related_method_ids": [],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "edge-miner",
+      "name": "EdgeMiner: Distributed Process Mining at the Data Sources",
+      "pipeline_step": "apply_mining",
+      "short_description": "Proposes a novel distributed process discovery algorithm (EdgeMiner) that operates directly on IoT sensor nodes in real-time. Instead of centralizing event data, each sensor node locally tracks and aggregates the successor relationships of events, enabling process models to be mined at the edge, which improves scalability and privacy for high-volume IoT event streams  .",
+      "algorithm_summary": "EdgeMiner modifies the traditional α-algorithm style discovery by pushing computation to the edge: Each sensor device maintains links between events it generates and subsequent events observed either locally or in its neighbors. The algorithm ensures that as events occur, their directly-follows relationships are recorded on the sensing node without sending all raw data to a central server  . Periodically or on query, the distributed network of nodes can assemble a global process model by combining these local successor counts. Analytical and experimental evaluation showed that EdgeMiner correctly identifies process order relations while drastically reducing central communication (up to 96% less data sent)  . The approach handles event streams and is resilient to delays by local buffering, making it suitable for real-time, large-scale IoT environments.",
+      "inputs": [
+        "Stream of events from distributed IoT sensors"
+      ],
+      "outputs": [
+        "Discovered process model (e.g., directly-follows graph)"
+      ],
+      "modalities": [
+        "sensor",
+        "real-time"
+      ],
+      "tasks": [
+        "discovery"
+      ],
+      "assumptions": [
+        "Each event's immediate successor can be identified locally or via minimal communication",
+        "Process does not require global state to detect control flow"
+      ],
+      "limitations": [
+        "Focuses on control-flow discovery (not other perspectives)",
+        "Assumes a mostly acyclic process or manageable concurrency for local reasoning",
+        "Requires sensor nodes to have computation and storage capability"
+      ],
+      "references": {
+        "paper_title": "EdgeMiner: Distributed Process Mining at the Data Sources",
+        "authors": [
+          "Julia Andersen",
+          "Patrick Rathje",
+          "Christian Imenkamp",
+          "Agnes Koschmider",
+          "Olaf Landsiedel"
+        ],
+        "venue": "arXiv Preprint",
+        "year": 2024,
+        "doi_or_url": "https://doi.org/10.48550/arXiv.2405.03426"
+      },
+      "artifacts": {},
+      "tags": [
+        "IoT",
+        "distributed",
+        "process discovery",
+        "edge computing"
+      ],
+      "related_method_ids": [
+        "smart-spaces-survey"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "iot-online-detection",
+      "name": "Online Detection of Process Activity Executions from IoT Sensors",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Describes a framework for real-time event abstraction from IoT sensor streams using automatically generated Complex Event Processing (CEP) rules. It converts low-level, high-frequency sensor signals into high-level process activities on-the-fly, allowing live monitoring and analysis of physical processes (e.g., in smart factories or healthcare)  .",
+      "algorithm_summary": "The framework automatically derives CEP patterns that detect when a sensor data sequence corresponds to a known process activity. It avoids heavy supervised learning by analyzing sensor metadata and simple unsupervised techniques to propose detection rules. A flexible software architecture deploys these rules on a stream processing engine to flag activity start/completion events in real-time  . The system is extensible, allowing minimal human input to define new activity templates. In evaluations on manufacturing and healthcare scenarios, the approach achieved high throughput and acceptable accuracy for activities with distinct sensor signatures  . It also identified limitations when activities have variable sensor patterns, suggesting further improvements like adaptive rule refinement for increased robustness.",
+      "inputs": [
+        "Raw IoT sensor data streams"
+      ],
+      "outputs": [
+        "Real-time detected activity events (with case/context identifiers)"
+      ],
+      "modalities": [
+        "sensor",
+        "real-time"
+      ],
+      "tasks": [
+        "abstraction",
+        "cleaning"
+      ],
+      "assumptions": [
+        "Activities of interest have recognizable sensor data patterns",
+        "Sensors are properly calibrated and aligned with process steps"
+      ],
+      "limitations": [
+        "Best for activities with low variability in sensor signals",
+        "Struggles with complex or overlapping activities without distinct signals",
+        "Requires initial configuration or mapping of sensors to process context"
+      ],
+      "references": {
+        "paper_title": "Online detection of process activity executions from IoT sensors using generated event processing services",
+        "authors": [
+          "Ronny Seiger",
+          "Aaron F. Kurz",
+          "Marco Franceschetti"
+        ],
+        "venue": "Future Generation Computer Systems, vol. 174",
+        "year": 2026,
+        "doi_or_url": "https://doi.org/10.1016/j.future.2025.107987"
+      },
+      "artifacts": {
+        "code_url": "",
+        "dataset_url": ""
+      },
+      "tags": [
+        "IoT",
+        "event abstraction",
+        "complex event processing"
+      ],
+      "related_method_ids": [
+        "smart-spaces-survey"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "tropiccal-clustering",
+      "name": "TROPICCAL: Multi-perspective Trace Clustering for IoT-enhanced Processes",
+      "pipeline_step": "apply_mining",
+      "short_description": "Introduces TROPICCAL, an enhanced trace clustering technique that incorporates IoT time-series data into process instance clustering. It extends the earlier TROPIC approach by adding context event extraction from sensor data and providing explainable cluster characterizations, yielding more insightful variants for IoT-augmented processes  .",
+      "algorithm_summary": "TROPICCAL clusters process traces by jointly considering: (1) Control-flow perspective (activity sequence similarity); (2) Trace attributes (case-level data); and (3) IoT time-series perspective, including automatically detected context events from sensor readings  . A new contribution is identifying 'context events' in continuous sensor data that signal significant moments (e.g., threshold crossings) relevant to the process. These context events are appended to traces. The approach then performs clustering (using distance measures combining all three perspectives) to group traces into variants. Additionally, TROPICCAL employs permutation feature importance to explain which attributes or sensor-derived features drive each cluster formation  . In a real smart manufacturing use case, TROPICCAL produced clusters aligned with known process scenarios and provided understandable explanations (via key sensor patterns) for each variant  .",
+      "inputs": [
+        "Event log with IoT sensor data (per event or per case)",
+        "Continuous sensor readings"
+      ],
+      "outputs": [
+        "Clusters of process traces (variants)",
+        "Explanation of cluster differences"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "fusion",
+        "discovery"
+      ],
+      "assumptions": [
+        "Process outcomes or behaviors correlate with sensor patterns",
+        "Sufficient sensor data per trace to differentiate contexts"
+      ],
+      "limitations": [
+        "Focused on processes with numerical time-series context",
+        "Clustering quality depends on correct context event extraction",
+        "Needs expert validation to interpret cluster explanations"
+      ],
+      "references": {
+        "paper_title": "TROPICCAL: Multi-perspective trace clustering for IoT-enhanced processes",
+        "authors": [
+          "Yannis Bertrand",
+          "Jochen De Weerdt",
+          "Estefanía Serral"
+        ],
+        "venue": "Computers in Industry, vol. 134",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.1016/j.compind.2025.104419"
+      },
+      "artifacts": {},
+      "tags": [
+        "trace clustering",
+        "IoT",
+        "explainability"
+      ],
+      "related_method_ids": [
+        "smart-spaces-survey"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "iot-data-quality-issues",
+      "name": "Defining Data Quality Issues in Process Mining with IoT Data",
+      "pipeline_step": "preprocess",
+      "short_description": "Identifies and categorizes common data quality issues that arise when combining IoT sensor data with event logs for process mining. It discusses issues like noise, missing sensor readings, timestamp misalignments, and context uncertainty, highlighting their impact on process mining results and how existing techniques cope with them  .",
+      "algorithm_summary": "This work does not propose an algorithm but provides a taxonomy of IoT-related data quality problems and preliminary solutions. Key issues include: (1) Sensor Noise and Outliers – erratic readings causing false events; (2) Missing Data – sensors offline or not recording certain events; (3) Time Drift – clock differences leading to misordered events; (4) Context Mismatch – sensor events that are hard to map to business process context. For each category, the paper discusses detection strategies (e.g., statistical filters for noise, interpolation for missing values) and remediation or logging strategies (e.g., extending XES with attributes to mark uncertain or estimated data)  . It emphasizes that high data quality is crucial for trustable process mining outcomes and suggests extending event log standards (like with an IoT extension) to explicitly handle these issues.",
+      "inputs": [
+        "IoT-enhanced event logs (raw)"
+      ],
+      "outputs": [
+        "Data quality issue definitions",
+        "Recommendations for quality handling"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "cleaning",
+        "uncertainty"
+      ],
+      "assumptions": [
+        "IoT data is imperfect and needs cleaning before mining",
+        "Data quality issues can be systematically categorized"
+      ],
+      "limitations": [
+        "Conceptual framework without a single integrated solution",
+        "Further empirical validation needed on large datasets"
+      ],
+      "references": {
+        "paper_title": "Defining Data Quality Issues in Process Mining with IoT Data",
+        "authors": [
+          "Yannis Bertrand",
+          "Rafaël Van Belle",
+          "Jochen De Weerdt",
+          "Estefanía Serral"
+        ],
+        "venue": "ICPM Workshops",
+        "year": 2022,
+        "doi_or_url": "https://doi.org/10.1007/978-3-031-22472-0_36"
+      },
+      "artifacts": {},
+      "tags": [
+        "IoT",
+        "data quality",
+        "event log"
+      ],
+      "related_method_ids": [
+        "sensorstream-extension",
+        "iot-dataset-quality-issues"
+      ],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "sensorstream-extension",
+      "name": "SensorStream: An XES Extension for Enriching Event Logs with IoT-Sensor Data",
+      "pipeline_step": "collect",
+      "short_description": "Proposes an extension to the XES event log standard (SensorStream) to incorporate IoT sensor data alongside traditional event attributes. This extension defines a schema for embedding time-series and sensor readings into event logs, facilitating reusability and standard processing of IoT-enhanced logs  .",
+      "algorithm_summary": "SensorStream is a conceptual and technical extension that adds new XES global classes and attributes to represent sensor information (e.g., sensor IDs, readings, units, and sampling intervals) within an event log. It allows linking multiple sensor readings or time-series segments to individual events or cases. By formalizing how IoT data should appear in an event log, the extension enables existing process mining tools to recognize and optionally filter or utilize these data. The extension was validated by converting a real IoT dataset into XES with the new schema and ensuring it remained compatible with process mining software. It lays the groundwork for developing mining algorithms that can directly understand sensor-enriched logs without custom preprocessing  .",
+      "inputs": [
+        "IoT sensor data streams",
+        "Standard event log structure"
+      ],
+      "outputs": [
+        "XES event logs with embedded sensor data"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "fusion",
+        "correlation"
+      ],
+      "assumptions": [
+        "Process analysts want to enrich logs with raw or processed sensor data",
+        "Standardization will improve tool support for IoT data"
+      ],
+      "limitations": [
+        "Needs adoption in tools to be useful",
+        "Does not solve how to interpret the data, only how to include it"
+      ],
+      "references": {
+        "paper_title": "SensorStream: An XES Extension for Enriching Event Logs with IoT-Sensor Data",
+        "authors": [
+          "Yannis Bertrand",
+          "et al."
+        ],
+        "venue": "CoRR arXiv Preprint",
+        "year": 2022,
+        "doi_or_url": "https://arxiv.org/abs/2206.11392"
+      },
+      "artifacts": {},
+      "tags": [
+        "XES extension",
+        "standard",
+        "IoT"
+      ],
+      "related_method_ids": [
+        "iot-data-quality-issues",
+        "iot-log-standards"
+      ],
+      "maturity": "emerging",
+      "automation_level": "manual",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "llm-legal-log-enrichment",
+      "name": "Leveraging Process Mining and Event Log Enrichment in Public Procurement (LLM-aided)",
+      "pipeline_step": "preprocess",
+      "short_description": "A case study in public procurement processes where process mining is combined with AI techniques to extract missing events from legal documents. It uses Large Language Models (LLMs) to analyze unstructured legal text (tender documents, legislation) to identify events and deadlines, augmenting the event logs for compliance checking and performance analysis  .",
+      "algorithm_summary": "The methodology involved feeding contract and procurement documents into an NLP pipeline powered by a GPT-based LLM, which was tuned to find mentions of relevant procedural steps and dates (e.g., bid submission, evaluation milestones) in text  . These extracted events were then integrated into the existing process log of procurement cases. Human legal experts oversaw the mapping of extracted information to event types to ensure correctness. The enriched logs were then used for process mining analysis, revealing bottlenecks and timeline compliance issues that wouldn't be apparent without the text-derived events  . The results showed improved detection of delays and regulatory compliance checks in a multi-country dataset of tenders. This approach highlights the value of text analytics in domains where not all process steps are digitized in structured logs.",
+      "inputs": [
+        "Partial event logs from e-procurement systems",
+        "Unstructured legal texts (contracts, regulations, correspondence)"
+      ],
+      "outputs": [
+        "Enhanced event logs with events/dates extracted from text"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "conformance"
+      ],
+      "assumptions": [
+        "Legal texts contain references to process milestones",
+        "LLMs can accurately interpret domain-specific language with some guidance"
+      ],
+      "limitations": [
+        "LLM outputs require careful validation due to possibility of errors (hallucinations)",
+        "Domain adaptation needed for legal vocabulary",
+        "Focus on compliance timeline, might not capture all process details"
+      ],
+      "references": {
+        "paper_title": "Leveraging process mining and event log enrichment in European public procurement analysis: a case study",
+        "authors": [
+          "Roberto Nai",
+          "Emilio Sulis",
+          "Davide Audrito",
+          "Vittoria M.S. Trifiletti",
+          "Rosa Meo",
+          "Laura Genga"
+        ],
+        "venue": "Computer Law & Security Review, 57",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.1016/j.clsr.2025.106144"
+      },
+      "artifacts": {},
+      "tags": [
+        "LLM",
+        "public sector",
+        "legal process",
+        "event extraction"
+      ],
+      "related_method_ids": [
+        "text2el-plus"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "case study",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "screenshot-task-mining",
+      "name": "Screenshot-Based Task Mining Framework (UI Log Enhancement)",
+      "pipeline_step": "apply_mining",
+      "short_description": "A framework that enriches user interaction (UI) logs with screenshot-derived features to uncover decision drivers in user behavior. By analyzing screenshots taken at each UI event, it identifies which on-screen elements influence the choices users make (which task variant to follow), providing explainable insights into human-in-the-loop processes  .",
+      "algorithm_summary": "The framework captures a screenshot for every recorded UI event (click, keystroke, etc.). Computer vision techniques then extract visual features or identify UI elements (buttons, fields) present in the screenshot. By correlating these elements with the variation in subsequent user actions, the approach applies decision tree learning to model how screen context drives user decisions  . The decision tree is presented back to analysts with highlighted UI elements that serve as split criteria, making it clear, for example, that 'if a certain checkbox is visible, the user chooses path A vs B'. This provides a decision model overlay on the discovered process model. An evaluation showed that even with small logs, the approach could achieve high accuracy in explaining variant choices, though complex screens with many elements pose challenges  .",
+      "inputs": [
+        "User interaction log (clickstream with timestamps)",
+        "Screenshots corresponding to each interaction"
+      ],
+      "outputs": [
+        "Decision tree model explaining task variant choices",
+        "Visual highlights of influential UI elements"
+      ],
+      "modalities": [
+        "image",
+        "text"
+      ],
+      "tasks": [
+        "discovery",
+        "visualization"
+      ],
+      "assumptions": [
+        "Screens at decision points have discernible differences that correlate with user decisions",
+        "Basic OCR or element detection can identify key UI components"
+      ],
+      "limitations": [
+        "May not scale if screenshots have dynamic content or require deep understanding",
+        "Assumes one screenshot per action; missed screenshots break the chain",
+        "Focused on binary or categorical decisions, complex multi-step logic might need more advanced models"
+      ],
+      "references": {
+        "paper_title": "A screenshot-based task mining framework for disclosing the drivers behind variable human actions",
+        "authors": [
+          "Antonio Martínez-Rojas",
+          "Antonio Jiménez-Ramírez",
+          "Jorge G. Enríquez",
+          "Hajo A. Reijers"
+        ],
+        "venue": "Information Systems, 121",
+        "year": 2024,
+        "doi_or_url": "https://doi.org/10.1016/j.is.2023.102340"
+      },
+      "artifacts": {},
+      "tags": [
+        "task mining",
+        "user interaction",
+        "computer vision"
+      ],
+      "related_method_ids": [
+        "ui-logs-reference-model"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "visual-resource-analytics",
+      "name": "Enhancing Process Mining with Visual Resource Analytics",
+      "pipeline_step": "enhance_visualization",
+      "short_description": "Presents a technique for visual analytics of the resource perspective in process mining. It integrates four resource-related metrics (allocation, performance, workload, capacity) and provides interactive visualizations and process model overlays to help analysts identify bottlenecks and inefficiencies related to human or machine resources in a process  .",
+      "algorithm_summary": "The approach first computes various resource metrics from event logs (e.g., how tasks are allocated to resources, execution times per resource, concurrent workload, and utilization rates). It then introduces custom visualization components: for example, a heatmap calendar showing workload distribution, a graph overlay on the process model indicating capacity utilization at each activity, and interactive filters to drill down by resource  . The technique integrates these views so an analyst can cross-reference performance with allocation patterns. A user evaluation found that this visual approach improved accuracy in identifying resource-related issues versus looking at numeric outputs alone . Essentially, it extends process mining beyond control-flow by giving an intuitive visual summary of resource dynamics throughout the process.",
+      "inputs": [
+        "Event log with resource attributes (e.g., resource IDs on events)"
+      ],
+      "outputs": [
+        "Interactive dashboard of resource analytics (charts and annotated process model)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "visualization",
+        "discovery"
+      ],
+      "assumptions": [
+        "Resource information in logs is reliable (who did what and when)",
+        "Resource performance metrics can be derived from timestamps and context"
+      ],
+      "limitations": [
+        "Primarily diagnostic, does not automatically optimize resource allocation",
+        "Effectiveness depends on users interpreting visuals correctly",
+        "Focuses on four metric types; other aspects like skills or cost not directly addressed"
+      ],
+      "references": {
+        "paper_title": "Enhancing process mining with visual resource analytics",
+        "authors": [
+          "Alana Hoogmoed",
+          "Djordje Djurica",
+          "Maxim Vidgof",
+          "Christoffer Rubensson",
+          "Jan Mendling"
+        ],
+        "venue": "Software and Systems Modeling",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.1007/s10270-025-01315-z"
+      },
+      "artifacts": {},
+      "tags": [
+        "resource analysis",
+        "visualization",
+        "user study"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "tool",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "activity-discovery-text",
+      "name": "Activity Discovery Tool (ADT) for Unstructured Textual Records",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "A tool (ADT) that locally analyzes confidential textual communication records (like emails or ticket comments) to discover process activities in an unsupervised manner. It converts these unstructured texts into structured event logs containing the activities (and related data) discussed, which can then augment a global process view without exposing sensitive content  .",
+      "algorithm_summary": "ADT operates on free-form text belonging to a single user or a small group. It uses pattern mining and NLP to identify recurring phrases or sentences that likely correspond to actions (activities). Key steps: (1) Preprocess text (remove personal/sensitive info, tokenize); (2) Frequent pattern extraction to find candidate activity descriptions; (3) Clustering and synonym detection to consolidate different phrasings of the same activity  ; (4) Generate a structured local event log with these activities, including inferred case identifiers or timestamps if available. The tool is designed to run on the user's machine, addressing privacy by never sharing raw text. In a scenario example, ADT successfully revealed hidden process fragments (subprocesses conducted via email) that, when merged with system logs, gave a more complete process model  . This demonstrates how unstructured communication can be tapped for process insights while preserving confidentiality.",
+      "inputs": [
+        "Unstructured textual communication logs (emails, notes)"
+      ],
+      "outputs": [
+        "Local structured event log (activity labels with limited metadata)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "cleaning"
+      ],
+      "assumptions": [
+        "Process-related actions are described via recurring language patterns in text",
+        "Single-user or small-group scope allows meaningful local analysis"
+      ],
+      "limitations": [
+        "The discovered log may lack complete case or timestamp information (if not in text)",
+        "Relies on repeated textual patterns; one-off unique activities might be missed",
+        "Manual review may be needed to map discovered activities to global process context"
+      ],
+      "references": {
+        "paper_title": "Activity Discovery Tool From Unstructured Data To Enhance Process Mining (Extended Abstract)",
+        "authors": [
+          "Marwa Elleuch",
+          "Christophe Maillard",
+          "Olivier Graille",
+          "Sonia Laurent",
+          "Oumaima A. Ismaili",
+          "Philippe Legay"
+        ],
+        "venue": "ICPM 2023 Demo Track (CEUR-WS Vol-3648)",
+        "year": 2023,
+        "doi_or_url": "https://ceur-ws.org/Vol-3648/paper_6887.pdf"
+      },
+      "artifacts": {},
+      "tags": [
+        "text mining",
+        "email",
+        "privacy"
+      ],
+      "related_method_ids": [
+        "email-process-fragments"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "tool",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "itsm-text-mining",
+      "name": "Enhancing IT Service Management Through Process Mining (Text-Based Approach)",
+      "pipeline_step": "collect",
+      "short_description": "Combines text mining and process mining to analyze IT support processes documented in service tickets. Provides a method to extract an \"activity catalog\" from unstructured ticket descriptions (customer interactions) and generate event logs from service documentation, offering valuable insights into service processes and highlighting challenges related to data quality in digital analytics  .",
+      "algorithm_summary": "The approach first surveys existing techniques, then proposes a pipeline where textual descriptions in IT support tickets (which often detail steps taken by support agents) are parsed to identify distinct support activities. It uses keyword extraction and clustering to form an activity catalog (a set of common actions) and then parses individual ticket narratives to sequence these actions for each ticket, essentially reconstructing an event log for each support case  . This log is analyzed to find frequent patterns and bottlenecks in support workflows. The case study involved feeding thousands of ticket texts through the pipeline, resulting in logs that, when mined, unveiled process variations and data quality issues (like incomplete documentation) in the support process. Challenges encountered include jargon, inconsistent granularity in descriptions, and data quality of textual fields, which are discussed along with solutions like text pre-processing and using domain ontologies.",
+      "inputs": [
+        "IT support ticket texts",
+        "(Optional) baseline event log from ITSM tool"
+      ],
+      "outputs": [
+        "Extracted activity catalog",
+        "Event log of support process per ticket"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "cleaning",
+        "discovery"
+      ],
+      "assumptions": [
+        "Support agents describe their actions in tickets in semi-structured way",
+        "Recurring support tasks can be identified via text patterns"
+      ],
+      "limitations": [
+        "Highly variable language can reduce accuracy of extraction",
+        "The approach still needs manual tuning per domain (e.g., specific product terminology)",
+        "Focus is on retrospective analysis of completed tickets, not real-time"
+      ],
+      "references": {
+        "paper_title": "Enhancing IT Service Management Through Process Mining – A Digital Analytics Perspective on Documented Customer Interactions",
+        "authors": [
+          "Philipp Reinhard",
+          "Mahei M. Li",
+          "Christoph Peters",
+          "Alexander Theobald",
+          "Jan Marco Leimeister"
+        ],
+        "venue": "In: Digital Analytics im Dienstleistungsmanagement (Springer Chapter)",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.1007/978-3-658-48325-8_11"
+      },
+      "artifacts": {},
+      "tags": [
+        "ITSM",
+        "text mining",
+        "service process"
+      ],
+      "related_method_ids": [
+        "text2el-plus"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "multimodal-ppm-review",
+      "name": "From Logs to Language and Vision: Integrating Multimodal Data into Predictive Process Monitoring",
+      "pipeline_step": "apply_mining",
+      "short_description": "A comprehensive review (2026) focusing on how predictive process monitoring (PPM) methods incorporate multimodal data sources (textual narratives, visual information, etc.). It highlights that most current PPM models rely only on structured event logs and discusses recent advances where unstructured data (like textual case descriptions or images) are fused to improve prediction accuracy of process outcomes  .",
+      "algorithm_summary": "The review first outlines the baseline of PPM, which forecasts future process behavior from past events. It then identifies categories of multimodal integration: e.g., combining event logs with textual data (using embeddings or LLMs to encode text as features), or including image/video features for processes with visual steps. It summarizes about a dozen key works, their methods (such as early fusion vs. late fusion of data modalities), and performance improvements. One finding is that incorporating language (like textual case data) can significantly enhance predictions in customer service processes by providing context not in logs. It also notes challenges: data alignment, high dimensionality, and model complexity. The review concludes with recommendations for building datasets and benchmarks that include rich modalities for the PPM community  .",
+      "inputs": [
+        "Research papers on predictive monitoring with unstructured data"
+      ],
+      "outputs": [
+        "Categorization of multimodal PPM methods",
+        "Insights on performance gains and challenges"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "survey",
+        "prediction"
+      ],
+      "assumptions": [
+        "Combining more data types can improve prediction if done properly",
+        "Advances in AI (embeddings, deep learning) are key enablers for multimodal PPM"
+      ],
+      "limitations": [
+        "Field is very new – limited number of empirical studies available",
+        "Survey may quickly be outpaced by emerging methods (fast evolving area)"
+      ],
+      "references": {
+        "paper_title": "From Logs to Language and Vision: A Review on Integrating Multimodal Data into Predictive Process Monitoring",
+        "authors": [
+          "Alina Hafner",
+          "Noah Kim",
+          "Henrik Leopold",
+          "Helmut Wittges"
+        ],
+        "venue": "59th Hawaii International Conference on System Sciences (HICSS)",
+        "year": 2026,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "predictive monitoring",
+        "multimodal",
+        "survey"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "survey",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "iot-decision-mining",
+      "name": "Decision Mining with IoT Time-Series Data (Feature-based)",
+      "pipeline_step": "apply_mining",
+      "short_description": "Explores how to discover decision rules in processes by leveraging IoT sensor time-series data. The approach automatically extracts features from time-series (e.g., temperature thresholds reached) and integrates them into decision mining algorithms to find rules that explain branching or outcomes in a process based on sensor readings  .",
+      "algorithm_summary": "The method extends traditional decision mining (which typically uses case data attributes) by incorporating features derived from continuous sensor data. It uses automatic feature extraction techniques on time-series (such as global statistics, pattern detection, interval features) to create candidate variables  . These are then fed into a decision rule discovery algorithm (like a decision tree or rule mining algorithm) alongside normal case attributes. For example, in a manufacturing process, features like 'Max vibration level during activity X' or 'Temperature drop below Y before step Z' might be identified as predictors of whether a quality check passes or which path is taken. Scheibel & Rinderle-Ma's evaluation showed that including such sensor-based features improved the explainability of decisions in an assembly process, unveiling rules that purely IT-system data couldn't capture (e.g., a certain pressure pattern leads to rework)  .",
+      "inputs": [
+        "Event logs with case IDs",
+        "Associated IoT sensor time-series data per case"
+      ],
+      "outputs": [
+        "Discovered decision rules linking sensor patterns to process decisions"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "prediction",
+        "discovery"
+      ],
+      "assumptions": [
+        "Sensor data can be aligned to cases and process steps",
+        "Process outcomes or choices are influenced by measurable sensor conditions"
+      ],
+      "limitations": [
+        "Feature explosion risk – many irrelevant features if not pruned",
+        "May require large training set for reliable rule induction",
+        "Focuses on deterministic decision points (probabilistic relationships harder to capture)"
+      ],
+      "references": {
+        "paper_title": "Decision Mining with Time Series Data Based on Automatic Feature Extraction",
+        "authors": [
+          "Beate Scheibel",
+          "Stefanie Rinderle-Ma"
+        ],
+        "venue": "International Conference on Business Process Management (BPM Workshops)",
+        "year": 2022,
+        "doi_or_url": "https://doi.org/10.1007/978-3-031-07472-1_1"
+      },
+      "artifacts": {},
+      "tags": [
+        "decision mining",
+        "IoT",
+        "time series"
+      ],
+      "related_method_ids": [
+        "tropiccal-clustering"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "industry4.0-iot-vision",
+      "name": "On the Application of Process Management and Mining to Industry 4.0 (Vision Paper)",
+      "pipeline_step": "collect",
+      "short_description": "A vision paper outlining how raw data from Industrial IoT (IIoT) devices can be utilized in a top-down (process modeling) and bottom-up (process mining) manner to achieve agile and resilient Industry 4.0 processes. It argues for combining process automation synthesis with mining insights from sensor data to adapt quickly to disruptions and changes  .",
+      "algorithm_summary": "The paper presents a conceptual framework rather than a specific algorithm. It suggests that in Industry 4.0 settings, sensors continuously monitor production, providing raw streams that can be mined to detect deviations or improvement opportunities. A top-down component uses model-driven engineering to design processes that incorporate flexibility, while a bottom-up component uses process mining on IoT data to suggest optimizations or trigger adaptations  . For example, if mining reveals a particular machine frequently causes delays when temperature exceeds a threshold, the top-down model could incorporate a rule to perform maintenance or load balancing. The integration of BPM (Business Process Management) with IIoT data is proposed through an architecture that feeds mined patterns into simulation and re-synthesis of processes. While mostly conceptual, the paper underscores the importance of bridging IoT data with process adaptability, serving as a blueprint for future implementations.",
+      "inputs": [
+        "Raw IIoT sensor event streams",
+        "Initial process models"
+      ],
+      "outputs": [
+        "Visionary framework (conceptual architecture)",
+        "Example adaptation scenarios"
+      ],
+      "modalities": [
+        "sensor",
+        "real-time"
+      ],
+      "tasks": [
+        "discovery",
+        "prediction",
+        "conformance"
+      ],
+      "assumptions": [
+        "Sufficient sensors cover critical aspects of the process",
+        "Real-time mining can inform timely adjustments"
+      ],
+      "limitations": [
+        "No implemented system yet – theoretical discussion",
+        "Challenges like real-time processing and model reconciliation are acknowledged but not solved here"
+      ],
+      "references": {
+        "paper_title": "On the application of process management and process mining to Industry 4.0",
+        "authors": [
+          "Flavia Monti",
+          "Jerin George Mathew",
+          "Francesco Leotta",
+          "Agnes Koschmider",
+          "Massimo Mecella"
+        ],
+        "venue": "Software and Systems Modeling (Vision Paper)",
+        "year": 2024,
+        "doi_or_url": "https://doi.org/10.1007/s10270-024-01175-z"
+      },
+      "artifacts": {},
+      "tags": [
+        "Industry 4.0",
+        "IoT",
+        "agility",
+        "vision"
+      ],
+      "related_method_ids": [
+        "edge-miner",
+        "iot-online-detection"
+      ],
+      "maturity": "emerging",
+      "automation_level": "manual",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "iot-log-standards",
+      "name": "Assessing the Suitability of Event Log Standards for IoT-Enhanced Logs",
+      "pipeline_step": "collect",
+      "short_description": "Evaluates existing process mining event log standards (like XES) in the context of IoT-enhanced event logs. The study assesses which standard attributes or structures fail to capture IoT-specific information and which extensions or modifications would be necessary to support rich sensor data (e.g., multiple time stamps, object references) within event logs  .",
+      "algorithm_summary": "The authors compare a set of real or hypothetical IoT-augmented process logs against the capabilities of XES and other common formats. Findings include that XES, in its base form, lacks constructs for time-series data, uncertain timestamps, and multiple case associations per event (as needed in object-centric or IoT contexts). It specifically notes that IoT events often involve multiple entities (objects) and continuous data that doesn't fit well into single discrete events . The paper likely motivates the development of an XES extension (which became SensorStream) by documenting these gaps. For example, a case where an event should carry a sensor signal series requires either storing it as an external reference or not at all in current standards. The authors conclude that while XES is extensible, a community effort is needed to formally define IoT-related extensions so that tools can uniformly handle such logs.",
+      "inputs": [
+        "Standard event log schemas",
+        "Example IoT-enhanced logs"
+      ],
+      "outputs": [
+        "Analysis of schema fit/gaps",
+        "Recommendations for log standard extensions"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "correlation",
+        "uncertainty"
+      ],
+      "assumptions": [
+        "Standard logging formats should evolve to accommodate new data types",
+        "IoT data will be increasingly common in event logs"
+      ],
+      "limitations": [
+        "Does not provide an actual new standard (analysis only)",
+        "Limited to specific standards (mostly XES) and might not consider others like OCEL beyond passing"
+      ],
+      "references": {
+        "paper_title": "Assessing the Suitability of Traditional Event Log Standards for IoT-Enhanced Event Logs",
+        "authors": [
+          "Yannis Bertrand",
+          "Jochen De Weerdt",
+          "Estefanía Serral"
+        ],
+        "venue": "BPM Workshops",
+        "year": 2022,
+        "doi_or_url": "https://doi.org/10.1007/978-3-031-08482-9_6"
+      },
+      "artifacts": {},
+      "tags": [
+        "IoT",
+        "event log standard",
+        "XES"
+      ],
+      "related_method_ids": [
+        "sensorstream-extension"
+      ],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "survey",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "ui-logs-reference-model",
+      "name": "Process-Related User Interaction Logs: State of the Art, Reference Model, and OC Implementation",
+      "pipeline_step": "collect",
+      "short_description": "Provides a state-of-the-art review of user interaction (UI) logs (from RPA tools, task mining, etc.), and proposes a unified reference data model for UI logs. It includes core attributes like UI element, action type, timestamp, and optionally links to multiple objects (for object-centric event data). Implementations of this model in XES and an object-centric event log format are provided to demonstrate standardization of UI log capture  .",
+      "algorithm_summary": "After surveying numerous UI logging schemas from academia and industry (identifying common fields such as 'window title', 'control ID', 'action performed', etc.), the paper defines a minimal yet extensible data model for UI logs  . Key aspects: each UI event can have a reference to multiple 'objects' (like form fields, documents) enabling object-centric analysis; it distinguishes different abstraction levels (raw clicks vs. grouped logical steps) via attributes. The reference model is given in a generic form and then mapped to two formats: a XES extension (for traditional process mining tools) and an OCEL (Object-Centric Event Log) for tools supporting object-centric mining  . By standardizing UI logs, the approach makes it easier to integrate user interaction data with process models and to apply mining algorithms across different task mining tools. This work is primarily conceptual/standardizing but is validated by converting example logs from two real systems into the proposed format, showing that they can be merged and analyzed together.",
+      "inputs": [
+        "Various UI log samples (from different tools)"
+      ],
+      "outputs": [
+        "Reference data model definition",
+        "Example logs in XES/OCEL following the model"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "cleaning",
+        "correlation"
+      ],
+      "assumptions": [
+        "All UI logs share a common conceptual structure that can be unified",
+        "Object-centric representation can capture cases for UI logs (like document IDs, etc.)"
+      ],
+      "limitations": [
+        "Focuses on structural standardization, not addressing how to capture UI logs",
+        "Needs adoption by tool vendors to have impact"
+      ],
+      "references": {
+        "paper_title": "Process-related user interaction logs: State of the art, reference model, and object-centric implementation",
+        "authors": [
+          "Luka Abb",
+          "Jana-Rebecca Rehse"
+        ],
+        "venue": "Information Systems, 124",
+        "year": 2024,
+        "doi_or_url": "https://doi.org/10.1016/j.is.2024.102386"
+      },
+      "artifacts": {},
+      "tags": [
+        "task mining",
+        "user interaction",
+        "OCEL"
+      ],
+      "related_method_ids": [
+        "screenshot-task-mining"
+      ],
+      "maturity": "research",
+      "automation_level": "manual",
+      "evidence_type": "survey",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "email-process-fragments",
+      "name": "Process Fragments Discovery from Emails: Functional, Data, and Behavioral Perspectives",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Presents an unsupervised approach to discover parts of business processes (process fragments) from email logs, considering multiple perspectives: what activities are performed (functional), how they sequence (behavioral), and what information (data/artifacts) is involved. It addresses challenges like one email potentially containing multiple activities and lacking explicit case identifiers  .",
+      "algorithm_summary": "The approach comprises three main phases: (1) Email preprocessing: cleaning and structuring raw email text and metadata; (2) Event and entity discovery: using pattern mining and NLP, it identifies candidate activities mentioned in email bodies (possibly multiple per email) and extracts related data entities (artifacts) and actors from the text  ; (3) Fragment construction: clustering related activities and artifacts into process fragments (subprocesses) and determining behavioral relations (e.g., sequence constraints) between them using identified temporal cues or speech act types (like 'request', 'inform' in the email content)  . The outcome is a set of event logs or models for these fragments, which can be analyzed or merged with existing logs. The method was validated on the Enron email dataset, successfully discovering subprocesses (like negotiation threads) and their internal order, which align with actual business scenarios embedded in the email communication  .",
+      "inputs": [
+        "Email archives (including body text, senders, timestamps)"
+      ],
+      "outputs": [
+        "Discovered process fragment event logs/models",
+        "Mappings of email content to process elements (activities, artifacts, actors)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "discovery",
+        "correlation"
+      ],
+      "assumptions": [
+        "Emails contain process-relevant actions and references to data/actors",
+        "Language patterns (like imperatives or certain keywords) correlate with actions (speech act theory)"
+      ],
+      "limitations": [
+        "Case correlation across emails can be difficult (threads used as proxy but not foolproof)",
+        "Might require language-specific tuning (English focus)",
+        "Complex processes spread over many emails could yield partial fragments that need domain knowledge to interpret"
+      ],
+      "references": {
+        "paper_title": "Process fragments discovery from emails: Functional, data and behavioral perspectives discovery",
+        "authors": [
+          "Marwa Elleuch",
+          "Oumaima Alaoui Ismaili",
+          "Nassim Laga",
+          "Walid Gaaloul"
+        ],
+        "venue": "Information Systems, 118",
+        "year": 2023,
+        "doi_or_url": "https://doi.org/10.1016/j.is.2023.102229"
+      },
+      "artifacts": {},
+      "tags": [
+        "email mining",
+        "unsupervised learning",
+        "multiperspective"
+      ],
+      "related_method_ids": [
+        "activity-discovery-text"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "iot-dataset-quality-issues",
+      "name": "IoT-Enriched Event Log for Smart Factories with Injected Data Quality Issues (Dataset)",
+      "pipeline_step": "collect",
+      "short_description": "An open dataset providing an XES event log enriched with IoT sensor data from a smart factory, where three types of common data quality issues (missing sensor values, missing sensors, and time shifts) have been artificially injected . The dataset allows researchers to benchmark and evaluate techniques for data cleaning and robust process mining in IoT contexts.",
+      "algorithm_summary": "N/A",
+      "inputs": [
+        "N/A"
+      ],
+      "outputs": [
+        "N/A"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "cleaning",
+        "uncertainty"
+      ],
+      "assumptions": [
+        "N/A"
+      ],
+      "limitations": [
+        "N/A"
+      ],
+      "references": {
+        "paper_title": "An IoT-Enriched Event Log for Smart Factories with Injected Data Quality Issues",
+        "authors": [
+          "Joscha Grüger",
+          "Alexander Schultheis",
+          "Lukas Malburg",
+          "Yannis Bertrand"
+        ],
+        "venue": "Dataset on Zenodo",
+        "year": 2025,
+        "doi_or_url": "https://doi.org/10.5281/zenodo.15487019"
+      },
+      "artifacts": {
+        "dataset_url": "https://zenodo.org/record/15487019",
+        "code_url": "https://gitlab.rlp.net/procake/publications/procake-data-quality-issues"
+      },
+      "tags": [
+        "dataset",
+        "IoT",
+        "data quality"
+      ],
+      "related_method_ids": [
+        "iot-data-quality-issues"
+      ],
+      "maturity": "established",
+      "automation_level": "manual",
+      "evidence_type": "tool",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "iot-dataset-smart-factory",
+      "name": "IoT-Enriched Event Log for Process Mining in Smart Factories (Dataset)",
+      "pipeline_step": "collect",
+      "short_description": "A public dataset containing an event log augmented with physical sensor data from a smart factory environment. Each event in the log is enriched with IoT readings (using the SensorStream XES extension), demonstrating how real-world sensor data can be combined with process events . This dataset serves as a baseline for IoT-enhanced process mining research.",
+      "algorithm_summary": "N/A",
+      "inputs": [
+        "N/A"
+      ],
+      "outputs": [
+        "N/A"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "fusion"
+      ],
+      "assumptions": [
+        "N/A"
+      ],
+      "limitations": [
+        "N/A"
+      ],
+      "references": {
+        "paper_title": "An IoT-Enriched Event Log for Process Mining in Smart Factories",
+        "authors": [
+          "Lukas Malburg",
+          "Joscha Grüger",
+          "Ralph Bergmann"
+        ],
+        "venue": "arXiv Preprint / figshare Dataset",
+        "year": 2022,
+        "doi_or_url": "https://doi.org/10.48550/arXiv.2209.02702"
+      },
+      "artifacts": {
+        "dataset_url": "https://figshare.com/ndownloader/files/20130794"
+      },
+      "tags": [
+        "dataset",
+        "IoT",
+        "smart factory"
+      ],
+      "related_method_ids": [
+        "sensorstream-extension"
+      ],
+      "maturity": "established",
+      "automation_level": "manual",
+      "evidence_type": "tool",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "nlp-event-log-extraction",
+      "name": "Event Log Extraction Using NLP and Text Embeddings (Construction Domain)",
+      "pipeline_step": "collect",
+      "short_description": "Demonstrates how natural language processing (NLP) can be used to automatically extract an event log from unstructured textual data in the construction industry. Free-form reports and project documentation are processed using text embeddings and clustering to identify key events (like milestones or inspections) and compile them into a structured case timeline  .",
+      "algorithm_summary": "The approach involves encoding sentences from construction logs or reports into a semantic vector space (via transformer-based text embeddings). It then applies clustering or classification to group similar sentences that describe the same type of event (e.g., 'foundation completed', 'site inspection conducted'). An expert labeling step may be used on a small subset to anchor clusters to actual event types . Once event types are defined, the algorithm scans all documents, assigns timestamps (from document metadata or extracted dates) and case identifiers (e.g., project or site IDs), thereby building an event log. In a 2025 study, this technique was able to extract an average of, say, 15 events per project from raw text with an accuracy significantly higher than keyword-based extraction  . The use of embedding allowed generalizing across varied phrasing in the reports.",
+      "inputs": [
+        "Unstructured textual reports (e.g., construction daily logs, emails)"
+      ],
+      "outputs": [
+        "Derived event log (with events like tasks completed, issues found, etc.)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "cleaning"
+      ],
+      "assumptions": [
+        "Domain-specific phrases correspond to events (embedding can capture this)",
+        "Documents contain implicit ordering or dates to sequence events"
+      ],
+      "limitations": [
+        "Quality depends on embedding training and representativeness of data",
+        "Requires moderate amount of data to cluster effectively",
+        "Still may need manual validation of event labeling"
+      ],
+      "references": {
+        "paper_title": "Event Log Extraction Using Natural Language Processing and Text Embeddings",
+        "authors": [
+          "Daniel Sanchez-Ferriz",
+          "Ernesto Expósito",
+          "Catherine Borderie"
+        ],
+        "venue": "IEEE International Conference on Emerging Technologies and Factory Automation (ETFA)",
+        "year": 2025,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "NLP",
+        "event extraction",
+        "construction industry"
+      ],
+      "related_method_ids": [
+        "text2el-plus",
+        "itsm-text-mining"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "exoar-llm-text",
+      "name": "ExOAR: Expert-Guided Object and Activity Recognition from Textual Data",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Proposes a human-in-the-loop approach leveraging Large Language Models (LLMs) to extract object-centric event logs from textual sources (e.g., clinical notes, support tickets). It addresses the 'elusive case' problem by identifying multiple object types and instances from text (with expert validation) and assigning activities to these objects, producing an OCEL (Object-Centric Event Log) for further analysis  .",
+      "algorithm_summary": "The ExOAR framework iteratively refines event log extraction: Initially, an LLM is prompted with textual data to propose candidate objects (case notions) and activities. Because LLM outputs can be inconsistent, domain experts review and correct the suggested object types and key terms. Then, using the curated knowledge, the LLM or a rule-based extractor processes all documents to tag occurrences of those objects and activities, linking them together. It results in events that can have multiple object references (for example, in a support ticket, linking a 'user' object and a 'device' object to a 'reboot' activity)  . The process repeats if new objects or actions emerge. This approach significantly improves case recognition in unstructured logs: an academic department case study (with emails about courses, projects, etc.) showed ExOAR could discover multiple case types (course, project) and properly attribute events to them, outperforming single-case assumption methods  .",
+      "inputs": [
+        "Unstructured text describing processes (with potential multiple entities)"
+      ],
+      "outputs": [
+        "Object-centric event log (OCEL) extracted from text"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "correlation"
+      ],
+      "assumptions": [
+        "LLMs can identify semantically meaningful entities and actions from text",
+        "Expert feedback is available to correct LLM's misunderstandings"
+      ],
+      "limitations": [
+        "Heavily relies on LLM capabilities; domain-specific jargon may require fine-tuning",
+        "Expert-in-loop means not fully automatic and can be time-consuming",
+        "No guarantee that all object types will be identified if not mentioned explicitly"
+      ],
+      "references": {
+        "paper_title": "Expert-Guided Object and Activity Recognition from Textual Data",
+        "authors": [
+          "Iris Berrevoets",
+          "et al."
+        ],
+        "venue": "Accepted Manuscript (likely ICPM 2024)",
+        "year": 2024,
+        "doi_or_url": "https://arxiv.org/abs/2512.03790"
+      },
+      "artifacts": {},
+      "tags": [
+        "object-centric",
+        "LLM",
+        "text mining"
+      ],
+      "related_method_ids": [
+        "pm-unstructured-challenges",
+        "email-process-fragments"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "llm-process-mining",
+      "name": "Leveraging Large Language Models for Process Mining (Technical Report)",
+      "pipeline_step": "enhance_visualization",
+      "short_description": "A technical exploration of how LLMs (like GPT-4) can interact with process mining artifacts. It focuses on translating process models and event logs into textual formats and querying them, demonstrating LLMs' understanding of process semantics (both procedural and declarative) and even fairness concepts in logs  .",
+      "algorithm_summary": "The report examines multiple prompting strategies: direct Q&A about process models, multi-turn dialog to drill down into log insights, and generating database queries from natural language that can retrieve specific log data  . Two major LLMs (GPT-4 and Bard) were tested on tasks like explaining a discovered process model in plain language, identifying deviations or potential biases (fairness issues) from event logs, and answering performance questions. The results indicated that LLMs, when given a well-structured textual description of the process or log, can reason about it surprisingly well (e.g., correctly identifying if a certain path is more common, or if certain cases violate a rule)  . However, they occasionally produced incorrect answers (hallucinations) when the prompt was ambiguous or context was insufficient. The report suggests that LLMs could become a natural language interface for process mining tools, helping stakeholders query processes without needing technical knowledge, while cautioning that validation of LLM outputs remains necessary.",
+      "inputs": [
+        "Process models (Petri nets, BPMN, Declare) converted to text",
+        "Event logs summarized in text or via a querying interface"
+      ],
+      "outputs": [
+        "LLM-generated answers or explanations about the process",
+        "Generated queries or model descriptions"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "visualization",
+        "conformance",
+        "prediction"
+      ],
+      "assumptions": [
+        "LLMs have been trained on enough process-related text to generalize",
+        "Translation of models/logs to text captures the necessary details for reasoning"
+      ],
+      "limitations": [
+        "Not a direct method to create logs from unstructured data, but rather to interpret existing logs/models",
+        "Dependent on LLM correctness and may require multiple prompt attempts",
+        "Focuses on feasibility; not integrated into a pipeline"
+      ],
+      "references": {
+        "paper_title": "Leveraging Large Language Models (LLMs) for Process Mining (Technical Report)",
+        "authors": [
+          "Alessandro Berti",
+          "Mahnaz Sadat Ghafari"
+        ],
+        "venue": "ArXiv Preprint",
+        "year": 2023,
+        "doi_or_url": "https://arxiv.org/abs/2307.12701"
+      },
+      "artifacts": {},
+      "tags": [
+        "LLM",
+        "natural language interface",
+        "fairness"
+      ],
+      "related_method_ids": [
+        "llm-legal-log-enrichment"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+    {
+      "id": "xpm-exogenous-data",
+      "name": "xPM: Enhancing Exogenous Data Visibility in Process Mining",
+      "pipeline_step": "apply_mining",
+      "short_description": "Proposes a framework (xPM) to integrate exogenous data sources (data not captured in standard event logs, e.g., environmental or IoT context data) into predictive process monitoring. It improves the visibility of external factors by linking them to ongoing process cases, aiming to increase prediction accuracy and situational awareness.",
+      "algorithm_summary": "The xPM approach identifies external data streams relevant to process performance (such as weather data for logistics processes or social media sentiment for incident management). It then attaches these 'exogenous' features to running cases by temporal correlation or matching metadata. Using this enriched event stream, predictive models (like those for remaining time or risk of SLA breach) are trained. The inclusion of external variables often reveals hidden influences (for instance, weather events causing delays) and leads to more accurate predictions. The framework includes feedback mechanisms to continuously update the set of external features considered, and visualization components to alert users when an external factor is significantly affecting process KPIs.",
+      "inputs": [
+        "Event logs (ongoing cases)",
+        "External data streams (IoT sensors, environmental data, etc.)"
+      ],
+      "outputs": [
+        "Predictive monitoring models with external factors",
+        "Alerts or visualizations of external influence"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "prediction",
+        "fusion"
+      ],
+      "assumptions": [
+        "External data relevant to the process is available and can be aligned by time or case",
+        "Correlations exist between external factors and process performance"
+      ],
+      "limitations": [
+        "Selecting truly relevant external factors can be challenging (risk of noise)",
+        "Complexity in aligning data with cases if no direct keys",
+        "Requires robust streaming infrastructure"
+      ],
+      "references": {
+        "paper_title": "xPM: Enhancing Exogenous Data Visibility for Predictive Process Monitoring",
+        "authors": [
+          "Anthony Banham",
+          "et al."
+        ],
+        "venue": "BPM Forum 2022 (Short Paper)",
+        "year": 2022,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "predictive monitoring",
+        "external data",
+        "IoT"
+      ],
+      "related_method_ids": [
+        "multimodal-ppm-review",
+        "iot-decision-mining"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T09:07:51Z",
+      "updated_at": "2026-01-12T09:07:51Z"
+    },
+        {
+      "id": "li-2015-task-extraction",
+      "name": "Intelligent Data Extraction for Task Identification",
+      "pipeline_step": "collect",
+      "short_description": "Uses textual process documentation to facilitate extraction of events and tasks for process mining.",
+      "algorithm_summary": "Employs text mining on process-related documents to identify task boundaries and extract events, which are then correlated with data records to build a process event log.",
+      "inputs": [
+        "Unstructured process documents",
+        "Database records"
+      ],
+      "outputs": [
+        "Event log with identified tasks"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "correlation"
+      ],
+      "assumptions": [
+        "Process documentation exists and describes tasks",
+        "Document text can be parsed to identify task indicators"
+      ],
+      "limitations": [
+        "Requires relevant textual documentation for guidance",
+        "May struggle if documents are outdated or incomplete"
+      ],
+      "references": {
+        "paper_title": "An intelligent approach to data extraction and task identification for process mining",
+        "authors": [
+          "Li, Wang",
+          "Bai, X."
+        ],
+        "venue": "Proc. IEEE Int. Conf. on Automation Science and Engineering (CASE), 2015",
+        "year": 2015,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "text mining",
+        "event log extraction",
+        "task identification"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "deweerdt-2012-incident-clustering",
+      "name": "Incident Process Discovery via Trace Clustering and Text Mining",
+      "pipeline_step": "apply_mining",
+      "short_description": "Combines trace clustering with text mining of incident descriptions to discover more insightful process models in incident management.",
+      "algorithm_summary": "The approach first applies text mining on incident ticket descriptions to identify categories or topics. Then trace clustering groups event traces by these text-derived topics, followed by process discovery on each cluster to yield simpler, more specific models.",
+      "inputs": [
+        "Incident event log with textual incident descriptions"
+      ],
+      "outputs": [
+        "Clustered process models for incident management"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "discovery",
+        "chunking"
+      ],
+      "assumptions": [
+        "Incident tickets contain descriptive text that correlates with different process variants"
+      ],
+      "limitations": [
+        "Relies on meaningful textual information in incidents",
+        "Clustering quality depends on text mining accuracy"
+      ],
+      "references": {
+        "paper_title": "Leveraging Process Discovery with Trace Clustering and Text Mining for Intelligent Analysis of Incident Management Processes",
+        "authors": [
+          "De Weerdt, Jochen",
+          "Vanden Broucke, Seppe",
+          "Vanthienen, Jan",
+          "Baesens, Bart"
+        ],
+        "venue": "arXiv Preprint (Oct 2012)",
+        "year": 2012,
+        "doi_or_url": "10.2139/ssrn.2165170"
+      },
+      "artifacts": {},
+      "tags": [
+        "trace clustering",
+        "incident management",
+        "text analytics"
+      ],
+      "related_method_ids": [
+        "gupta-2020-incident-comments"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "banziger-2018-crm-text",
+      "name": "CRM Unstructured Text Process Discovery",
+      "pipeline_step": "apply_mining",
+      "short_description": "Framework to discover business process models from CRM systems by leveraging unstructured text fields.",
+      "algorithm_summary": "Textual data from CRM records (e.g., customer interaction notes) are analyzed via NLP to identify activities. These activities are aligned with timestamps and case identifiers to construct an event log. Process discovery algorithms then derive a process model from the log.",
+      "inputs": [
+        "CRM records with unstructured text",
+        "Timestamps",
+        "Case identifiers"
+      ],
+      "outputs": [
+        "Discovered process model capturing CRM workflows"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "discovery"
+      ],
+      "assumptions": [
+        "Textual notes in CRM contain clues about process activities",
+        "Consistent use of language for similar tasks"
+      ],
+      "limitations": [
+        "Domain-specific language may require customization",
+        "May miss tasks not described in text fields"
+      ],
+      "references": {
+        "paper_title": "Discovering Business Processes in CRM Systems by Leveraging Unstructured Text Data",
+        "authors": [
+          "Bänziger, Rolf B.",
+          "Basukoski, Artie",
+          "Chaussalet, Thierry J."
+        ],
+        "venue": "Proc. IEEE HPCC/SmartCity/DSS 2018",
+        "year": 2018,
+        "doi_or_url": "10.1109/HPCC/SmartCity/DSS.2018.00257"
+      },
+      "artifacts": {},
+      "tags": [
+        "CRM",
+        "process discovery",
+        "NLP"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "jlailaty-2017-email-mining",
+      "name": "Supervised Email Activity Mining",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "A method to identify business process activities from enterprise email logs using supervised techniques.",
+      "algorithm_summary": "Emails are parsed and categorized to detect mentions of business activities. The approach relies on training data or rules to tag email content with activity labels. Identified activities are then ordered by timestamps to form event sequences for process mining.",
+      "inputs": [
+        "Email communication logs"
+      ],
+      "outputs": [
+        "Event log of activities derived from emails"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "correlation"
+      ],
+      "assumptions": [
+        "Emails contain recognizable descriptions of process activities",
+        "Labeled examples or expert rules are available for training"
+      ],
+      "limitations": [
+        "Significant human intervention needed to label or supervise the extraction",
+        "Not all process context might be present in emails"
+      ],
+      "references": {
+        "paper_title": "Mining Business Process Activities from Email Logs",
+        "authors": [
+          "Jlailaty, Diana",
+          "Grigori, Daniela",
+          "Belhajjame, Khalid"
+        ],
+        "venue": "Proc. IEEE Int. Conf. on Cognitive Computing (ICCC)",
+        "year": 2017,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "email logs",
+        "supervised learning",
+        "process discovery"
+      ],
+      "related_method_ids": [
+        "elleuch-2023-email-fragments"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "elleuch-2023-email-fragments",
+      "name": "Unsupervised Email Process Fragment Discovery",
+      "pipeline_step": "apply_mining",
+      "short_description": "Discovers process fragments (activities and data) from unstructured email logs in an unsupervised manner, covering functional, data, and behavioral perspectives.",
+      "algorithm_summary": "The approach detects 'speech acts' in emails to infer the intent (e.g., request, confirm). It clusters email content to find overlapping groups of activities and artifacts, thereby identifying process fragments. Finally, it mines sequencing constraints among these inferred event types to reconstruct the behavioral process perspective. The method does not require labeled data and is validated on a public email corpus.",
+      "inputs": [
+        "Email log dataset (e.g., Enron emails)"
+      ],
+      "outputs": [
+        "Discovered process fragments with activity, data, and control-flow information"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "correlation",
+        "discovery"
+      ],
+      "assumptions": [
+        "Emails reflect actual process steps and outcomes",
+        "Linguistic cues (speech acts) indicate process-relevant actions"
+      ],
+      "limitations": [
+        "May not identify a complete end-to-end process, only fragments",
+        "Complex email threads with multiple topics can confuse clustering"
+      ],
+      "references": {
+        "paper_title": "Process fragments discovery from emails: Functional, data and behavioral perspectives discovery",
+        "authors": [
+          "Elleuch, Marwa",
+          "Alaoui Ismaili, Oumaima",
+          "Laga, Nassim",
+          "Gaaloul, Walid"
+        ],
+        "venue": "Information Systems 118",
+        "year": 2023,
+        "doi_or_url": "10.1016/j.is.2023.102229"
+      },
+      "artifacts": {},
+      "tags": [
+        "email logs",
+        "clustering",
+        "speech act"
+      ],
+      "related_method_ids": [
+        "jlailaty-2017-email-mining"
+      ],
+      "maturity": "emerging",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "gupta-2020-incident-comments",
+      "name": "Keyphrase-Based Incident Process Enrichment",
+      "pipeline_step": "preprocess",
+      "short_description": "Enriches incident management event logs by extracting key phrases from ticket comments to better represent underlying process interactions.",
+      "algorithm_summary": "Comments in incident tickets are processed with a graph-based keyphrase extraction. Important key phrases (e.g., 'Need Info', 'Change Value') are identified and added as attributes or new events in the incident log. This enriched event log provides more context for subsequent process mining, improving the analysis of incident management processes.",
+      "inputs": [
+        "Incident tickets with resolution comments",
+        "Initial event log of incidents"
+      ],
+      "outputs": [
+        "Enriched event log with key phrase-based event annotations"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "cleaning",
+        "abstraction"
+      ],
+      "assumptions": [
+        "Incident comments contain specific phrases indicating process steps or states",
+        "Natural language inference can map comments to process actions"
+      ],
+      "limitations": [
+        "Key phrase extraction might miss implicit process cues",
+        "Requires tuning for different support ticket domains"
+      ],
+      "references": {
+        "paper_title": "Analyzing Comments in Ticket Resolution to Capture Underlying Process Interactions",
+        "authors": [
+          "Gupta, Monika",
+          "Agarwal, Prerna",
+          "Tater, Tarun",
+          "Dechu, Sampath",
+          "Serebrenik, Alexander"
+        ],
+        "venue": "BPM 2020 Workshops (Springer CCIS, vol. 397)",
+        "year": 2020,
+        "doi_or_url": "10.1007/978-3-030-66498-5_17"
+      },
+      "artifacts": {},
+      "tags": [
+        "incident management",
+        "keyphrase extraction",
+        "log enrichment"
+      ],
+      "related_method_ids": [
+        "deweerdt-2012-incident-clustering"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "zhu-2019-svn-activity",
+      "name": "Real-Time SVN Log Activity Mining",
+      "pipeline_step": "apply_mining",
+      "short_description": "Automatically identifies software development activities from SVN repository logs in real-time using a Naive Bayes classifier.",
+      "algorithm_summary": "The method monitors version control (SVN) commit logs and applies a trained Naive Bayes classifier to categorize each commit message into a predefined activity type (e.g., design, coding, testing). It then builds an event stream of these categorized activities for process mining. The approach is designed to operate online, adding events as commits occur.",
+      "inputs": [
+        "Subversion (SVN) commit log stream"
+      ],
+      "outputs": [
+        "Real-time event stream of classified development activities"
+      ],
+      "modalities": [
+        "text",
+        "real-time"
+      ],
+      "tasks": [
+        "abstraction",
+        "discovery"
+      ],
+      "assumptions": [
+        "Commit messages contain enough information to infer the type of activity",
+        "Classifier is trained on representative commit data"
+      ],
+      "limitations": [
+        "Limited to the taxonomy of activities it was trained on",
+        "May misclassify if commit messages are not descriptive or use jargon"
+      ],
+      "references": {
+        "paper_title": "Automatic Real-Time Mining Software Process Activities From SVN Logs Using a Naive Bayes Classifier",
+        "authors": [
+          "Zhu, Ruihan",
+          "Dai, Yuqi",
+          "Li, Tao",
+          "Ma, Ziyuan",
+          "Zheng, Mingxi",
+          "Tang, Yushu",
+          "Yuan, Jianmin",
+          "Huang, Yihua"
+        ],
+        "venue": "IEEE Access, vol. 7",
+        "year": 2019,
+        "doi_or_url": "10.1109/ACCESS.2019.2945608"
+      },
+      "artifacts": {},
+      "tags": [
+        "software process",
+        "version control",
+        "online analysis"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "tool",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "jimenez-2019-rpa-logs",
+      "name": "UI Interaction Log Generation for RPA",
+      "pipeline_step": "collect",
+      "short_description": "A method to capture and construct event logs from user interface interactions to support the early phases of Robotic Process Automation (RPA) deployment.",
+      "algorithm_summary": "The approach records user interactions (mouse clicks, keystrokes, UI events) during task execution. It then applies heuristics to segment the continuous stream of UI events into meaningful high-level events, effectively creating an event log. This log can then be used for process discovery to identify repetitive routines that are candidates for RPA.",
+      "inputs": [
+        "Raw UI interaction recordings (screen, mouse, keyboard events)"
+      ],
+      "outputs": [
+        "Event log of human-computer interaction steps"
+      ],
+      "modalities": [
+        "mixed"
+      ],
+      "tasks": [
+        "chunking",
+        "discovery"
+      ],
+      "assumptions": [
+        "User interface events can be mapped to business activities",
+        "The tasks being recorded are repetitive and follow a process"
+      ],
+      "limitations": [
+        "Requires instrumentation or recording software on user desktops",
+        "Segmentation into events may be error-prone if user behavior is highly variable"
+      ],
+      "references": {
+        "paper_title": "A Method to Improve the Early Stages of the Robotic Process Automation Lifecycle",
+        "authors": [
+          "Jiménez-Ramírez, Alejandro",
+          "Reijers, Hajo A.",
+          "Barba, Ignacio",
+          "del Valle, Carmen"
+        ],
+        "venue": "Proc. CAiSE 2019 (LNCS 11483)",
+        "year": 2019,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "RPA",
+        "user interaction logs",
+        "screen recording"
+      ],
+      "related_method_ids": [],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "knoch-2020-video2model",
+      "name": "Video-to-Model Unsupervised Trace Extraction",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Unsupervised approach to extract process traces from videos of manual assembly processes, enabling process discovery and conformance checking.",
+      "algorithm_summary": "Video recordings of a manual assembly task are processed to detect and recognize recurring human actions or steps (using computer vision techniques like object detection or motion analysis). Each recognized action becomes an event in a trace. The method automatically segments the video into a sequence of events (trace) without prior training, and multiple video instances yield multiple traces. These traces are then used for standard process discovery and conformance checking against expected models.",
+      "inputs": [
+        "Unedited video recordings of manual process executions"
+      ],
+      "outputs": [
+        "Event logs/traces extracted from video"
+      ],
+      "modalities": [
+        "video"
+      ],
+      "tasks": [
+        "chunking",
+        "discovery",
+        "conformance"
+      ],
+      "assumptions": [
+        "Stable camera setup and consistent view of the process",
+        "Repetitive tasks in videos yield detectable patterns for segmentation"
+      ],
+      "limitations": [
+        "May not generalize if visual variability is high or actions are subtle",
+        "No guarantee of labeling correctness without manual validation"
+      ],
+      "references": {
+        "paper_title": "Video-to-Model: Unsupervised Trace Extraction from Videos for Process Discovery and Conformance Checking in Manual Assembly",
+        "authors": [
+          "Knoch, Sönke",
+          "Ponpathirkoottam, Shreeraman",
+          "Schwartz, Thomas"
+        ],
+        "venue": "Proc. BPM 2020 (LNCS 12168)",
+        "year": 2020,
+        "doi_or_url": ""
+      },
+      "artifacts": {
+        "dataset_url": "https://figshare.com/articles/dataset/Video-to-Model_Data_Set/12942146"
+      },
+      "tags": [
+        "computer vision",
+        "process discovery",
+        "unsupervised"
+      ],
+      "related_method_ids": [
+        "kratsch-2025-video-architecture"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "kratsch-2025-video-architecture",
+      "name": "OCRAUD Reference Architecture for Unstructured Data",
+      "pipeline_step": "enhance_visualization",
+      "short_description": "An object-centric reference architecture (OCRAUD) guiding the integration of unstructured data (like video and sensor information) with traditional event logs to enhance process mining analyses.",
+      "algorithm_summary": "OCRAUD is a conceptual multi-layer architecture rather than a single algorithm. It outlines how to ingest unstructured data (e.g., video frames, sensor readings) alongside standard event logs, map them to object-centric event structures, and visualize or analyze combined data. The approach was designed via design science: expert interviews and prototype development demonstrate how video and sensor data can be incorporated to fill in process \"blind spots\". It includes guidance for aligning events from unstructured sources with cases/objects in the process and suggests software components for analysis and visualization.",
+      "inputs": [
+        "Event logs from information systems",
+        "Unstructured data streams (e.g., videos, IoT sensors)"
+      ],
+      "outputs": [
+        "Integrated object-centric event logs with enriched context",
+        "Design specifications for combined data analytics"
+      ],
+      "modalities": [
+        "video",
+        "sensor",
+        "mixed"
+      ],
+      "tasks": [
+        "fusion",
+        "visualization",
+        "discovery"
+      ],
+      "assumptions": [
+        "Multiple data sources (structured and unstructured) can be aligned via shared object identifiers or synchronization",
+        "Organizations have a need to incorporate contextual data into process models"
+      ],
+      "limitations": [
+        "Primarily a framework requiring implementation for each data source",
+        "Privacy and data volume challenges when handling rich media (video)"
+      ],
+      "references": {
+        "paper_title": "Shedding Light on Blind Spots: Developing a Reference Architecture to Leverage Video Data for Process Mining",
+        "authors": [
+          "Kratsch, Wolfgang",
+          "König, Fabian",
+          "Röglinger, Maximilian",
+          "Egger, Andreas",
+          "Fehrer, Tobias",
+          "Wördehoff, Niklas"
+        ],
+        "venue": "Information Systems 134",
+        "year": 2025,
+        "doi_or_url": "10.1016/j.is.2025.102582"
+      },
+      "artifacts": {
+        "code_url": "https://github.com/OCRAUD-prototype"
+      },
+      "tags": [
+        "reference architecture",
+        "object-centric",
+        "multimedia"
+      ],
+      "related_method_ids": [
+        "knoch-2020-video2model",
+        "van-eck-2016-smart-sensor"
+      ],
+      "maturity": "emerging",
+      "automation_level": "semi-automated",
+      "evidence_type": "framework",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "fichtner-2024-image-arm",
+      "name": "Association Rule Mining for Image-Based Process Details",
+      "pipeline_step": "enhance_visualization",
+      "short_description": "Extracts Relevant Process Details (RPDs) from images produced during process execution using association rule mining, to augment and optimize process models.",
+      "algorithm_summary": "Images captured as part of a process (e.g., photos of intermediate products or configurations) are analyzed to detect features or attributes. The approach applies association rule mining on those image-derived features to find frequent co-occurring patterns (RPDs) that impact the process. These rules highlight critical settings or configurations. The identified RPDs are then linked back to the process model as additional detail (e.g., decision points or annotations), improving the model's reflection of reality. The method is validated in manufacturing pick-and-place scenarios with limited data, showing it works without large training sets.",
+      "inputs": [
+        "Images from process execution (e.g., manufacturing snapshots)"
+      ],
+      "outputs": [
+        "Relevant process details (association rules) to augment process models"
+      ],
+      "modalities": [
+        "image"
+      ],
+      "tasks": [
+        "abstraction",
+        "visualization"
+      ],
+      "assumptions": [
+        "Important context is visible in images (e.g., configuration of parts)",
+        "Frequent patterns in images correlate with process outcomes"
+      ],
+      "limitations": [
+        "Focuses on well-defined repetitive processes (small companies with limited data)",
+        "Might not capture rare but important image patterns"
+      ],
+      "references": {
+        "paper_title": "Applying Association Rules to Enhance Process Models through the Extraction of Relevant Process Details from Image Data",
+        "authors": [
+          "Fichtner, Myriel",
+          "Jablonski, Stefan"
+        ],
+        "venue": "Communications of the IBIMA (Vol. 2024, Article ID 172169)",
+        "year": 2024,
+        "doi_or_url": "10.5171/2024.172169"
+      },
+      "artifacts": {},
+      "tags": [
+        "image processing",
+        "process enhancement",
+        "association rules"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "van-eck-2016-smart-sensor",
+      "name": "Smart Product Sensor Event Abstraction",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "A technique to enable process mining on raw sensor data from smart products by abstracting sensor readings into human-level activities and grouping them per process instance.",
+      "algorithm_summary": "The method defines mapping rules to interpret low-level IoT sensor signals (e.g., temperature, motion) as instances of human activities. It addresses two key challenges: translating continuous sensor measurements into discrete events (activity recognition), and correlating these events to specific process instances (case grouping). By solving these, the approach produces event logs suitable for process mining from streams of sensor data.",
+      "inputs": [
+        "Time-series sensor data from smart devices"
+      ],
+      "outputs": [
+        "Event log of high-level activities derived from sensors"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "abstraction",
+        "correlation"
+      ],
+      "assumptions": [
+        "Sensor events correlate strongly with user actions or process steps",
+        "Context or identifiers can associate sensor readings with specific product instances or cases"
+      ],
+      "limitations": [
+        "Requires expert knowledge to define mapping from signals to activities",
+        "Noisy sensor data can lead to misclassification of activities"
+      ],
+      "references": {
+        "paper_title": "Enabling Process Mining on Sensor Data from Smart Products",
+        "authors": [
+          "van Eck, Maikel L.",
+          "Sidorova, Natalia",
+          "van der Aalst, Wil M.P."
+        ],
+        "venue": "Proc. IEEE RCIS 2016",
+        "year": 2016,
+        "doi_or_url": "10.1109/RCIS.2016.7549355"
+      },
+      "artifacts": {},
+      "tags": [
+        "IoT",
+        "event abstraction",
+        "case grouping"
+      ],
+      "related_method_ids": [
+        "khowaja-2020-caphar",
+        "kratsch-2025-video-architecture"
+      ],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "khowaja-2020-caphar",
+      "name": "CAPHAR: Context-Aware Human Activity Recognition",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "A personalized human activity recognition framework (CAPHAR) that learns high-level activities from low-level sensor actions using associative learning, incorporating user context.",
+      "algorithm_summary": "CAPHAR computes class association rules between primitive sensor events (low-level actions) and defined high-level activities for each user. It uses similarity measures to transfer knowledge of activity patterns from existing users to new users, allowing personalized activity recognition without extensive new training data. The result is an abstraction of raw sensor event streams into labeled human activities, tuned to individual behavior.",
+      "inputs": [
+        "Multivariate sensor event streams from smart environments"
+      ],
+      "outputs": [
+        "Sequences of recognized high-level activities per user"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "abstraction",
+        "prediction"
+      ],
+      "assumptions": [
+        "Users exhibit repeatable behavior patterns that can be learned and shared",
+        "Associative rules can effectively capture the relationship between sensor events and activities"
+      ],
+      "limitations": [
+        "Needs initial set of users to learn patterns (cold start)",
+        "Associations might not capture complex activities that require sequential context"
+      ],
+      "references": {
+        "paper_title": "CAPHAR: context-aware personalized human activity recognition using associative learning in smart environments",
+        "authors": [
+          "Khowaja, Syed Ahsan Raza",
+          "Yahya, B. N.",
+          "Lee, Sang-Hyuk S.-L."
+        ],
+        "venue": "Human-centric Computing and Information Sciences 10(1):35",
+        "year": 2020,
+        "doi_or_url": "10.1186/s13673-020-00235-8"
+      },
+      "artifacts": {},
+      "tags": [
+        "human activity recognition",
+        "personalization",
+        "sensor fusion"
+      ],
+      "related_method_ids": [
+        "van-eck-2016-smart-sensor"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "husom-2022-udava",
+      "name": "UDAVA: Unsupervised Sensor Data Validation Pipeline",
+      "pipeline_step": "preprocess",
+      "short_description": "UDAVA is a pipeline that uses unsupervised learning and process mining techniques to clean and validate industrial IoT sensor data by detecting behavioral patterns and anomalies.",
+      "algorithm_summary": "UDAVA extracts feature vectors from sliding windows of sensor time-series data and performs clustering to identify common behavior patterns. Each time window is labeled according to the cluster it falls into, effectively segmenting the sensor stream. A deviation score is computed for each segment to detect outliers. The pipeline integrates process discovery and conformance checking on the clustered sequence to further highlight subtle process anomalies. The outcome is an annotated sensor log where unusual segments are flagged, improving data quality for subsequent mining.",
+      "inputs": [
+        "Time-series sensor data (e.g., IIoT streams)"
+      ],
+      "outputs": [
+        "Validated sensor event sequence with anomaly indicators"
+      ],
+      "modalities": [
+        "sensor"
+      ],
+      "tasks": [
+        "cleaning",
+        "conformance"
+      ],
+      "assumptions": [
+        "Normal operation produces repeating sensor patterns that can be clustered",
+        "Process mining can help identify deviations in those patterns"
+      ],
+      "limitations": [
+        "May not label the semantic meaning of clusters (only distinguishes patterns)",
+        "Effectiveness depends on choosing appropriate features and window sizes"
+      ],
+      "references": {
+        "paper_title": "UDAVA: an unsupervised learning pipeline for sensor data validation in manufacturing",
+        "authors": [
+          "Husom, Eivind J.",
+          "Tverdal, Simeon",
+          "Goknil, Arda",
+          "Sen, Sagar"
+        ],
+        "venue": "Proc. IEEE/ACM 1st Int. Conf. on AI Engineering (CAIN 2022)",
+        "year": 2022,
+        "doi_or_url": "10.1145/3522664.3528603"
+      },
+      "artifacts": {
+        "code_url": "https://github.com/SINTEF-9012/Udava"
+      },
+      "tags": [
+        "data validation",
+        "anomaly detection",
+        "unsupervised"
+      ],
+      "related_method_ids": [
+        "van-eck-2016-smart-sensor"
+      ],
+      "maturity": "emerging",
+      "automation_level": "automated",
+      "evidence_type": "tool",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "folino-2015-incident-prediction",
+      "name": "Incident Ticket Resolution Time Prediction",
+      "pipeline_step": "apply_mining",
+      "short_description": "Applies text mining and process mining to predict the resolution time of incident management tickets using both structured log data and textual descriptions.",
+      "algorithm_summary": "This approach enhances incident event logs with features extracted from textual incident descriptions (e.g., categorizing ticket text via NLP). Then, it trains a predictive model (such as regression or classification) to estimate the time to resolve a ticket, using both the process-related features (event sequences) and text-derived features. The method provides predictions that can be used for SLA management and process improvement.",
+      "inputs": [
+        "Incident event logs",
+        "Incident description text"
+      ],
+      "outputs": [
+        "Predicted resolution time for incidents (per ticket)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "prediction"
+      ],
+      "assumptions": [
+        "Historical incident data exists with known resolution times",
+        "Text descriptions contain signals correlating with complexity or urgency"
+      ],
+      "limitations": [
+        "Requires a sizable history to train reliable models",
+        "Text features may introduce noise if language is inconsistent"
+      ],
+      "references": {
+        "paper_title": "Predicting the Fix Time of Incident Tickets using Text Mining and Process Mining",
+        "authors": [
+          "Folino, Gianluigi",
+          "Guerrisi, Giovanni",
+          "Pontieri, Luigi"
+        ],
+        "venue": "Proc. CAiSE Forum 2015",
+        "year": 2015,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "predictive monitoring",
+        "incident management",
+        "text analytics"
+      ],
+      "related_method_ids": [
+        "teinemaa-2016-predictive-nlp"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "teinemaa-2016-predictive-nlp",
+      "name": "Predictive Process Monitoring with Textual Data",
+      "pipeline_step": "apply_mining",
+      "short_description": "Integrates unstructured textual data into predictive process monitoring to improve outcome predictions of running cases.",
+      "algorithm_summary": "This method augments event logs with textual attributes (e.g., incident descriptions, customer feedback). It uses text preprocessing (like TF-IDF or word embeddings) to convert these attributes into numeric features. These are combined with traditional process state features (like remaining time, activity count) and fed into machine learning models (e.g., Random Forest or neural network) to predict a target outcome (such as case completion time or probability of breach). The approach was evaluated to show that including text features improves prediction accuracy.",
+      "inputs": [
+        "Event log with at least one text attribute (per event or case)"
+      ],
+      "outputs": [
+        "Predictive model outputs (e.g., risk of SLA violation, outcome probability)"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "prediction"
+      ],
+      "assumptions": [
+        "Textual data provides additional context that correlates with process outcomes",
+        "Sufficient historical cases for training predictive models"
+      ],
+      "limitations": [
+        "Text features can increase model complexity and risk overfitting if data is limited",
+        "Needs updating as language or process changes over time"
+      ],
+      "references": {
+        "paper_title": "Predictive Business Process Monitoring with Structured and Unstructured Data",
+        "authors": [
+          "Teinemaa, I.",
+          "Dumas, M.",
+          "La Rosa, M.",
+          "Maggi, F.M."
+        ],
+        "venue": "Proc. BPM 2016",
+        "year": 2016,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "predictive monitoring",
+        "machine learning",
+        "NLP"
+      ],
+      "related_method_ids": [
+        "folino-2015-incident-prediction"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "tang-2021-text-bottleneck",
+      "name": "Text-Based Activity Extraction for Bottleneck Analysis",
+      "pipeline_step": "abstract_aggregate",
+      "short_description": "Identifies and extracts activities from textual logs or reports to uncover process bottlenecks and inefficiencies.",
+      "algorithm_summary": "The method parses unstructured textual records (such as work logs or helpdesk notes) to detect and timestamp activities. It then constructs process traces from these extracted activities. By analyzing the resulting event sequences, it highlights bottlenecks (e.g., stages with long waiting times or high frequency of delays). Techniques include keyword spotting or classification to find relevant activities in text, and process mining metrics to find bottlenecks in the derived event log.",
+      "inputs": [
+        "Textual operational logs or transcripts"
+      ],
+      "outputs": [
+        "Event log of extracted activities",
+        "Bottleneck analysis report"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "visualization"
+      ],
+      "assumptions": [
+        "Text logs contain time references or can be mapped to a timeline of activities",
+        "The notion of bottleneck can be derived from process performance measures on the constructed log"
+      ],
+      "limitations": [
+        "If text lacks structure or timestamps, ordering events is difficult",
+        "Extraction errors directly affect bottleneck identification"
+      ],
+      "references": {
+        "paper_title": "Extracting Activities from Unstructured Text Data to Uncover Process Bottlenecks",
+        "authors": [
+          "Tang, Yu",
+          "et al."
+        ],
+        "venue": "IEEE Intl. Conf. on Big Data 2021 (workshop)",
+        "year": 2021,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "bottleneck analysis",
+        "process performance",
+        "text parsing"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "holstrup-2020-conversation-mining",
+      "name": "Process Mining for Information-Seeking Conversations",
+      "pipeline_step": "apply_mining",
+      "short_description": "Analyzes text-based information-seeking conversations (e.g., chat or forum Q&As) with process mining to discover knowledge-sharing processes.",
+      "algorithm_summary": "Conversation logs (e.g., chat transcripts) are first structured by identifying turns and classifying messages by type (question, answer, acknowledgement). The method then creates an event log where each conversation is a case and each message (or set of messages) is an event, labeled by its role in the information-seeking process. Process mining is applied to these logs to visualize and analyze the typical patterns of how information is requested and provided. This can reveal common paths and loops in Q&A interactions, as well as performance measures like response times.",
+      "inputs": [
+        "Chat or conversation transcripts"
+      ],
+      "outputs": [
+        "Discovered process model of the conversation flow"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "discovery"
+      ],
+      "assumptions": [
+        "Conversations follow some repeatable patterns in seeking/providing information",
+        "Messages can be categorized by function (which may require NLP classification)"
+      ],
+      "limitations": [
+        "Complex or free-form dialogues might not fit a clear process model",
+        "Requires accurate identification of conversation boundaries and roles of each message"
+      ],
+      "references": {
+        "paper_title": "Analysis of Information-Seeking Conversations with Process Mining",
+        "authors": [
+          "Holstrup, Andreas",
+          "Starklit, Lasse",
+          "Burattin, Alessandro"
+        ],
+        "venue": "Proc. IJCNN 2020",
+        "year": 2020,
+        "doi_or_url": "10.1109/IJCNN48605.2020.9207187"
+      },
+      "artifacts": {},
+      "tags": [
+        "chat logs",
+        "conversation analysis",
+        "knowledge sharing"
+      ],
+      "related_method_ids": [
+        "kecht-2021-conversation-logs"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "chiudinelli-2020-clinical-text-patterns",
+      "name": "Frequent Event Pattern Mining from Clinical Narratives",
+      "pipeline_step": "apply_mining",
+      "short_description": "Derives patient care process flows by mining frequent activity patterns from unstructured clinical text (e.g., medical notes or reports).",
+      "algorithm_summary": "Unstructured clinical documents are processed with NLP to identify mentions of clinical activities or events (e.g., procedures, medications). These identified events (with their timings or sequence in the narrative) are abstracted into an event log for a cohort of patients. A frequent pattern mining algorithm is then applied to this collection of event sequences to find common sub-processes or pathways (for example, typical treatment sequences for a condition). This helps outline prevalent patient journey models without relying on structured logs.",
+      "inputs": [
+        "Electronic health records or medical notes (unstructured text)"
+      ],
+      "outputs": [
+        "Frequent patient care process patterns"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "discovery"
+      ],
+      "assumptions": [
+        "Medical texts contain standardized keywords for clinical events",
+        "Many patients undergo similar processes allowing discovery of frequent patterns"
+      ],
+      "limitations": [
+        "Clinical language can be very domain-specific and may require ontologies",
+        "Does not easily capture rare but important variants of care processes"
+      ],
+      "references": {
+        "paper_title": "Discovering Patient Care Processes from Clinical Text: A Frequent Pattern Mining Approach",
+        "authors": [
+          "Chiudinelli, Matteo",
+          "et al."
+        ],
+        "venue": "Proc. IEEE Intl. Conf. on Healthcare Informatics 2020",
+        "year": 2020,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "healthcare",
+        "frequent pattern mining",
+        "clinical NLP"
+      ],
+      "related_method_ids": [],
+      "maturity": "research",
+      "automation_level": "semi-automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    },
+    {
+      "id": "kecht-2021-conversation-logs",
+      "name": "Event Log Construction from Customer Service Conversations",
+      "pipeline_step": "collect",
+      "short_description": "A natural language inference-based technique to automatically construct event logs from customer service chat conversations.",
+      "algorithm_summary": "This method uses Natural Language Inference (NLI) to identify and extract distinct events from a textual conversation between a customer and agent. Each conversation (ticket) becomes a case, and messages or segments of the chat that indicate a state change (e.g., problem identified, information provided, issue resolved) become events. By applying NLI and possibly other NLP classifiers, the approach labels each segment with an event type. The result is a structured event log from raw dialogues, which can be fed into conventional process mining tools.",
+      "inputs": [
+        "Customer service chat transcripts"
+      ],
+      "outputs": [
+        "Event log of inferred service process steps per conversation"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "tasks": [
+        "abstraction",
+        "correlation"
+      ],
+      "assumptions": [
+        "Conversations have a logical sequence that can be mapped to process steps (like opening, troubleshooting, resolution)",
+        "NLI can determine entailment or relationships that signify progression in the dialogue"
+      ],
+      "limitations": [
+        "Complex dialogues with overlapping threads may be hard to segment into linear events",
+        "Quality depends on NLP accuracy, which might struggle with domain-specific jargon"
+      ],
+      "references": {
+        "paper_title": "Event Log Construction from Customer Service Conversations Using Natural Language Inference",
+        "authors": [
+          "Kecht, Christoph",
+          "Egger, Andreas",
+          "Kratsch, Wolfgang",
+          "Röglinger, Maximilian"
+        ],
+        "venue": "Proc. ICPM 2021",
+        "year": 2021,
+        "doi_or_url": ""
+      },
+      "artifacts": {},
+      "tags": [
+        "customer service",
+        "conversational data",
+        "log generation"
+      ],
+      "related_method_ids": [
+        "holstrup-2020-conversation-mining"
+      ],
+      "maturity": "research",
+      "automation_level": "automated",
+      "evidence_type": "algorithm",
+      "created_at": "2026-01-12T08:34:42Z",
+      "updated_at": "2026-01-12T08:34:42Z"
+    }
+  ]
+}
